@@ -11,7 +11,7 @@ public class questions {
 	 -Nb classes
 	 -Tableau comment faire
 	 -Objet a recevoir du jouer (str ou obj)
-	 -
+	 -Objets a serializer
 	 */
 }
 
