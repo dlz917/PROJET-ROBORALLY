@@ -2,12 +2,12 @@ package Model;
 
 
 public class Robot {
-	private String position;
+	Position position;
 	private int numeroRobot;
 	private int nombreDeVie;
 	private Etat etat = Etat.HT;
 	private int nbrPionDegat;
-	//private String direction; � revoir
+	private Direction direction=Direction.autre;
 	private int nbrDeCarteEquipement;
 	private String dernierPosition;
 	private int nbrDeDrapeau;
@@ -26,16 +26,7 @@ public class Robot {
 		setNbrDeDrapeau(nbrDeDrapeau);
 	}
 
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		if (position != null)
-			this.position = position;
-		else
-			System.err.println("[setPosition] error : " + position);
-	}
+	
 
 	public int getNumeroRobot() {
 		return numeroRobot;
@@ -124,7 +115,15 @@ public class Robot {
 		else
 			System.err.println("[setNbrDeDrapeau] error : "+nbrDeDrapeau);
 	}
-	
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		if(direction!=null)
+			this.direction = direction;
+	}
+
 	public String toString() {
 		return 	("Robot : " + getNumeroRobot() +",\nPosition : "+getPosition()+ ",\nNombre de vie : " + getNombreDeVie() +",\nEtat : "+ getEtat()+
 				",\nNombre de pion degat : "+getNbrPionDegat()+",\nNombre de carte equipement : "+ getNbrDeCarteEquipement()+
