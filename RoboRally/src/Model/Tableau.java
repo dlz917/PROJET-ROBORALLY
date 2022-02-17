@@ -1,6 +1,4 @@
-package tableau;
-
-import tableau.cases.CaseTableau;
+package Model;
 
 public class Tableau {
 	private CaseTableau[][] tableau = new CaseTableau[12][12]; 

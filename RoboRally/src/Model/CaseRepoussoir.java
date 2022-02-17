@@ -1,6 +1,4 @@
-package tableau.cases;
-
-import tableau.Position;
+package Model;
 
 public class CaseRepoussoir extends CaseTableau {
 

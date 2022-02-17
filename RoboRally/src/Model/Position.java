@@ -1,4 +1,4 @@
-package tableau;
+package Model;
 
 public class Position {
 	private final int colonne;
