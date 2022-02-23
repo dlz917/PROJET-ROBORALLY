@@ -2,11 +2,11 @@ package Model;
 
 public class CaseTableau {
 	// ------------------- Attributs -------------------
-	private final Position location;
+	private final Position position;
 	private boolean occupe=false;
 	// ------------------- Constructeurr -------------------
 	public CaseTableau(Position location) {
-		this.location = location;
+		this.position = location;
 	}
 	// ------------------- Getters / Setters -------------------
 	public boolean isOccupe() {
@@ -17,13 +17,13 @@ public class CaseTableau {
 		this.occupe = occupe;
 	}
 
-	public Position getLocation() {
-		return location;
+	public Position getPosition() {
+		return position;
 	}
 
 	// ------------------- Fonctions -------------------
 	public String toString() {
-		return "CaseTableau [location=" + location + ", occupe=" + occupe + "]";
+		return "CaseTableau [location=" + position + ", occupe=" + occupe + "]";
 	}
 
 
