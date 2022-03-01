@@ -1,4 +1,4 @@
-package tableau.cases;
+package Model;
 
 public class CaseRoulant {
 

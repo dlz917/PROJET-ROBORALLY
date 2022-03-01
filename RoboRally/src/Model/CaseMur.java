@@ -1,6 +1,4 @@
-package tableau.cases;
-
-import tableau.Position;
+package Model;
 
 public class CaseMur extends CaseTableau {
 	private final boolean occupe=true; //On a le droit de faire ça?
