@@ -1,9 +1,8 @@
-package Projet;
-
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 public class objetTest implements Serializable {
+
 
 	public static final long serialVersionUID = 1L;
 	public String nom = null;
@@ -60,6 +59,7 @@ public class objetTest implements Serializable {
 	
 	public String toString() {
 		return getNom()+" : "+getNum();
-}	
+	}	
+
 
 }
