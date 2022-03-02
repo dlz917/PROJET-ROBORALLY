@@ -1,7 +1,9 @@
 package Model;
 
 public class Partie {
-	/* tous névessaire ??? */
+/*-------------------------------------ATRIBUTS-----------------------------------------*/
+	/* tous besoin ??? */
+	
 	private ActionCarte actionCarte;
 	private CartesProgramme CartesProgrammes;
 	private CaseLaser caseLaser;
@@ -16,7 +18,8 @@ public class Partie {
 	private Robot robot;
 	private StockCartes stockCartes;
 	private Tableau tab;
-	private String pseudo;
+	
+/*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
 	public Partie() {}
 	public Partie(ActionCarte actionCarte, CartesProgramme cartesProgrammes, CaseLaser caseLaser, CaseMur caseMur,
@@ -36,9 +39,9 @@ public class Partie {
 		setRobot(robot);
 		setStockCartes(stockCartes);
 		setTab(tab);
-		setPseudo(pseudo);
+	
 	}
-
+/*-------------------------------------------FONCTION------------------------------------------*/
 
 	public ActionCarte getActionCarte() {
 		return actionCarte;
@@ -192,15 +195,10 @@ public class Partie {
 		else
 			System.err.println("[setTab] error :"+tab);
 	}
-	public String getPseudo() {
+	public String Pseudo(String pseudo) {
+		
 		return pseudo;
 	}
-
-	public void setPseudo(String pseudo) {
-		if(pseudo!=null)
-			this.pseudo = pseudo;
-		else
-			System.err.println("[setPseudo] error : "+ pseudo);
-	}
+	
 
 }
