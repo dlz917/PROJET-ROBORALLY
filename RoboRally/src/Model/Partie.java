@@ -1,5 +1,8 @@
 package Model;
 
+
+import java.util.ArrayList;
+
 public class Partie {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	/* tous besoin ??? */
@@ -18,6 +21,7 @@ public class Partie {
 	private Robot robot;
 	private StockCartes stockCartes;
 	private Tableau tab;
+	private ArrayList joueurs=new ArrayList(); /* la meilleure liste */
 	
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
