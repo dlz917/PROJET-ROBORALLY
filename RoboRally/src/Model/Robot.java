@@ -2,10 +2,10 @@ package Model;
 
 
 public class Robot {
-	Position position;
+	private Position position;
 	private int numeroRobot;
 	private int nombreDeVie;
-	private Etat etat = Etat.HT;
+	private Etat etat = Etat.vivant;
 	private int nbrPionDegat;
 	private Direction direction=Direction.autre;
 	private int nbrDeCarteEquipement;
@@ -14,7 +14,7 @@ public class Robot {
 	
 	Robot(){};
 	
-	Robot(String position, int numeroRobot, int nombreDeVie, int nbrPionDegat, int nbrDeCarteEquipement,
+	Robot(Position position, int numeroRobot, int nombreDeVie, int nbrPionDegat, int nbrDeCarteEquipement,
 			String dernierPosition, int nbrDeDrapeau){
 		setPosition(position);
 		setNumeroRobot(numeroRobot);
@@ -25,8 +25,13 @@ public class Robot {
 		setDernierPosition(dernierPosition);
 		setNbrDeDrapeau(nbrDeDrapeau);
 	}
+	public Position getPosition() {
+		return position;
+	}
 
-	
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 
 	public int getNumeroRobot() {
 		return numeroRobot;
@@ -71,17 +76,6 @@ public class Robot {
 		else
 			System.err.println("[setNbrPionDegat] error : "+nbrPionDegat);
 	}
-
-	/*public String getDirection() {
-		return direction;
-	}
-
-	public void setDirection(String direction) {
-		if(direction!=null) 
-			this.direction = direction;
-		else
-			System.err.println("[setDirection] error : "+direction);
-	}*/
 
 	public int getNbrDeCarteEquipement() {
 		return nbrDeCarteEquipement;
@@ -130,12 +124,14 @@ public class Robot {
 				",\nDerniere position : "+getDernierPosition()+",\nNombre de drapeau : "+ getNbrDeDrapeau());
 	}
 	
-	public String seDeplacer(Boolean siMur, Boolean siRobotDevant) {
+	/*public String seDeplacer(Boolean siMur, Boolean siRobotDevant) {
 		if (!siMur && !siRobotDevant)
 			setPosition("");
 			//position??
 		return position;
-	}
+	}*/
+	
+	
 	
 	public int perdreUneVie() {
 		nombreDeVie -= 1;
@@ -150,18 +146,12 @@ public class Robot {
 		return nbrPionDegat;
 	}
 	
-	//Pour changer d'�tat : utilisation setteur OU
-	public Etat changerEtat(Etat etatNouveau) {
-		etat = etatNouveau;
-		return etat;
-	}
-	
 
 	
 	public void mourir() {
 		setNombreDeVie(0);
-		Etat HT = null; // � revoir
-		setEtat(HT);
+		Etat etat=Etat.mort; // � revoir
+		setEtat(etat);
 		
 	}
 	

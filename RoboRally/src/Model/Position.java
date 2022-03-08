@@ -12,10 +12,16 @@ public class Position {
 	}
 	// ------------------- Getters / Setters -------------------
 
-	public int getColonne() {
+	public  int getColonne() {
 		return colonne;
 	}
-	public Lignes getLigne() {
+	public  Lignes getLigne() {
+		return ligne;
+	}
+	public int setColonne() {
+		return colonne;
+	}
+	public Lignes setLigne() {
 		return ligne;
 	}
 	

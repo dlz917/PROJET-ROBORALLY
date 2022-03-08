@@ -1,6 +1,6 @@
 package Model;
 
-public class TestRobot {
+public class TestRobot  {
 
 	public static void main(String[] args) {
 		
@@ -14,7 +14,7 @@ public class TestRobot {
 		
 		//////////////
 		
-		robot1.setPosition("B2");
+		/*robot1.Position("B2");*/
 		robot1.setNombreDeVie(4);
 
 
