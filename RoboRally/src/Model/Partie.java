@@ -8,7 +8,7 @@ public class Partie {
 	/* tous besoin ??? */
 	
 	private ActionCarte actionCarte;
-	private CartesProgramme CartesProgrammes;
+	private CartesProgramme cartesProgrammes;
 	private CaseLaser caseLaser;
 	private CaseMur caseMur;
 	private CaseRoulant caseRoulant;
@@ -21,7 +21,8 @@ public class Partie {
 	private Robot robot;
 	private StockCartes stockCartes;
 	private Tableau tab;
-	private ArrayList joueurs=new ArrayList(); /* la meilleure liste */
+	private ArrayList joueurs=new ArrayList();/* la meilleure liste */
+	private ArrayList ListeCarteProg=new ArrayList();
 	
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
@@ -203,6 +204,27 @@ public class Partie {
 		
 		return pseudo;
 	}
+	
+	public void ajouterPseudo( String pseudo) {
+		ChoixJoueur j1=new ChoixJoueur(pseudo);
+		joueurs.add(pseudo);
+	}
+	public String reglesDuJeu() {
+		return "  ";
+	}
+	
+	public String presentation(String pseudo) {
+		return "Bonjour "+pseudo+" votre robot est le suivant :"+robot+\n
+				 "les régles du jeux sont "+\n
+				 "-             "+\n
+				 "-              "+\n;
+	}
+	public void ajouterCartes(CartesProgramme carteProgrammes) {
+		ListeCarteProg.add(carteProgrammes);
+		
+		
+	}
+	
 	
 
 }
