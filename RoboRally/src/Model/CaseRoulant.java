@@ -1,9 +1,15 @@
 package Model;
 
-public class CaseRoulant {
+public class CaseRoulant extends CaseTableau {
+	private Direction direction;
+	
+	public CaseRoulant(Position location,Direction direction) {
+		super(location);
+		this.setDirection(direction);}
 
-	public CaseRoulant() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
+	public Direction getDirection() {
+		return direction;}
+	
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}}
