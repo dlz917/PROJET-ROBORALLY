@@ -17,7 +17,6 @@ public final class Tableau1 {
 					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.ouest);}
 				if(i==12){
 					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.est);}
-				
 				tableau[i-1][j]=caseT;}}}
 				
 	
