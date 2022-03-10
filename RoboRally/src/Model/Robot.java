@@ -7,7 +7,7 @@ public class Robot {
 	private int nombreDeVie;
 	private Etat etat = Etat.vivant;
 	private int nbrPionDegat;
-	private Direction direction=Direction.autre;
+	private Direction direction=null;
 	private int nbrDeCarteEquipement;
 	private String dernierPosition;
 	private int nbrDeDrapeau;
@@ -161,6 +161,57 @@ public class Robot {
 	
 	public void toucherAvecLaser(Robot robotQuiTouche, Robot robot) {
 		degat();
+		
+	}
+	
+	public void avancer() {
+		if(getDirection()==Direction.nord) {
+			position.setLigne(1);
+		}if(getDirection()==Direction.sud) {
+			position.setLigne(-1);
+		}if(getDirection()==Direction.ouest) {
+			position.setColonne(-1);
+		}if(getDirection()==Direction.est) {
+			position.setColonne(1);
+		}
+	}
+		
+		
+	public void deplacer(CartesProgramme carte) {
+		if(carte.getAction()==ActionCarte.avancer1) {
+			//verif que case d'apres est pas un mur
+			avancer();
+		}
+		else if(carte.getAction()==ActionCarte.avancer2) 
+		{
+			//verif que case d'apres est pas un mur
+			avancer();
+			//verif que case d'apres est pas un mur
+			avancer();
+		}else if(carte.getAction()==ActionCarte.avancer3) {
+			//verif que case d'apres est pas un mur
+			avancer();
+			//verif que case d'apres est pas un mur
+			avancer();
+			//verif que case d'apres est pas un mur
+			avancer();
+		}
+		else if(carte.getAction()==ActionCarte.reculer1) {
+			position=ligne-1;}
+		else if(carte.getAction()==ActionCarte.tournerD) {
+			/*position=colonne+1 ou direction.est*/}
+		
+		else if(carte.getAction()==ActionCarte.tournerG) {
+			/* position= colonne+1 ou direction.ouest;
+	
+			 */}
+		else if(carte.getAction()==ActionCarte.demitour) {
+			/* position=ligne -1 et direction.sud;*/
+		}
+		
+		
+		return position;
+	}
 		
 	}
 

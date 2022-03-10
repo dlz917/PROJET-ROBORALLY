@@ -16,13 +16,20 @@ public class Deplacer extends Position{
 	public void setCarte(CartesProgramme carte) {
 		this.carte = carte;
 	}
+	public void orientation() {
+		
+	}
+		
+	
+	
+	
 	
 	public void seDeplacer() {
 		if(carte.getAction()==ActionCarte.avancer1) {
 			ligne+1;
 		}
 			
-		}else if(carte.action==AnctionCrate.avancer2) 
+		else if(carte.action==AnctionCrate.avancer2) 
 		{
 			 position=ligne +2;
 		}else if(carte.action==AnctionCrate.avancer3) {
@@ -33,7 +40,7 @@ public class Deplacer extends Position{
 		}else if(carte.action==AnctionCrate.tournerD) {
 			/*position=colonne+1 ou direction.est*/}
 		
-		}else if(carte.action==AnctionCrate.tournerG) {
+		else if(carte.action==AnctionCrate.tournerG) {
 			/* position= colonne+1 ou direction.ouest;
 	
 			 */}
@@ -42,7 +49,7 @@ public class Deplacer extends Position{
 		}
 		
 		
-		return position;
-	}
+		 position;
+		}
 
 }

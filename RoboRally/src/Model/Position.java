@@ -1,8 +1,8 @@
 package Model;
 
 public class Position {
-	private final int colonne;
-	private final Lignes ligne;
+	private int colonne;
+	private Lignes ligne;
 	
 	// ------------------- Constructeur -------------------
 
@@ -18,17 +18,18 @@ public class Position {
 	public  Lignes getLigne() {
 		return ligne;
 	}
-	public int setColonne() {
-		return colonne;
+	public void setColonne(int i ) {
+		colonne+=i;
 	}
-	public Lignes setLigne() {
-		return ligne;
+	public void setLigne(int i) {
+		ligne.next(i);
 	}
 	
 	// ------------------- Fonctions -------------------
 	public String toString() {
 		return "Position: colonne=" + colonne + ", ligne=" + ligne;
 	}
+	
 	
 }
 
