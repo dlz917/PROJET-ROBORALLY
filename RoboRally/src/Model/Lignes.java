@@ -30,6 +30,7 @@ public enum Lignes {
 	public static void main(String[] args) {
 		System.out.println(A.next());
 		System.out.println(A.previous());
+		System.out.println(A.next());
 	}}  
 
 
