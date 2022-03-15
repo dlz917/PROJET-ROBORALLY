@@ -175,6 +175,53 @@ public class Robot {
 			position.setColonne(1);
 		}
 	}
+	public void reculer() {
+		if(getDirection()==Direction.nord) {
+			position.setLigne(-1);
+		}if(getDirection()==Direction.sud) {
+			position.setLigne(1);
+		}if(getDirection()==Direction.ouest) {
+			position.setColonne(1);
+		}if(getDirection()==Direction.est) {
+			position.setColonne(-1);
+		}
+	}
+	public void tournerD() {
+		if(getDirection()==Direction.nord) {
+			direction=Direction.est;
+		}if(getDirection()==Direction.sud) {
+			direction=Direction.ouest;
+		}if(getDirection()==Direction.ouest) {
+			direction=Direction.nord;
+		}if(getDirection()==Direction.est) {
+			direction=Direction.sud;
+		}
+	}
+	
+	public void tournerG() {
+		if(getDirection()==Direction.nord) {
+			direction=Direction.ouest;
+		}if(getDirection()==Direction.sud) {
+			direction=Direction.est;
+		}if(getDirection()==Direction.ouest) {
+			direction=Direction.sud;
+		}if(getDirection()==Direction.est) {
+			direction=Direction.nord;
+		}
+	}
+		
+	public void demiTour() {
+		if(getDirection()==Direction.nord) {
+			direction=Direction.sud;
+		}if(getDirection()==Direction.sud) {
+			direction=Direction.nord;
+		}if(getDirection()==Direction.ouest) {
+			direction=Direction.est;
+		}if(getDirection()==Direction.est) {
+			direction=Direction.ouest;
+		}
+	}
+		
 		
 		
 	public void deplacer(CartesProgramme carte) {
@@ -197,22 +244,25 @@ public class Robot {
 			avancer();
 		}
 		else if(carte.getAction()==ActionCarte.reculer1) {
-			position=ligne-1;}
+			//verif que case d'apres est pas un mur
+			reculer();
+			}
 		else if(carte.getAction()==ActionCarte.tournerD) {
-			/*position=colonne+1 ou direction.est*/}
+			//verif que case d'apres est pas un mur
+			tournerD();
+			}
 		
 		else if(carte.getAction()==ActionCarte.tournerG) {
-			/* position= colonne+1 ou direction.ouest;
-	
-			 */}
+			//verif que case d'apres est pas un mur
+			tournerG();
+			}
 		else if(carte.getAction()==ActionCarte.demitour) {
-			/* position=ligne -1 et direction.sud;*/
+			//verif que case d'apres est pas un mur
+			demiTour();
 		}
-		
-		
-		return position;
+	
 	}
 		
-	}
+	
 
 }
