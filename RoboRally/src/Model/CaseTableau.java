@@ -4,10 +4,14 @@ public class CaseTableau {
 	// ------------------- Attributs -------------------
 	protected final Position position;
 	protected boolean occupe=false;
+	protected boolean drapeau=false;
 	// ------------------- Constructeurr -------------------
 	public CaseTableau(Position location) {
 		this.position = location;
 	}
+	public CaseTableau(Position location,boolean drapeau) {
+		this.position = location;
+		this.drapeau= drapeau;}
 	// ------------------- Getters / Setters -------------------
 	public boolean isOccupe() {
 		return occupe;
@@ -23,7 +27,7 @@ public class CaseTableau {
 
 	// ------------------- Fonctions -------------------
 	public String toString() {
-		return "CaseTableau [location=" + position + ", occupe=" + occupe + "]";
+		return "CaseTableau [location=" + position + ", occupe=" + occupe +", drapeau=" + drapeau +  "]";
 	}
 
 	public CaseTableau CaseAdjacente(Direction direction){//jsp si le mettre ici ou en case tableau...

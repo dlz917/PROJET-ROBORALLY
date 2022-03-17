@@ -6,5 +6,8 @@ public class CaseTrou extends CaseTableau {
 		super(location);
 		setOccupe(true);
 	}
+	public String toString() {
+		return "CaseTrou [position=" + position + ", occupe=" + occupe + ", drapeau=" + drapeau + "]";
+	}
 
 }
