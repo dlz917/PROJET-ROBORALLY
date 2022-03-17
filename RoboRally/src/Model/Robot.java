@@ -9,7 +9,7 @@ public class Robot {
 	private int nbrPionDegat;
 	private Direction direction=null;
 	private int nbrDeCarteEquipement;
-	private String dernierPosition;
+	private Position dernierPosition;
 	private int nbrDeDrapeau;
 	
 	Robot(){};
@@ -88,11 +88,11 @@ public class Robot {
 			System.err.println("[setNbrDeCarteEquipement] error : "+nbrDeCarteEquipement);
 	}
 
-	public String getDernierPosition() {
+	public Position getDernierPosition() {
 		return dernierPosition;
 	}
 
-	public void setDernierPosition(String dernierPosition) {
+	public void setDernierPosition(Position dernierPosition) {
 		if (dernierPosition!=null)
 			this.dernierPosition = dernierPosition;
 		else
@@ -221,11 +221,32 @@ public class Robot {
 			direction=Direction.ouest;
 		}
 	}
+	 public void possibleDavancer() {
+			if(position==CaseTableau.occupe) {
+				if(position.equals(CaseMur.position)) {
+					//si mur robot reste sur place
+					
+				}
+				if(position==Robot.position) {
+					avancer();//dans meme sens que le robot qui pousse
+				}
+				if(position.equals(CaseTrou.position)) {
+					position=dernierPosition;
+				}
+					//robot retourne derniere position
+				}
+					
+				 
+			
+		
+		 
+	 }
 		
 		
 		
 	public void deplacer(CartesProgramme carte) {
 		if(carte.getAction()==ActionCarte.avancer1) {
+			
 			//verif que case d'apres est pas un mur
 			avancer();
 		}
