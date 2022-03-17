@@ -9,14 +9,55 @@ public final class Tableau1 {
 		for (int i = 1; i <tableau.length+1; i++) {
 			for (int j = 0; j <Lignes.ListLignes().length; j++) {
 				CaseTableau caseT= new CaseTableau(new Position(i,Lignes.ListLignes()[j]));
+
 				if(j==0){
-					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.sud);}
-				if(j==11){
 					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.nord);}
+				if(j==11){
+					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.sud);}
 				if(i==1){
 					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.ouest);}
 				if(i==12){
 					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.est);}
+				if(j==0&& i==1){
+					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
+				if(j==11&& i==1){
+					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
+				if(j==0&& i==12){
+					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
+				if(j==11&& i==12){
+					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
+				if(j==1 && i==6){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==1 && i==7){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==5 && i==2){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==6 && i==2){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==5 && i==11){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==6 && i==11){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==10 && i==6){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==10 && i==7){
+					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
+				if((j>=2&&j<=9)&&(i==3)){
+					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.nord);}
+				if((j>=2&&j<=9)&&(i==10)){
+					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.sud);}
+				if((i>=3&&i<=10)&&(j==2)){
+					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.est);}
+				if((i>=3&&i<=10)&&(j==9)){
+					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.ouest);}
+				if(j==3&&i==4){
+					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==3&&i==9){
+					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==8&&i==4){
+					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
+				if(j==8&&i==9){
+					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
 				tableau[i-1][j]=caseT;}}}
 				
 	

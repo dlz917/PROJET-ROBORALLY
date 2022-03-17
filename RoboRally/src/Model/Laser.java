@@ -18,4 +18,9 @@ public class Laser {
 			this.direction=direction;
 		}
 
+	@Override
+	public String toString() {
+		return "Laser [direction=" + direction + "]";
+	}
+
 	}

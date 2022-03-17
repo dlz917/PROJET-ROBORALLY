@@ -11,5 +11,13 @@ public class CaseRoulant extends CaseTableau {
 		return direction;}
 	
 	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}}
+		this.direction = direction;}
+
+	@Override
+	public String toString() {
+		return "CaseRoulant [direction=" + direction + ", position=" + position + ", occupe=" + occupe + ", drapeau="
+				+ drapeau + "]";
+	}
+		
+	
+	}
