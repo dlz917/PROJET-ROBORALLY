@@ -20,7 +20,7 @@ public class Partie {
 	private Position position;
 	private Robot robot;
 	private StockCartes stockCartes;
-	private Tableau tab;
+	private Tableau1 tab;
 	private ArrayList joueurs=new ArrayList();/* la meilleure liste */
 	private ArrayList ListeCarteProg=new ArrayList();
 	
