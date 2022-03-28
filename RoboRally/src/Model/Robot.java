@@ -10,7 +10,8 @@ public class Robot {
 	private Direction direction=null;
 	private int nbrDeCarteEquipement;
 	private Position dernierPosition;
-	private int nbrDeDrapeau;
+	private int nbrDeDrapeau
+	private Position positionProvisoire=position;
 	
 	Robot(){};
 	
@@ -94,7 +95,7 @@ public class Robot {
 
 	public void setDernierPosition(Position dernierPosition) {
 		if (dernierPosition!=null)
-			this.dernierPosition = dernierPosition;
+			this.dernierPosition = dernierPosition;/*drapeau ou point de départ*/
 		else
 			System.err.println("[setDernierPosition] error : "+dernierPosition);
 	}
@@ -156,7 +157,36 @@ public class Robot {
 	}
 	
 	public void pousserAutreRobot(Robot robotQuiPousse, Robot robot) {
-		//setPosition.robot("");
+		if(carte.getAction()==ActionCarte.avancer1) {/* peut-etre mettre un autre if*/
+			if(robotQuiPousse.getDirection()==Direction.nord){
+				
+				robot.position.setLigne(1);/* changement de la position du robot adverse */
+			}
+			if(robotQuiPousse.getDirection()==Direction.sud) {
+				robot.position.setLigne(-1);
+			}if(robotQuiPousse.getDirection()==Direction.ouest) {
+				robot.position.setColonne(-1);
+			}if(robotQuiPousse.getDirection()==Direction.est) {
+				robot.dernierPosition.setColonne(1);
+			}
+		
+			
+		}
+		if(carte.getAction()==ActionCarte.reculer1) {/* peut-etre mettre un autre if*/
+			if(robotQuiPousse.getDirection()==Direction.nord) {
+				robot.position.setLigne(-1);
+			}if(robotQuiPousse.getDirection()==Direction.sud) {
+				robot.position.setLigne(1);
+			}if(robotQuiPousse.getDirection()==Direction.ouest) {
+				robot.position.setColonne(1);
+			}if(robotQuiPousse.getDirection()==Direction.est) {
+				robot.position.setColonne(-1);
+			}
+		}
+		
+		
+					
+		
 	}
 	
 	public void toucherAvecLaser(Robot robotQuiTouche, Robot robot) {
@@ -166,24 +196,24 @@ public class Robot {
 	
 	public void avancer() {
 		if(getDirection()==Direction.nord) {
-			position.setLigne(1);
+			positionProvisoire.setLigne(1);
 		}if(getDirection()==Direction.sud) {
-			position.setLigne(-1);
+			positionProvisoire.setLigne(-1);
 		}if(getDirection()==Direction.ouest) {
-			position.setColonne(-1);
+			positionProvisoire.setColonne(-1);
 		}if(getDirection()==Direction.est) {
-			position.setColonne(1);
+			positionProvisoire.setColonne(1);
 		}
 	}
 	public void reculer() {
 		if(getDirection()==Direction.nord) {
-			position.setLigne(-1);
+			positionProvisoire.setLigne(-1);
 		}if(getDirection()==Direction.sud) {
-			position.setLigne(1);
+			positionProvisoire.setLigne(1);
 		}if(getDirection()==Direction.ouest) {
-			position.setColonne(1);
+			positionProvisoire.setColonne(1);
 		}if(getDirection()==Direction.est) {
-			position.setColonne(-1);
+			positionProvisoire.setColonne(-1);
 		}
 	}
 	public void tournerD() {
@@ -221,19 +251,24 @@ public class Robot {
 			direction=Direction.ouest;
 		}
 	}
-	 public void possibleDavancer() {
-			if(position==CaseTableau.occupe) {
-				if(position.equals(CaseMur.position)) {
+	 public boolean possibleDavancer() {
+			if(positionProvisoire==CaseTableau.occupe) {
+				if(positionProvisoire.equals(CaseMur.position)) {
+					return true;
 					//si mur robot reste sur place
 					
 				}
-				if(position==Robot.position) {
+				if(positionProvisoire==Robot.position)/* position des autres robits prendre valeur dans la liste*/ {
+					pousserAutreRobot();
+					return false;
+					
 					avancer();//dans meme sens que le robot qui pousse
 				}
-				if(position.equals(CaseTrou.position)) {
-					position=dernierPosition;
+				if(positionProvisoire.equals(CaseTrou.position)) {
+					position=dernierPosition;//robot retourne derniere position
+					return true;
 				}
-					//robot retourne derniere position
+					
 				}
 					
 				 
@@ -245,40 +280,55 @@ public class Robot {
 		
 		
 	public void deplacer(CartesProgramme carte) {
+		boolean mur=false;
+		
 		if(carte.getAction()==ActionCarte.avancer1) {
-			
-			//verif que case d'apres est pas un mur
 			avancer();
+			if(possibleDavancer()==false) {
+				position=positionProvisoire;
+			}
+			/*afficher message si il ne peut pas avancer ? */
+			
 		}
 		else if(carte.getAction()==ActionCarte.avancer2) 
-		{
-			//verif que case d'apres est pas un mur
+		{  avancer();
+		if(possibleDavancer()==false) {
+			position=positionProvisoire;
+		}avancer();
+		if(possibleDavancer()==false) {
+			position=positionProvisoire;
+		}
+		}
+		else if(carte.getAction()==ActionCarte.avancer3) {
 			avancer();
-			//verif que case d'apres est pas un mur
+			if(possibleDavancer()==false) {
+				position=positionProvisoire;
+			}
 			avancer();
-		}else if(carte.getAction()==ActionCarte.avancer3) {
-			//verif que case d'apres est pas un mur
+			if(possibleDavancer()==false) {
+				position=positionProvisoire;
+			}
 			avancer();
-			//verif que case d'apres est pas un mur
-			avancer();
-			//verif que case d'apres est pas un mur
-			avancer();
+			if(possibleDavancer()==false) {
+				position=positionProvisoire;
+			}
 		}
 		else if(carte.getAction()==ActionCarte.reculer1) {
-			//verif que case d'apres est pas un mur
 			reculer();
+			if(possibleDavancer()==false) {
+				position=positionProvisoire;
 			}
 		else if(carte.getAction()==ActionCarte.tournerD) {
-			//verif que case d'apres est pas un mur
+			//besoin de verifier vu qu'il reste sur place ???
 			tournerD();
 			}
 		
 		else if(carte.getAction()==ActionCarte.tournerG) {
-			//verif que case d'apres est pas un mur
+			//besoin de verifier vu qu'il reste sur place ???
 			tournerG();
 			}
 		else if(carte.getAction()==ActionCarte.demitour) {
-			//verif que case d'apres est pas un mur
+			//besoin de verifier vu qu'il reste sur place ???
 			demiTour();
 		}
 	
