@@ -5,6 +5,8 @@ public class CaseTableau {
 	protected final Position position;
 	protected boolean occupe=false;
 	protected boolean drapeau=false;
+	private TypeCase typeCase;
+
 	// ------------------- Constructeurr -------------------
 	public CaseTableau(Position location) {
 		this.position = location;
@@ -24,6 +26,13 @@ public class CaseTableau {
 	public Position getPosition() {
 		return position;
 	}
+	public TypeCase getTypeCase() {
+		return typeCase;
+	}
+	public void setTypeCase(TypeCase typeCase) {
+		this.typeCase = typeCase;
+	}
+	
 
 	// ------------------- Fonctions -------------------
 	public String toString() {

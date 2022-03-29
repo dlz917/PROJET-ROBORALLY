@@ -1,31 +1,29 @@
 package Model;
 
+import java.util.ArrayList;
 
 public class Robot {
 	private Position position;
 	private int numeroRobot;
-	private int nombreDeVie;
+	private int nombreDeVie = 3;
 	private Etat etat = Etat.vivant;
-	private int nbrPionDegat;
+	private int nbrPionDegat=0;
 	private Direction direction=null;
-	private int nbrDeCarteEquipement;
+	private int nbrDeCarteEquipement=9;
 	private Position dernierPosition;
-	private int nbrDeDrapeau
+	private int nbrDeDrapeau =0;
 	private Position positionProvisoire=position;
+	private ArrayList ListeCarteChoisi=new ArrayList();
+	private String pseudo;
 	
+	
+
 	Robot(){};
-	
-	Robot(Position position, int numeroRobot, int nombreDeVie, int nbrPionDegat, int nbrDeCarteEquipement,
-			String dernierPosition, int nbrDeDrapeau){
+	Robot(Position position, String pseudo){
 		setPosition(position);
-		setNumeroRobot(numeroRobot);
-		setNombreDeVie(nombreDeVie);
-		setNbrPionDegat(nbrPionDegat);
-		//setDirection(direction);
-		setNbrDeCarteEquipement(nbrDeCarteEquipement);
-		setDernierPosition(dernierPosition);
-		setNbrDeDrapeau(nbrDeDrapeau);
+		setPseudo(pseudo);
 	}
+	
 	public Position getPosition() {
 		return position;
 	}
@@ -117,6 +115,20 @@ public class Robot {
 	public void setDirection(Direction direction) {
 		if(direction!=null)
 			this.direction = direction;
+	}
+	
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+	public Position getPositionProvisoire() {
+		return positionProvisoire;
+	}
+	public void setPositionProvisoire(Position positionProvisoire) {
+		this.positionProvisoire = positionProvisoire;
 	}
 
 	public String toString() {
@@ -251,8 +263,11 @@ public class Robot {
 			direction=Direction.ouest;
 		}
 	}
-	 public boolean possibleDavancer() {
-			if(positionProvisoire==CaseTableau.occupe) {
+	 public boolean possibleDavancer(Tableau1 tab) {
+		 if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
+			 return false;
+		 }
+			if(tab.chercherCase(getPositionProvisoire()).isOccupe()) {
 				if(positionProvisoire.equals(CaseMur.position)) {
 					return true;
 					//si mur robot reste sur place
@@ -336,4 +351,4 @@ public class Robot {
 		
 	
 
-}
+	}}

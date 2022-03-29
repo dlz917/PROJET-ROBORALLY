@@ -21,12 +21,25 @@ public class Partie {
 	private Robot robot;
 	private StockCartes stockCartes;
 	private Tableau1 tab;
-	private ArrayList joueurs=new ArrayList();/* la meilleure liste */
-	private ArrayList ListeCarteProg=new ArrayList();
+	private ArrayList<Robot> listeRobot=new ArrayList<Robot>();/* la meilleure liste */
+	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
+
+	
+	private boolean finPartie=false;
 	
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
-	public Partie() {}
+	public Partie() {
+		Position pos1 = new Position(5,Lignes.F);
+		listePosInitiales.add(pos1);
+		Position pos2 = new Position(6,Lignes.G);
+		listePosInitiales.add(pos2);
+		Position pos3 = new Position(6,Lignes.F);
+		listePosInitiales.add(pos3);
+		Position pos4 = new Position(5,Lignes.G);
+		listePosInitiales.add(pos4);
+	}
+	
 	public Partie(ActionCarte actionCarte, CartesProgramme cartesProgrammes, CaseLaser caseLaser, CaseMur caseMur,
 			CaseRoulant caseRoulant, CaseTableau caseTableau, Direction direction, DistributionCartes distributionCarte,
 			Etat etat, Lignes ligne, Position position, Robot robot, StockCartes stockCartes, Tableau tab,String pseudo) {
@@ -46,7 +59,9 @@ public class Partie {
 		setTab(tab);
 	
 	}
-/*-------------------------------------------FONCTION------------------------------------------*/
+	
+	
+/*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
 
 	public ActionCarte getActionCarte() {
 		return actionCarte;
@@ -200,15 +215,35 @@ public class Partie {
 		else
 			System.err.println("[setTab] error :"+tab);
 	}
+	public ArrayList<Robot> getListeRobot() {
+		return listeRobot;
+	}
+	public void setListeRobot(ArrayList<Robot> listeRobot) {
+		this.listeRobot = listeRobot;
+	}
+	public boolean isFinPartie() {
+		return finPartie;
+	}
+	public void setFinPartie(boolean finPartie) {
+		this.finPartie = finPartie;
+	}
+	
+	public ArrayList<Position> getListePosInitiales() {
+		return listePosInitiales;
+	}
+	// faire setter listeposinitiales
+		
+/*-------------------------------------------FONCTION------------------------------------------*/
+		
 	public String Pseudo(String pseudo) {
 		
 		return pseudo;
 	}
 	
-	public void ajouterPseudo( String pseudo) {
-		ChoixJoueur j1=new ChoixJoueur(pseudo);
-		joueurs.add(pseudo);
+	public void ajouterJoueur(String pseudo, int numJoueur) {
+		getListeRobot().add(new Robot (getListePosInitiales().get(numJoueur), pseudo));
 	}
+	
 	public String reglesDuJeu() {
 		return "  ";
 	}
