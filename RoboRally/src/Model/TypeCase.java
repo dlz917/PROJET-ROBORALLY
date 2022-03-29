@@ -1,6 +1,6 @@
 package Model;
 
 public enum TypeCase {
-	caseTrou, caseNormal
+	caseTrou, caseNormal,caseLaser,caseRoulant,caseMur
 
 }

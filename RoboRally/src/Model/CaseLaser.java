@@ -5,6 +5,7 @@ public class CaseLaser extends CaseTableau {
 	public CaseLaser(Position location) {
 		super(location);
 		this.laser=new Laser();
+		this.setTypeCase(TypeCase.caseLaser);		
 	}
 	@Override
 	public String toString() {

@@ -10,10 +10,12 @@ public class CaseTableau {
 	// ------------------- Constructeurr -------------------
 	public CaseTableau(Position location) {
 		this.position = location;
+		this.setTypeCase(TypeCase.caseNormal);
 	}
 	public CaseTableau(Position location,boolean drapeau) {
 		this.position = location;
-		this.drapeau= drapeau;}
+		this.drapeau= drapeau;
+		this.setTypeCase(TypeCase.caseNormal);}
 	// ------------------- Getters / Setters -------------------
 	public boolean isOccupe() {
 		return occupe;
