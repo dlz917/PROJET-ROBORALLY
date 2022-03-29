@@ -21,6 +21,7 @@ public class Robot {
 	Robot(){};
 	Robot(Position position, String pseudo){
 		setPosition(position);
+		this.dernierPosition = position;
 		setPseudo(pseudo);
 	}
 	
@@ -168,17 +169,17 @@ public class Robot {
 		
 	}
 	
-	public void pousserAutreRobot(Robot robotQuiPousse, Robot robot) {
+	public void pousserAutreRobot(Robot robot) {
 		if(carte.getAction()==ActionCarte.avancer1) {/* peut-etre mettre un autre if*/
-			if(robotQuiPousse.getDirection()==Direction.nord){
+			if(rgetDirection()==Direction.nord){
 				
 				robot.position.setLigne(1);/* changement de la position du robot adverse */
 			}
-			if(robotQuiPousse.getDirection()==Direction.sud) {
+			if(rgetDirection()==Direction.sud) {
 				robot.position.setLigne(-1);
-			}if(robotQuiPousse.getDirection()==Direction.ouest) {
+			}if(getDirection()==Direction.ouest) {
 				robot.position.setColonne(-1);
-			}if(robotQuiPousse.getDirection()==Direction.est) {
+			}if(getDirection()==Direction.est) {
 				robot.dernierPosition.setColonne(1);
 			}
 		
@@ -263,28 +264,44 @@ public class Robot {
 			direction=Direction.ouest;
 		}
 	}
-	 public boolean possibleDavancer(Tableau1 tab) {
-		 if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
-			 return false;
-		 }
+	
+	public Robot robotAPousser(Position pos, ArrayList<Robot> listeRobots) {
+		for (int i =0; i < listeRobots.size();i++) {
+			if ( listeRobots.get(i).position.equals(pos) ) {
+				return listeRobots.get(i);
+			}
+		}
+	}
+	
+	public boolean possibleDavancer(Tableau1 tab) {
+		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
+			setPosition(dernierPosition);
+			return false;
+		}
+		else {
 			if(tab.chercherCase(getPositionProvisoire()).isOccupe()) {
-				if(positionProvisoire.equals(CaseMur.position)) {
-					return true;
-					//si mur robot reste sur place
-					
-				}
-				if(positionProvisoire==Robot.position)/* position des autres robits prendre valeur dans la liste*/ {
-					pousserAutreRobot();
-					return false;
-					
-					avancer();//dans meme sens que le robot qui pousse
-				}
-				if(positionProvisoire.equals(CaseTrou.position)) {
-					position=dernierPosition;//robot retourne derniere position
-					return true;
-				}
-					
-				}
+				Robot r2 = robotAPousser(getPositionProvisoire(), partie.getListeRobots());
+				pousserAutreRobot(r2);
+				return true;
+			}
+		}
+		if(positionProvisoire.equals(CaseMur.position)) {
+			return true;
+			//si mur robot reste sur place
+
+		}
+		if(positionProvisoire==Robot.position)/* position des autres robits prendre valeur dans la liste*/ {
+			pousserAutreRobot();
+			return false;
+
+			avancer();//dans meme sens que le robot qui pousse
+		}
+		if(positionProvisoire.equals(CaseTrou.position)) {
+			position=dernierPosition;//robot retourne derniere position
+			return true;
+		}
+
+	}
 					
 				 
 			
@@ -292,7 +309,7 @@ public class Robot {
 		 
 	 }
 		
-		
+	
 		
 	public void deplacer(CartesProgramme carte) {
 		boolean mur=false;
