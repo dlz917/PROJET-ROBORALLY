@@ -271,7 +271,25 @@ public class Robot {
 				return listeRobots.get(i);
 			}
 		}
+		Robot r = new Robot();
+		return r;
 	}
+	
+	public Direction directionOpposee () {
+		if ( getDirection() == Direction.sud ) {
+			return Direction.nord;
+			}
+		if ( getDirection() == Direction.nord ) {
+			return Direction.sud;
+			}
+		if ( getDirection() == Direction.est ) {
+			return Direction.ouest;
+			}
+		if ( getDirection() == Direction.ouest ) {
+			return Direction.est;
+			}
+		return getDirection();
+		}
 	
 	public boolean possibleDavancer(Tableau1 tab) {
 		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
@@ -284,39 +302,25 @@ public class Robot {
 				pousserAutreRobot(r2);
 				return true;
 			}
-		}
-		if(positionProvisoire.equals(CaseMur.position)) {
-			return true;
-			//si mur robot reste sur place
-
-		}
-		if(positionProvisoire==Robot.position)/* position des autres robits prendre valeur dans la liste*/ {
-			pousserAutreRobot();
-			return false;
-
-			avancer();//dans meme sens que le robot qui pousse
-		}
-		if(positionProvisoire.equals(CaseTrou.position)) {
-			position=dernierPosition;//robot retourne derniere position
-			return true;
-		}
-
-	}
+			else {
+				if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
+					CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
+					if ( caseMur.getDirection() == directionOpposee() ) {
+						return false; // y'a un mur
+					}
 					
-				 
-			
-		
-		 
-	 }
+				}
+			}
+		}
+	}
 		
 	
 		
 	public void deplacer(CartesProgramme carte) {
-		boolean mur=false;
 		
 		if(carte.getAction()==ActionCarte.avancer1) {
 			avancer();
-			if(possibleDavancer()==false) {
+			if(possibleDavancer(partie.getTableau())) {
 				position=positionProvisoire;
 			}
 			/*afficher message si il ne peut pas avancer ? */
@@ -324,10 +328,10 @@ public class Robot {
 		}
 		else if(carte.getAction()==ActionCarte.avancer2) 
 		{  avancer();
-		if(possibleDavancer()==false) {
+		if(possibleDavancer()) {
 			position=positionProvisoire;
 		}avancer();
-		if(possibleDavancer()==false) {
+		if(possibleDavancer()) {
 			position=positionProvisoire;
 		}
 		}
