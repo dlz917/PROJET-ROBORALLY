@@ -5,7 +5,8 @@ public class CaseRoulant extends CaseTableau {
 	
 	public CaseRoulant(Position location,Direction direction) {
 		super(location);
-		this.setDirection(direction);}
+		this.setDirection(direction);
+		this.setTypeCase(TypeCase.caseRoulant);}
 
 	public Direction getDirection() {
 		return direction;}

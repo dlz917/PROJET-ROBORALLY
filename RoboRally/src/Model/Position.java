@@ -22,13 +22,17 @@ public class Position {
 		colonne+=i;
 	}
 	public void setLigne(int i) {
-		ligne.next(i);
+		ligne.next();
 	}
 	
 	// ------------------- Fonctions -------------------
 	public String toString() {
 		return "Position: colonne=" + colonne + ", ligne=" + ligne;
 	}
+
+	public boolean equals(Position p) {
+		return colonne==p.getColonne() && ligne==p.getLigne();
+	} 
 	
 	
 }
