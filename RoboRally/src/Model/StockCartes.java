@@ -10,6 +10,53 @@ public class StockCartes {
 	
 	// ------------------- Constructeurs -------------------
 	
+	public void StockCartes(){
+	int vitesse = 1;
+	for (int i = 0; i<18; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer1);
+		getStockCartes().add(carte);
+		vitesse +=5;
+	}
+	vitesse = 4;
+	for (int i = 0; i<12; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer2);
+		getStockCartes().add(carte);
+		if (i%2==0)
+			vitesse +=10;
+		else
+			vitesse+=5;
+	}
+	vitesse = 9;
+	for (int i = 0; i<6; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer3);
+		getStockCartes().add(carte);
+		vitesse+=15;
+	}
+	vitesse = 5;
+	for (int i = 0; i<6; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.reculer1);
+		getStockCartes().add(carte);
+		vitesse+=15;
+	}
+	vitesse = 2;
+	for (int i = 0; i<18; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerD);
+		getStockCartes().add(carte);
+		vitesse+=5;
+	}
+	vitesse = 3;
+	for (int i = 0; i<18; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerG);
+		getStockCartes().add(carte);
+		vitesse+=5;
+	}
+	vitesse = 15;
+	for (int i = 0; i<6; i++) {
+		CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.demitour);
+		getStockCartes().add(carte);
+		vitesse+=15;
+	}
+}
 	public ArrayList<CartesProgramme> getStockCartes() {
 		return stockCartes;
 	}
@@ -21,54 +68,6 @@ public class StockCartes {
 	// ------------------- Fonctions -------------------
 	public String toString() {
 		return "Nombre de cartes disponibles : "+getStockCartes().size()+"\nContenu du stock\n" + getStockCartes();
-	}
-	
-	public void stockCartesInitial() {
-		int vitesse = 1;
-		for (int i = 0; i<18; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer1);
-			getStockCartes().add(carte);
-			vitesse +=5;
-		}
-		vitesse = 4;
-		for (int i = 0; i<12; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer2);
-			getStockCartes().add(carte);
-			if (i%2==0)
-				vitesse +=10;
-			else
-				vitesse+=5;
-		}
-		vitesse = 9;
-		for (int i = 0; i<6; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer3);
-			getStockCartes().add(carte);
-			vitesse+=15;
-		}
-		vitesse = 5;
-		for (int i = 0; i<6; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.reculer1);
-			getStockCartes().add(carte);
-			vitesse+=15;
-		}
-		vitesse = 2;
-		for (int i = 0; i<18; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerD);
-			getStockCartes().add(carte);
-			vitesse+=5;
-		}
-		vitesse = 3;
-		for (int i = 0; i<18; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerG);
-			getStockCartes().add(carte);
-			vitesse+=5;
-		}
-		vitesse = 15;
-		for (int i = 0; i<6; i++) {
-			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.demitour);
-			getStockCartes().add(carte);
-			vitesse+=15;
-		}
 	}
 	
 	public ArrayList<CartesProgramme> stockCartesTriees(){

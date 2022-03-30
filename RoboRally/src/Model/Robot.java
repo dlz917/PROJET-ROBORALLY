@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Robot {
+/*-------------------------------------ATRIBUTS-----------------------------------------*/
 	private Position position;
 	private int numeroRobot;
 	private int nombreDeVie = 3;
@@ -15,15 +16,19 @@ public class Robot {
 	private Position positionProvisoire=position;
 	private ArrayList ListeCarteChoisi=new ArrayList();
 	private String pseudo;
+	private ArrayList<CartesProgramme> cartesDistribuees = new ArrayList();
+	private Tableau1 tab ;
 	
+/*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
-
-	Robot(){};
-	Robot(Position position, String pseudo){
-		setPosition(position);
+	Robot(Position position, String pseudo, Tableau1 tab){
+		this.position = position;
 		this.dernierPosition = position;
-		setPseudo(pseudo);
-	}
+		this.pseudo=pseudo;
+		this.tab = tab;
+		}
+
+/*-----------------------------------GETTERS/ SETTERS----------------------------------*/
 	
 	public Position getPosition() {
 		return position;
@@ -131,6 +136,35 @@ public class Robot {
 	public void setPositionProvisoire(Position positionProvisoire) {
 		this.positionProvisoire = positionProvisoire;
 	}
+	public ArrayList getListeCarteChoisi() {
+		return ListeCarteChoisi;
+	}
+
+
+	public void setListeCarteChoisi(ArrayList listeCarteChoisi) {
+		ListeCarteChoisi = listeCarteChoisi;
+	}
+
+
+	public ArrayList<CartesProgramme> getCartesDistribuees() {
+		return cartesDistribuees;
+	}
+
+
+	public void setCartesDistribuees(ArrayList<CartesProgramme> cartesDistribuees) {
+		this.cartesDistribuees = cartesDistribuees;
+	}
+
+
+	public Tableau1 getTab() {
+		return tab;
+	}
+
+
+	public void setTab(Tableau1 tab) {
+		this.tab = tab;
+	}
+/*-------------------------------------------FONCTION------------------------------------------*/
 
 	public String toString() {
 		return 	("Robot : " + getNumeroRobot() +",\nPosition : "+getPosition()+ ",\nNombre de vie : " + getNombreDeVie() +",\nEtat : "+ getEtat()+
@@ -171,28 +205,26 @@ public class Robot {
 	
 	public void pousserAutreRobot(Robot robot) {
 		if(carte.getAction()==ActionCarte.avancer1) {/* peut-etre mettre un autre if*/
-			if(rgetDirection()==Direction.nord){
+			if(getDirection()==Direction.nord){
 				
 				robot.position.setLigne(1);/* changement de la position du robot adverse */
 			}
-			if(rgetDirection()==Direction.sud) {
+			if(getDirection()==Direction.sud) {
 				robot.position.setLigne(-1);
 			}if(getDirection()==Direction.ouest) {
 				robot.position.setColonne(-1);
 			}if(getDirection()==Direction.est) {
 				robot.dernierPosition.setColonne(1);
-			}
-		
-			
+			}	
 		}
 		if(carte.getAction()==ActionCarte.reculer1) {/* peut-etre mettre un autre if*/
-			if(robotQuiPousse.getDirection()==Direction.nord) {
+			if(getDirection()==Direction.nord) {
 				robot.position.setLigne(-1);
-			}if(robotQuiPousse.getDirection()==Direction.sud) {
+			}if(getDirection()==Direction.sud) {
 				robot.position.setLigne(1);
-			}if(robotQuiPousse.getDirection()==Direction.ouest) {
+			}if(getDirection()==Direction.ouest) {
 				robot.position.setColonne(1);
-			}if(robotQuiPousse.getDirection()==Direction.est) {
+			}if(getDirection()==Direction.est) {
 				robot.position.setColonne(-1);
 			}
 		}
@@ -271,7 +303,7 @@ public class Robot {
 				return listeRobots.get(i);
 			}
 		}
-		Robot r = new Robot();
+		Robot r = new Robot(pos, pseudo, tab);/* seul constructeur possible */
 		return r;
 	}
 	
@@ -291,7 +323,7 @@ public class Robot {
 		return getDirection();
 		}
 	
-	public boolean possibleDavancer(Tableau1 tab) {
+	public boolean possibleDavancer (ArrayList<Robot> listeRobot) {
 		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
 			setPosition(dernierPosition);
 			return false;
@@ -328,7 +360,7 @@ public class Robot {
 		}
 		else if(carte.getAction()==ActionCarte.avancer2) 
 		{  avancer();
-		if(possibleDavancer()) {
+		if(possibleDavancer() {
 			position=positionProvisoire;
 		}avancer();
 		if(possibleDavancer()) {
