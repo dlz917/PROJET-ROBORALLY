@@ -3,6 +3,10 @@ package Model;
 
 import java.util.ArrayList;
 
+import Model.Cartes.CartesProgramme;
+import Model.Cartes.DistributionCartes;
+import Model.Cartes.StockCartes;
+
 public class Partie {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	
@@ -106,16 +110,22 @@ public class Partie {
 				 "-              "+\n;
 	}*/
 	
-	public void ajouterCartes([]int vitessesCartes, int numJoueur) {
+	public void ajouterCartes(ArrayList<Integer> vitessesCartes, int numJoueur) {
 		ArrayList<CartesProgramme> choixCartes = new ArrayList<CartesProgramme> ();
-		for (int j = 0 ; j<vitessesCartes.length ; j++ ) {; 
+		for (int j = 0 ; j<vitessesCartes.size() ; j++ ) {; 
 			for (int i = 0; i<getListeRobot().get(numJoueur).getCartesDistribuees().size() ; i++){
-				if ( vitessesCartes[j] == getListeRobot().get(numJoueur).getCartesDistribuees().get(i) ) {
+				if ( vitessesCartes.get(j) == getListeRobot().get(numJoueur).getCartesDistribuees().get(i).getVitesse() ) {
 					choixCartes.add(getListeRobot().get(numJoueur).getCartesDistribuees().get(i));
 				}
 			}
 		}
 		getListeRobot().get(numJoueur).setListeCarteChoisi(choixCartes);
+	}
+	
+	public void tour(){
+	}
+	
+	public void ajouterCartesAlea(){
 	}
 
 	

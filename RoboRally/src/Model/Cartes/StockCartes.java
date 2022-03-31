@@ -1,4 +1,4 @@
-package Model;
+package Model.Cartes;
 
 
 import java.util.ArrayList;

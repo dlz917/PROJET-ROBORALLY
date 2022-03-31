@@ -2,9 +2,9 @@ package Model;
 
 public class CaseLaser extends CaseTableau {
 	private Laser laser;
-	public CaseLaser(Position location) {
+	public CaseLaser(Position location,Direction d) {
 		super(location);
-		this.laser=new Laser();
+		this.laser=new Laser(d);
 		this.setTypeCase(TypeCase.caseLaser);		
 	}
 	@Override

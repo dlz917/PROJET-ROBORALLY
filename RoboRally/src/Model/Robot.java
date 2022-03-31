@@ -2,6 +2,9 @@ package Model;
 
 import java.util.ArrayList;
 
+import Model.Cartes.ActionCarte;
+import Model.Cartes.CartesProgramme;
+
 public class Robot {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	private Position position;

@@ -6,59 +6,59 @@ public final class Tableau1 {
 	
 	// ------------------- Constructeur -------------------
 	public Tableau1() { //ou private? (singleton)
-		for (int i = 1; i <tableau.length+1; i++) {
-			for (int j = 0; j <Lignes.ListLignes().length; j++) {
-				CaseTableau caseT= new CaseTableau(new Position(i,Lignes.ListLignes()[j]));
+		for (int c = 1; c <tableau.length+1; c++) {
+			for (int l = 0; l <Lignes.ListLignes().length; l++) {
+				CaseTableau caseT= new CaseTableau(new Position(c,Lignes.ListLignes()[l]));
 
-				if(j==0){
-					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.nord);}
-				if(j==11){
-					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.sud);}
-				if(i==1){
-					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.ouest);}
-				if(i==12){
-					caseT=new CaseMur(new Position(i,Lignes.ListLignes()[j]),Direction.est);}
-				if(j==0&& i==1){
-					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
-				if(j==11&& i==1){
-					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
-				if(j==0&& i==12){
-					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
-				if(j==11&& i==12){
-					caseT=new CaseTableau(new Position(i,Lignes.ListLignes()[j]),true);}
-				if(j==1 && i==6){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==1 && i==7){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==5 && i==2){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==6 && i==2){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==5 && i==11){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==6 && i==11){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==10 && i==6){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==10 && i==7){
-					caseT=new CaseTrou(new Position(i,Lignes.ListLignes()[j]));}
-				if((j>=2&&j<=9)&&(i==3)){
-					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.nord);}
-				if((j>=2&&j<=9)&&(i==10)){
-					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.sud);}
-				if((i>=3&&i<=10)&&(j==2)){
-					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.est);}
-				if((i>=3&&i<=10)&&(j==9)){
-					caseT=new CaseRoulant(new Position(i,Lignes.ListLignes()[j]), Direction.ouest);}
-				if(j==3&&i==4){
-					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==3&&i==9){
-					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==8&&i==4){
-					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
-				if(j==8&&i==9){
-					caseT=new CaseLaser(new Position(i,Lignes.ListLignes()[j]));}
-				tableau[i-1][j]=caseT;}}}
+				if(l==0){
+					caseT=new CaseMur(new Position(c,Lignes.ListLignes()[l]),Direction.nord);}
+				if(l==11){
+					caseT=new CaseMur(new Position(c,Lignes.ListLignes()[l]),Direction.sud);}
+				if(c==1){
+					caseT=new CaseMur(new Position(c,Lignes.ListLignes()[l]),Direction.ouest);}
+				if(c==12){
+					caseT=new CaseMur(new Position(c,Lignes.ListLignes()[l]),Direction.est);}
+				if(l==0&& c==1){
+					caseT=new CaseTableau(new Position(c,Lignes.ListLignes()[l]),true);}
+				if(l==11&& c==1){
+					caseT=new CaseTableau(new Position(c,Lignes.ListLignes()[l]),true);}
+				if(l==0&& c==12){
+					caseT=new CaseTableau(new Position(c,Lignes.ListLignes()[l]),true);}
+				if(l==11&& c==12){
+					caseT=new CaseTableau(new Position(c,Lignes.ListLignes()[l]),true);}
+				if(l==1 && c==6){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==1 && c==7){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==5 && c==2){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==6 && c==2){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==5 && c==11){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==6 && c==11){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==10 && c==6){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if(l==10 && c==7){
+					caseT=new CaseTrou(new Position(c,Lignes.ListLignes()[l]));}
+				if((l>=2&&l<=9)&&(c==3)){
+					caseT=new CaseRoulant(new Position(c,Lignes.ListLignes()[l]), Direction.nord);}
+				if((l>=2&&l<=9)&&(c==10)){
+					caseT=new CaseRoulant(new Position(c,Lignes.ListLignes()[l]), Direction.sud);}
+				if((c>=3&&c<=10)&&(l==2)){
+					caseT=new CaseRoulant(new Position(c,Lignes.ListLignes()[l]), Direction.est);}
+				if((c>=3&&c<=10)&&(l==9)){
+					caseT=new CaseRoulant(new Position(c,Lignes.ListLignes()[l]), Direction.ouest);}
+				if(l==3&&c==4){
+					caseT=new CaseLaser(new Position(c,Lignes.ListLignes()[l]), Direction.ouest);}
+				if(l==3&&c==9){
+					caseT=new CaseLaser(new Position(c,Lignes.ListLignes()[l]), Direction.nord);}
+				if(l==8&&c==4){
+					caseT=new CaseLaser(new Position(c,Lignes.ListLignes()[l]), Direction.sud);}
+				if(l==8&&c==9){
+					caseT=new CaseLaser(new Position(c,Lignes.ListLignes()[l]), Direction.est);}
+				tableau[c-1][l]=caseT;}}}
 				
 	
 	// ------------------- Getters-------------------

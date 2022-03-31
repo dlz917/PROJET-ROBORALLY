@@ -1,6 +1,9 @@
 package Model;
 /*interface??? */
 
+import Model.Cartes.ActionCarte;
+import Model.Cartes.CartesProgramme;
+
 public class Deplacer extends Position{
 	/* laisser classe normal ou mettre en interface ??*/
 	private CartesProgramme carte;
