@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import Model.Etat;
+import Controller.Serveur.Etat;
 import Model.Partie;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;

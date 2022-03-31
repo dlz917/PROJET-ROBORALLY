@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 
-import Model.CaseMur;
-import Model.CaseTableau;
-import Model.Direction;
+import Model.Robot.Direction;
+import Model.Tableau.CaseMur;
+import Model.Tableau.CaseTableau;
 
 public class afficherCaseMurSud {
 	private CaseTableau caseAfficher;

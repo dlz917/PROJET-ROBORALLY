@@ -1,4 +1,6 @@
-package Model;
+package Model.Tableau;
+
+import Model.Robot.Direction;
 
 public class CaseMur extends CaseTableau {
 

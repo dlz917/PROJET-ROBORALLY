@@ -13,7 +13,7 @@ import javax.imageio.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
-import Model.Position;
+import Model.Tableau.Position;
 
 @SuppressWarnings("serial")
 class Vue implements Observer {

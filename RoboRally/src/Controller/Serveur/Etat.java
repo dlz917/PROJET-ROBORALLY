@@ -1,4 +1,4 @@
-package Model;
+package Controller.Serveur;
 
 public enum Etat {
 	aJour, enAttente

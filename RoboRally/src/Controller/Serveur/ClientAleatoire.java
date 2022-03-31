@@ -2,7 +2,6 @@ package Controller.Serveur;
 
 import java.io.IOException;
 
-import Model.Etat;
 import Model.Partie;
 
 public class ClientAleatoire extends Client{

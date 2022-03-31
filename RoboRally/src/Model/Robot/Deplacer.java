@@ -1,8 +1,9 @@
-package Model;
+package Model.Robot;
 /*interface??? */
 
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
+import Model.Tableau.Position;
 
 public class Deplacer extends Position{
 	/* laisser classe normal ou mettre en interface ??*/

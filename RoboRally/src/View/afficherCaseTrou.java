@@ -6,8 +6,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
-import Model.CaseTableau;
-import Model.CaseTrou;
+import Model.Tableau.CaseTableau;
+import Model.Tableau.CaseTrou;
 
 public class afficherCaseTrou {
 	private final CaseTrou caseAfficher;

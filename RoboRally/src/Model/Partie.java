@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import Model.Cartes.CartesProgramme;
 import Model.Cartes.DistributionCartes;
 import Model.Cartes.StockCartes;
+import Model.Robot.Robot;
+import Model.Tableau.Lignes;
+import Model.Tableau.Position;
+import Model.Tableau.Tableau1;
 
 public class Partie {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/

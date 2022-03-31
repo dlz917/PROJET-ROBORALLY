@@ -6,7 +6,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
-import Model.CaseTableau;
+import Model.Tableau.CaseTableau;
 
 public class afficherCaseNormal {
 	private final CaseTableau caseAfficher;

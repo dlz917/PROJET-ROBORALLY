@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JList;
 
-import Model.CaseMur;
-import Model.CaseTableau;
-import Model.Direction;
+import Model.Robot.Direction;
+import Model.Tableau.CaseMur;
+import Model.Tableau.CaseTableau;
 
 public class MainWindow {
 	private JFrame frame;

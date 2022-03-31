@@ -1,4 +1,4 @@
-package Model;
+package Model.Tableau;
 
 public class CaseTrou extends CaseTableau {
 

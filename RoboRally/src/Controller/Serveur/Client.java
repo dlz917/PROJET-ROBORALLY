@@ -2,7 +2,6 @@ package Controller.Serveur;
 
 import java.io.IOException;
 
-import Model.Etat;
 import Model.Partie;
 
 public abstract class Client extends Thread {

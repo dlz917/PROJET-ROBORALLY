@@ -8,7 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import Model.Etat;
 import Model.Partie;
 
 public class SocketServer extends Thread{

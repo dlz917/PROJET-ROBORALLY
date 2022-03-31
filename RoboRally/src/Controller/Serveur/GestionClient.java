@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import Model.Etat;
 import Model.Partie;
 
 public class GestionClient extends Client {

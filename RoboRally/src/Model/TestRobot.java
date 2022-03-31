@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Robot.Robot;
+
 public class TestRobot  {
 
 	public static void main(String[] args) {

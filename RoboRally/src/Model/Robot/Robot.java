@@ -1,9 +1,14 @@
-package Model;
+package Model.Robot;
 
 import java.util.ArrayList;
 
+import Controller.Serveur.Etat;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
+import Model.Tableau.CaseMur;
+import Model.Tableau.Position;
+import Model.Tableau.Tableau1;
+import Model.Tableau.TypeCase;
 
 public class Robot {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
