@@ -1,8 +1,10 @@
 package Model.Tableau;
 
+import java.io.Serializable;
+
 import Model.Robot.Direction;
 
-public class CaseLaser extends CaseTableau {
+public class CaseLaser extends CaseTableau implements Serializable {
 	private Laser laser;
 	public CaseLaser(Position location,Direction d) {
 		super(location);

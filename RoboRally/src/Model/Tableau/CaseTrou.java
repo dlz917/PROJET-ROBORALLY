@@ -1,6 +1,8 @@
 package Model.Tableau;
 
-public class CaseTrou extends CaseTableau {
+import java.io.Serializable;
+
+public class CaseTrou extends CaseTableau implements Serializable{
 
 	public CaseTrou(Position location) {
 		super(location);

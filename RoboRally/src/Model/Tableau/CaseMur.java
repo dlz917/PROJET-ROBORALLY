@@ -1,8 +1,10 @@
 package Model.Tableau;
 
+import java.io.Serializable;
+
 import Model.Robot.Direction;
 
-public class CaseMur extends CaseTableau {
+public class CaseMur extends CaseTableau implements Serializable {
 
 private Direction direction;
 

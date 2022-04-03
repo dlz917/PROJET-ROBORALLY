@@ -1,12 +1,16 @@
 package Model.Cartes;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class DistributionCartes {
+public class DistributionCartes implements Serializable{
 	ArrayList<CartesProgramme> listeCartes = new ArrayList<CartesProgramme>();
 	
 	// ------------------- Constructeurs -------------------
+		public DistributionCartes() {
+			
+		}
 	
 		public ArrayList<CartesProgramme> getListeCartes() {
 			return listeCartes;
@@ -18,11 +22,14 @@ public class DistributionCartes {
 		
 		// ------------------- Fonctions -------------------
 		public String toString() {
-			return "Nombre de cartes distribuées : "+getListeCartes().size()+"\nContenu :\n" + getListeCartes();
-		}
+			String affichage = "Nombre de cartes distribuees : "+getListeCartes().size()+"\nContenu :";
+			for (int i = 0; i<getListeCartes().size(); i++) {
+				affichage += getListeCartes().get(i).toString();
+			}
+			return affichage;
+		} 
 		
 		public void listeCartes (int n, ArrayList<CartesProgramme> stock){
-			//créer exception si n<0 ou n>stockCartesPerso.size()
 			if (n >=0 && n<= stock.size()) {
 				for (int i = 0; i<n; i++) {
 					Random r = new Random();

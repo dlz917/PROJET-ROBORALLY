@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,11 +13,11 @@ import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 
-public class Partie {
+public class Partie implements Serializable{
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	
 	private static final ArrayList<Robot> Collection = null;
-	private DistributionCartes distributionCarte = new DistributionCartes();
+	private ArrayList<DistributionCartes> distributionCarte = new ArrayList<DistributionCartes>();
 	private StockCartes stockCartes = new StockCartes();
 	private Tableau1 tab = new Tableau1();
 	private ArrayList<Robot> listeRobot=new ArrayList<Robot>();/* la meilleure liste */
@@ -36,16 +37,19 @@ public class Partie {
 		listePosInitiales.add(pos3);
 		Position pos4 = new Position(5,Lignes.G);
 		listePosInitiales.add(pos4);
+		for (int i = 0; i<4;i++) {
+			getDistributionCarte().add(new DistributionCartes());
+		}
 	}
 	
 	
 	
 /*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
-	public DistributionCartes getDistributionCarte() {
+	public ArrayList<DistributionCartes> getDistributionCarte() {
 		return distributionCarte;
 	}
 
-	public void setDistributionCarte(DistributionCartes distributionCarte) {
+	public void setDistributionCarte(ArrayList<DistributionCartes> distributionCarte) {
 		if(distributionCarte !=null)
 			this.distributionCarte = distributionCarte;
 		else

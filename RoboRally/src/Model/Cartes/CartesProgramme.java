@@ -1,10 +1,12 @@
 package Model.Cartes;
 
+import java.io.Serializable;
+
 //import java.util.Iterator;
 
 
 
-public class CartesProgramme implements Comparable<CartesProgramme> {
+public class CartesProgramme implements Comparable<CartesProgramme>, Serializable {
 	private int vitesse= 0;
 	private ActionCarte action = null;
 	private int robotAttribue =-1 ;

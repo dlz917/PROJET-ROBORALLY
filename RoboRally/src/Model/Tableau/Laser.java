@@ -1,8 +1,10 @@
 package Model.Tableau;
 
+import java.io.Serializable;
+
 import Model.Robot.Direction;
 
-public class Laser {
+public class Laser implements Serializable{
 	protected Direction direction;
 	
 	public Laser(Direction direction) {

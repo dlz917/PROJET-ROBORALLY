@@ -1,8 +1,10 @@
 package Model.Tableau;
 
+import java.io.Serializable;
+
 import Model.Robot.Direction;
 
-public class CaseTableau {
+public class CaseTableau implements Serializable{
 	// ------------------- Attributs -------------------
 	protected final Position position;
 	protected boolean occupe=false;

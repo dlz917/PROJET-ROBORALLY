@@ -1,5 +1,6 @@
 package Model.Robot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,7 @@ import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 import Model.Tableau.TypeCase;
 
-public class Robot {
+public class Robot implements Serializable{
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	private Position position;
 	private int numeroRobot;
@@ -28,7 +29,8 @@ public class Robot {
 	private Tableau1 tab ;
 	
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
-	
+	public Robot() {
+	}
 	public Robot(Position position, String pseudo, Tableau1 tab){
 		this.position = position;
 		this.dernierPosition = position;
@@ -206,12 +208,12 @@ public class Robot {
 	
 	public void mourir() {
 		setNombreDeVie(0);
-		Etat etat=Etat.mort; // � revoir
+		EtatRobot etat=EtatRobot.mort; // � revoir
 		setEtat(etat);
 		
 	}
 	
-	public void pousserAutreRobot(Robot robot) {
+	public void pousserAutreRobot(Robot robot, CartesProgramme carte) {
 		if(carte.getAction()==ActionCarte.avancer1) {/* peut-etre mettre un autre if*/
 			if(getDirection()==Direction.nord){
 				
@@ -331,7 +333,7 @@ public class Robot {
 		return getDirection();
 		}
 	
-	public boolean possibleDavancer (ArrayList<Robot> listeRobot) {
+	public boolean possibleDavancer (ArrayList<Robot> listeRobot, CartesProgramme carte) {
 		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
 			setPosition(dernierPosition);
 			return false;
@@ -339,7 +341,7 @@ public class Robot {
 		else {
 			if(tab.chercherCase(getPositionProvisoire()).isOccupe()) {
 				Robot r2 = robotAPousser(getPositionProvisoire(), partie.getListeRobots());
-				pousserAutreRobot(r2);
+				pousserAutreRobot(r2, carte);
 				return true;
 			}
 			else {
@@ -360,7 +362,7 @@ public class Robot {
 		
 		if(carte.getAction()==ActionCarte.avancer1) {
 			avancer();
-			if(possibleDavancer(partie.getTableau())) {
+			if(possibleDavancer(partie.getTableau(), carte)) {
 				position=positionProvisoire;
 			}
 			/*afficher message si il ne peut pas avancer ? */
