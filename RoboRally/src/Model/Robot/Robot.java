@@ -2,7 +2,7 @@ package Model.Robot;
 
 import java.util.ArrayList;
 
-import Controller.Serveur.Etat;
+
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
 import Model.Tableau.CaseMur;
@@ -15,21 +15,21 @@ public class Robot {
 	private Position position;
 	private int numeroRobot;
 	private int nombreDeVie = 3;
-	private Etat etat = Etat.vivant;
+	private EtatRobot etat = EtatRobot.vivant;
 	private int nbrPionDegat=0;
 	private Direction direction=null;
 	private int nbrDeCarteEquipement=9;
 	private Position dernierPosition;
 	private int nbrDeDrapeau =0;
 	private Position positionProvisoire=position;
-	private ArrayList ListeCarteChoisi=new ArrayList();
+	private ArrayList<CartesProgramme> ListeCarteChoisi=new ArrayList<CartesProgramme>();
 	private String pseudo;
 	private ArrayList<CartesProgramme> cartesDistribuees = new ArrayList();
 	private Tableau1 tab ;
 	
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
-	Robot(Position position, String pseudo, Tableau1 tab){
+	public Robot(Position position, String pseudo, Tableau1 tab){
 		this.position = position;
 		this.dernierPosition = position;
 		this.pseudo=pseudo;
@@ -68,11 +68,11 @@ public class Robot {
 			System.err.println("[setNum_obot] error : " + nombreDeVie);
 	}
 
-	public Etat getEtat() {
+	public EtatRobot getEtat() {
 		return etat;
 	}
 
-	public void setEtat(Etat etat) {
+	public void setEtat(EtatRobot etat) {
 		if (etat != null)
 			this.etat = etat;
 	else
@@ -144,12 +144,12 @@ public class Robot {
 	public void setPositionProvisoire(Position positionProvisoire) {
 		this.positionProvisoire = positionProvisoire;
 	}
-	public ArrayList getListeCarteChoisi() {
+	public ArrayList<CartesProgramme> getListeCarteChoisi() {
 		return ListeCarteChoisi;
 	}
 
 
-	public void setListeCarteChoisi(ArrayList listeCarteChoisi) {
+	public void setListeCarteChoisi(ArrayList<CartesProgramme> listeCarteChoisi) {
 		ListeCarteChoisi = listeCarteChoisi;
 	}
 

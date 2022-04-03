@@ -7,6 +7,7 @@ package Model.Cartes;
 public class CartesProgramme implements Comparable<CartesProgramme> {
 	private int vitesse= 0;
 	private ActionCarte action = null;
+	private int robotAttribue =-1 ;
 	
 	// ------------------- Constructeur -------------------
 	
@@ -25,6 +26,13 @@ public class CartesProgramme implements Comparable<CartesProgramme> {
 	public ActionCarte getAction() {  
 		return action;
 	}
+	public int getRobotAttribue() {
+		return robotAttribue;
+	}
+	public void setRobotAttribue(int robotAttribue) {
+		this.robotAttribue = robotAttribue;
+	}
+	
 	
 	// ------------------- Fonctions -------------------
 	public String toString() {

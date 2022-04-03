@@ -2,6 +2,7 @@ package Model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Model.Cartes.CartesProgramme;
 import Model.Cartes.DistributionCartes;
@@ -14,12 +15,14 @@ import Model.Tableau.Tableau1;
 public class Partie {
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	
+	private static final ArrayList<Robot> Collection = null;
 	private DistributionCartes distributionCarte = new DistributionCartes();
 	private StockCartes stockCartes = new StockCartes();
 	private Tableau1 tab = new Tableau1();
 	private ArrayList<Robot> listeRobot=new ArrayList<Robot>();/* la meilleure liste */
 	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
 	private boolean finPartie=false;
+	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
 	
 
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
@@ -88,6 +91,12 @@ public class Partie {
 	public void setListePosInitiales(ArrayList<Position>listePosInitiales) {
 		this.listePosInitiales=listePosInitiales;
 	}
+	public ArrayList<ArrayList<Position>> getListePositionsParTour() {
+		return listePositionsParTour;
+	}
+	public void setListePositionsParTour(ArrayList<ArrayList<Position>> listePositionsParTour) {
+		this.listePositionsParTour = listePositionsParTour;
+	}
 		
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
@@ -101,12 +110,8 @@ public class Partie {
 	}
 	
 	public String reglesDuJeu() {
-		return " ";
+		return "règles du jeu";
 	} 
-		
-	
-
-	
 	/*public String presentation(String pseudo) {
 		return "Bonjour "+pseudo+" votre robot est le suivant :"+robot+\n
 				 "les régles du jeux sont "+\n
@@ -120,17 +125,40 @@ public class Partie {
 			for (int i = 0; i<getListeRobot().get(numJoueur).getCartesDistribuees().size() ; i++){
 				if ( vitessesCartes.get(j) == getListeRobot().get(numJoueur).getCartesDistribuees().get(i).getVitesse() ) {
 					choixCartes.add(getListeRobot().get(numJoueur).getCartesDistribuees().get(i));
+					getListeRobot().get(numJoueur).getCartesDistribuees().get(i).setRobotAttribue(numJoueur);
 				}
 			}
 		}
 		getListeRobot().get(numJoueur).setListeCarteChoisi(choixCartes);
 	}
+	public void manche() {
+		setListePositionsParTour(new ArrayList<ArrayList<Position>>());
+		for (int j =0;j<5;j++){
+			getListePositionsParTour().add(tour(j));
+		}
+	}
 	
-	public void tour(){
+	public ArrayList<Position> tour (int i){
+		ArrayList<CartesProgramme> cartesTour = new ArrayList<CartesProgramme>();
+		for (int j=0 ;j<getListeRobot().size();j++){
+			cartesTour.add(getListeRobot().get(j).getListeCarteChoisi().get(i));
+		}
+		Collections.sort(cartesTour);
+		for (int u=0; u<cartesTour.size();u++){
+			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(cartesTour.get(u));
+		}
+		System.out.println("Tour "+i+" de la manche effectué");
+		ArrayList<Position> listePositions = new ArrayList<Position> ();
+		for (int v=0; v<getListeRobot().size(); v++){
+			listePositions.add(getListeRobot().get(v).getPosition());
+		}
+		return listePositions;
+		
 	}
 	
 	public void ajouterCartesAlea(){
 	}
+	
 
 	
 	
