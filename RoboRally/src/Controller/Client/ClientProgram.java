@@ -1,4 +1,4 @@
-package Controller.Client;
+package controller.Client;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -69,7 +69,7 @@ public class ClientProgram {
         	for (int i=0; i<5; i++) {
         		vitessesCartesChoisies[i] = (int) inputReader.nextInt();
         	}
-        	// juste à envoyer liste des entiers sélectionnés !!
+        	// juste ï¿½ envoyer liste des entiers sï¿½lectionnï¿½s !!
         	System.out.println("Vous avez choisis les vitesses suivantes: "+Arrays.toString(vitessesCartesChoisies));
         	ArrayList<CartesProgramme> cartesChoisies = new ArrayList<CartesProgramme>();
             for (int i = 0; i<vitessesCartesChoisies.length;i++) {
