@@ -45,7 +45,16 @@ public class GestionClient extends Client {
 			this.setEtatClient(Etat.enAttente);
 			oos.writeObject(this.getP());
 			oos.flush();
-			oos.close();
+			//oos.close();
+		}catch(Exception exp) {System.out.println(exp);}
+	}
+	
+	public void sendNumJoueur() {
+		try {
+			this.setEtatClient(Etat.enAttente);
+			oos.writeObject(this.getNumJoueur());
+			oos.flush();
+			//oos.close();
 		}catch(Exception exp) {System.out.println(exp);}
 	}
 	
@@ -65,6 +74,7 @@ public class GestionClient extends Client {
 			//envoyer timer d'une minute
 			receivePseudo();
 			sendPartie();
+			sendNumJoueur();
 			
 			while (!this.getP().isFinPartie()) {
 				if ( this.getP().isFinPartie()) {

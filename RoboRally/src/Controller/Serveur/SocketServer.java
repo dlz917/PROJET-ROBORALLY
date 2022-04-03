@@ -106,7 +106,7 @@ public class SocketServer extends Thread{
 			System.out.println("tous les choix sont faits");
 			
 		// ----------- Lancement d'un tour (les threads des client sont endormis) ------------
-			getP().tour();
+			getP().manche();
 			
 		// ----------- R�veil des threads client ------------
 			for (int i =0; i<socketServer.getLi().size(); i++) {
