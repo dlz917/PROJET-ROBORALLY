@@ -174,7 +174,7 @@ public class Robot implements Serializable{
 	public void setTab(Tableau1 tab) {
 		this.tab = tab;
 	}
-/*-------------------------------------------FONCTION------------------------------------------*/
+/*-------------------------------------------FONCTIONS------------------------------------------*/
 
 	public String toString() {
 		return 	("Robot : " + getNumeroRobot() +",\nPosition : "+getPosition()+ ",\nNombre de vie : " + getNombreDeVie() +",\nEtat : "+ getEtat()+
@@ -182,89 +182,75 @@ public class Robot implements Serializable{
 				",\nDerniere position : "+getDernierPosition()+",\nNombre de drapeau : "+ getNbrDeDrapeau());
 	}
 	
-	/*public String seDeplacer(Boolean siMur, Boolean siRobotDevant) {
-		if (!siMur && !siRobotDevant)
-			setPosition("");
-			//position??
-		return position;
-	}*/
-	
-	
-	
+	// fonctions degat du robot
 	public int perdreUneVie() {
-		nombreDeVie -= 1;
+		setNombreDeVie(getNombreDeVie()-1);
+		setNbrPionDegat(10);
+		if (getNombreDeVie()<=0) {
+			setEtat(EtatRobot.mort);
+		}
 		return nombreDeVie;
 	}
 	
-	public int degat() {
-		nbrPionDegat+=1;
-		if (nbrPionDegat == 10)
+	public void degat() {
+		setNbrPionDegat(getNbrPionDegat()-1);
+		if (getNbrPionDegat() == 10) {
 			perdreUneVie();
-			nbrPionDegat =0;
-		return nbrPionDegat;
-	}
-	
-
-	
-	public void mourir() {
-		setNombreDeVie(0);
-		EtatRobot etat=EtatRobot.mort; // � revoir
-		setEtat(etat);
-		
-	}
-	
-	public void pousserAutreRobot(Robot robot, CartesProgramme carte) {
-		if(carte.getAction()==ActionCarte.avancer1) {/* peut-etre mettre un autre if*/
-			if(getDirection()==Direction.nord){
-				
-				robot.position.setLigne(1);/* changement de la position du robot adverse */
-			}
-			if(getDirection()==Direction.sud) {
-				robot.position.setLigne(-1);
-			}if(getDirection()==Direction.ouest) {
-				robot.position.setColonne(-1);
-			}if(getDirection()==Direction.est) {
-				robot.dernierPosition.setColonne(1);
-			}	
+			setNbrPionDegat(0);
 		}
-		if(carte.getAction()==ActionCarte.reculer1) {/* peut-etre mettre un autre if*/
-			if(getDirection()==Direction.nord) {
-				robot.position.setLigne(-1);
-			}if(getDirection()==Direction.sud) {
-				robot.position.setLigne(1);
-			}if(getDirection()==Direction.ouest) {
-				robot.position.setColonne(1);
-			}if(getDirection()==Direction.est) {
-				robot.position.setColonne(-1);
-			}
-		}
-		
-		
-					
-		
 	}
-	
+	// fonctions actions du tableau
 	public void toucherAvecLaser(Robot robotQuiTouche, Robot robot) {
 		degat();
-		
 	}
+	// fonctions pour avancer
+	
+	public int natureDeplacement(CartesProgramme carte) {
+		// action avancer = 0 ; action reculer = 1 ; action tourner = -1
+		if ( (carte.getAction() == ActionCarte.avancer1) || (carte.getAction() == ActionCarte.avancer2) || (carte.getAction() == ActionCarte.avancer3) ) {
+			return 0;
+		}
+		else if (carte.getAction() == ActionCarte.reculer1) {
+			return 1;
+		}
+		else
+			return -1;
+	}
+	
+	public void pousserAutreRobot(Robot robot, CartesProgramme carte, ArrayList<Robot> listeRobot) {
+		if (robot.possibleDavancer(listeRobot, carte)){
+			if( (getDirection()==Direction.nord && natureDeplacement(carte)==0) || (getDirection()==Direction.sud && natureDeplacement(carte)==1)){
+				robot.getPosition().setLigne(robot.getPosition().getLigne().next());
+			}
+			else if( (getDirection()==Direction.sud && natureDeplacement(carte)==0) || (getDirection()==Direction.nord && natureDeplacement(carte)==1)){
+				robot.getPosition().setLigne(robot.getPosition().getLigne().previous());
+			}
+			else if( (getDirection()==Direction.ouest && natureDeplacement(carte)==0) || (getDirection()==Direction.est && natureDeplacement(carte)==1)){
+				robot.getPosition().setColonne(robot.getPosition().getColonne()-1);
+			}
+			else if( (getDirection()==Direction.est && natureDeplacement(carte)==0) || (getDirection()==Direction.ouest && natureDeplacement(carte)==1)){
+				robot.getPosition().setColonne(robot.getPosition().getColonne()+1);
+			}
+		}
+	}
+	
 	
 	public void avancer() {
 		if(getDirection()==Direction.nord) {
-			positionProvisoire.setLigne(1);
+			getPositionProvisoire().setLigne(getPosition().getLigne().next());
 		}if(getDirection()==Direction.sud) {
-			positionProvisoire.setLigne(-1);
+			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
 		}if(getDirection()==Direction.ouest) {
-			positionProvisoire.setColonne(-1);
+			getPositionProvisoire().setColonne(-1);
 		}if(getDirection()==Direction.est) {
-			positionProvisoire.setColonne(1);
+			getPositionProvisoire().setColonne(1);
 		}
 	}
 	public void reculer() {
 		if(getDirection()==Direction.nord) {
-			positionProvisoire.setLigne(-1);
+			positionProvisoire.setLigne(getPosition().getLigne().previous());
 		}if(getDirection()==Direction.sud) {
-			positionProvisoire.setLigne(1);
+			positionProvisoire.setLigne(getPosition().getLigne().next());
 		}if(getDirection()==Direction.ouest) {
 			positionProvisoire.setColonne(1);
 		}if(getDirection()==Direction.est) {
@@ -273,37 +259,37 @@ public class Robot implements Serializable{
 	}
 	public void tournerD() {
 		if(getDirection()==Direction.nord) {
-			direction=Direction.est;
+			setDirection(Direction.est);
 		}if(getDirection()==Direction.sud) {
-			direction=Direction.ouest;
+			setDirection(Direction.ouest);
 		}if(getDirection()==Direction.ouest) {
-			direction=Direction.nord;
+			setDirection(Direction.nord);
 		}if(getDirection()==Direction.est) {
-			direction=Direction.sud;
+			setDirection(Direction.sud);
 		}
 	}
 	
 	public void tournerG() {
 		if(getDirection()==Direction.nord) {
-			direction=Direction.ouest;
+			setDirection(Direction.ouest);
 		}if(getDirection()==Direction.sud) {
-			direction=Direction.est;
+			setDirection(Direction.est);
 		}if(getDirection()==Direction.ouest) {
-			direction=Direction.sud;
+			setDirection(Direction.sud);
 		}if(getDirection()==Direction.est) {
-			direction=Direction.nord;
+			setDirection(Direction.nord);
 		}
 	}
 		
 	public void demiTour() {
 		if(getDirection()==Direction.nord) {
-			direction=Direction.sud;
+			setDirection(Direction.sud);
 		}if(getDirection()==Direction.sud) {
-			direction=Direction.nord;
+			setDirection(Direction.nord);
 		}if(getDirection()==Direction.ouest) {
-			direction=Direction.est;
+			setDirection(Direction.est);
 		}if(getDirection()==Direction.est) {
-			direction=Direction.ouest;
+			setDirection(Direction.ouest);
 		}
 	}
 	
@@ -335,83 +321,64 @@ public class Robot implements Serializable{
 	
 	public boolean possibleDavancer (ArrayList<Robot> listeRobot, CartesProgramme carte) {
 		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
-			setPosition(dernierPosition);
+			setPositionProvisoire(dernierPosition);
+			perdreUneVie();
 			return false;
 		}
-		else {
-			if(tab.chercherCase(getPositionProvisoire()).isOccupe()) {
-				Robot r2 = robotAPousser(getPositionProvisoire(), partie.getListeRobots());
-				pousserAutreRobot(r2, carte);
-				return true;
+		else if (tab.chercherCase(getPositionProvisoire()).isOccupe()) {
+			Robot r2 = robotAPousser(getPositionProvisoire(), listeRobot);
+			pousserAutreRobot(r2, carte, listeRobot);
+			return true;
+		}
+		else if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
+			CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
+			if ( caseMur.getDirection() == directionOpposee() ) {
+				return false; // y'a un mur
 			}
-			else {
-				if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
-					CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
-					if ( caseMur.getDirection() == directionOpposee() ) {
-						return false; // y'a un mur
-					}
-					
+		}
+		return true;
+	}
+		
+	public int iteAvancer (CartesProgramme carte) {
+		if (carte.getAction()==ActionCarte.avancer1) {
+			return 1;
+		}
+		else if (carte.getAction()==ActionCarte.avancer2) {
+			return 2;
+		}
+		else if (carte.getAction()==ActionCarte.avancer2) {
+			return 3;
+		}
+		return 0;
+	}
+		
+	public void deplacer(ArrayList<Robot> listeRobot, CartesProgramme carte) {
+		if (natureDeplacement(carte) == -1) {
+			if(carte.getAction()==ActionCarte.tournerD) {
+				tournerD();
+				}
+			else if(carte.getAction()==ActionCarte.tournerG) {
+				tournerG();
+				}
+			else if(carte.getAction()==ActionCarte.demitour) {
+				demiTour();
+			}
+		}
+		else if(natureDeplacement(carte) == 1) {
+			reculer();
+			if (possibleDavancer(listeRobot, carte)) {
+				position=positionProvisoire;
+			}
+		}
+		else if (natureDeplacement(carte) == 0) {
+			for (int i =0; i< iteAvancer(carte);i++) {
+				avancer();
+				if (possibleDavancer(listeRobot, carte)) {
+					position=positionProvisoire;
 				}
 			}
 		}
 	}
-		
 	
-		
-	public void deplacer(CartesProgramme carte) {
-		
-		if(carte.getAction()==ActionCarte.avancer1) {
-			avancer();
-			if(possibleDavancer(partie.getTableau(), carte)) {
-				position=positionProvisoire;
-			}
-			/*afficher message si il ne peut pas avancer ? */
-			
-		}
-		else if(carte.getAction()==ActionCarte.avancer2) 
-		{  avancer();
-		if(possibleDavancer() {
-			position=positionProvisoire;
-		}avancer();
-		if(possibleDavancer()) {
-			position=positionProvisoire;
-		}
-		}
-		else if(carte.getAction()==ActionCarte.avancer3) {
-			avancer();
-			if(possibleDavancer()==false) {
-				position=positionProvisoire;
-			}
-			avancer();
-			if(possibleDavancer()==false) {
-				position=positionProvisoire;
-			}
-			avancer();
-			if(possibleDavancer()==false) {
-				position=positionProvisoire;
-			}
-		}
-		else if(carte.getAction()==ActionCarte.reculer1) {
-			reculer();
-			if(possibleDavancer()==false) {
-				position=positionProvisoire;
-			}
-		else if(carte.getAction()==ActionCarte.tournerD) {
-			//besoin de verifier vu qu'il reste sur place ???
-			tournerD();
-			}
-		
-		else if(carte.getAction()==ActionCarte.tournerG) {
-			//besoin de verifier vu qu'il reste sur place ???
-			tournerG();
-			}
-		else if(carte.getAction()==ActionCarte.demitour) {
-			//besoin de verifier vu qu'il reste sur place ???
-			demiTour();
-		}
 	
-	}
-		
-	
-
-	}}
+}

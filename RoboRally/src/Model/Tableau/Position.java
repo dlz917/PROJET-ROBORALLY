@@ -21,10 +21,10 @@ public class Position implements Serializable{
 		return ligne;
 	}
 	public void setColonne(int i ) {
-		colonne+=i;
+		this.colonne = i;
 	}
-	public void setLigne(int i) {
-		ligne.next();
+	public void setLigne(Lignes l) {
+		this.ligne = l;
 	}
 	
 	// ------------------- Fonctions -------------------

@@ -140,6 +140,7 @@ public class Partie implements Serializable{
 		for (int j =0;j<5;j++){
 			getListePositionsParTour().add(tour(j));
 		}
+		// fin de manche : lancer attributs du plateau + gérer les drapeaux
 	}
 	
 	public ArrayList<Position> tour (int i){
@@ -149,7 +150,7 @@ public class Partie implements Serializable{
 		}
 		Collections.sort(cartesTour);
 		for (int u=0; u<cartesTour.size();u++){
-			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(cartesTour.get(u));
+			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
 		}
 		System.out.println("Tour "+i+" de la manche effectué");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
