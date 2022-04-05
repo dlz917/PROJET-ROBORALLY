@@ -98,9 +98,8 @@ public final class Tableau1 implements Serializable{
 	// ------------------- Test -------------------
 	public static void main(String[] args) {
 		Tableau1 a=new Tableau1();
-		
-		for (int i = 0; i <Tableau1.tableau.length; i++) {
-			for (int j = 0; j < Tableau1.tableau.length; j++) {
+		for (int j = 0; j < Tableau1.tableau.length; j++) {
+			for (int i = 0; i <Tableau1.tableau.length; i++) {
 				System.out.println(Tableau1.tableau[i][j]);
 			}
 			//System.out.println(a.getTableau()[0][0]);
