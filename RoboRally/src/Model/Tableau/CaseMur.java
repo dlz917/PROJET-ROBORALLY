@@ -22,6 +22,6 @@ private Direction direction;
 	}
 		public String toString() {
 		
-		return "CaseMur [location=" + position + ", occupe=" + occupe + "[direction=" + direction + "]";
+		return "CaseMur [location=" + getPosition() + ", occupe=" + isOccupe() + "[direction=" + direction + "]";
 	}}
 

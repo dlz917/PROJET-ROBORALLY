@@ -1,4 +1,4 @@
-package controller.Client;
+package Controller.Client;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import controller.Serveur.Etat;
+import Controller.Serveur.Etat;
 import Model.Partie;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
@@ -73,6 +73,7 @@ public class ClientProgram {
 /*-------------------------------------------FONCTION------------------------------------------*/
 	public void sendPseudo(){
 		try {
+		this.setEtatClient(Etat.enAttente);
 		ObjectOutputStream os = new ObjectOutputStream(output);
 		Scanner inputReader = new Scanner(System.in);
 		System.out.println("Entrer votre pseudo:");
@@ -89,6 +90,7 @@ public class ClientProgram {
 			ObjectInputStream oi = new ObjectInputStream(input);
 			Partie p=(Partie)oi.readObject();
 			setP(p);
+			this.setEtatClient(Etat.aJour);
 			}catch(Exception exp) {System.out.println(exp);}
 		}
 	
@@ -98,12 +100,14 @@ public class ClientProgram {
 			int numJoueur =(int)oi.readObject();
 			setNumJoueur(numJoueur);
 			setRobot(getP().getListeRobot().get(numJoueur));
+			this.setEtatClient(Etat.aJour);
 			
 			}catch(Exception exp) {System.out.println(exp);}
 		}
 	
 	public void sendCartesChoisies() {
         try {
+        	this.setEtatClient(Etat.enAttente);
         	int nbrCartesDistrib = 9 - getRobot().getNbrPionDegat();
         	getP().getDistributionCarte().get(numJoueur).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock());
         	

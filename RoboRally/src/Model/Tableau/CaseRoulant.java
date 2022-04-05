@@ -20,8 +20,8 @@ public class CaseRoulant extends CaseTableau implements Serializable{
 
 	@Override
 	public String toString() {
-		return "CaseRoulant [direction=" + direction + ", position=" + position + ", occupe=" + occupe + ", drapeau="
-				+ drapeau + "]";
+		return "CaseRoulant [direction=" + direction + ", position=" + getPosition() + ", occupe=" + isOccupe() + ", drapeau="
+				+ isDrapeau() + "]";
 	}
 		
 	
