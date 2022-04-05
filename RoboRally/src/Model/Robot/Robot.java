@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
 import Model.Tableau.CaseMur;
+import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 import Model.Tableau.TypeCase;
@@ -174,6 +175,8 @@ public class Robot implements Serializable{
 	public void setTab(Tableau1 tab) {
 		this.tab = tab;
 	}
+	
+	
 /*-------------------------------------------FONCTIONS------------------------------------------*/
 
 	public String toString() {
@@ -248,13 +251,13 @@ public class Robot implements Serializable{
 	}
 	public void reculer() {
 		if(getDirection()==Direction.nord) {
-			positionProvisoire.setLigne(getPosition().getLigne().previous());
+			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
 		}if(getDirection()==Direction.sud) {
-			positionProvisoire.setLigne(getPosition().getLigne().next());
+			getPositionProvisoire().setLigne(getPosition().getLigne().next());
 		}if(getDirection()==Direction.ouest) {
-			positionProvisoire.setColonne(1);
+			getPositionProvisoire().setColonne(1);
 		}if(getDirection()==Direction.est) {
-			positionProvisoire.setColonne(-1);
+			getPositionProvisoire().setColonne(-1);
 		}
 	}
 	public void tournerD() {
@@ -336,6 +339,42 @@ public class Robot implements Serializable{
 				return false; // y'a un mur
 			}
 		}
+		else if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
+			CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
+			if ( caseMur.getDirection() == directionOpposee() ) {
+				return false; // y'a un mur
+			}
+		}
+		else if (tab.chercherCase(getPositionProvisoire()).getDrapeau()) {
+			
+			if ( tab.chercherCase(getPositionProvisoire()).getPosition().getLigne() == Lignes.A ) {
+				if ( tab.chercherCase(getPositionProvisoire()).getPosition().getColonne() == 0 ) {
+					if ( (getDirection()==Direction.nord) && (getDirection()==Direction.est) ) {
+						return true;
+					}
+				}
+				else if ( tab.chercherCase(getPositionProvisoire()).getPosition().getColonne() == 11 ) {
+					if ( (getDirection()==Direction.nord) && (getDirection()==Direction.ouest) ) {
+						return true;
+					}
+				}
+			}
+			else if ( tab.chercherCase(getPositionProvisoire()).getPosition().getLigne() == Lignes.L ) {
+				if ( tab.chercherCase(getPositionProvisoire()).getPosition().getColonne() == 0 ) {
+					if ( (getDirection()==Direction.sud) && (getDirection()==Direction.est) ) {
+						return true;
+					}
+				}
+				else if ( tab.chercherCase(getPositionProvisoire()).getPosition().getColonne() == 11 ) {
+					if ( (getDirection()==Direction.sud) && (getDirection()==Direction.ouest) ) {
+						return true;
+					}
+				}
+			}
+			else
+				return false;
+		}
+		
 		return true;
 	}
 		
@@ -364,6 +403,7 @@ public class Robot implements Serializable{
 				demiTour();
 			}
 		}
+			
 		else if(natureDeplacement(carte) == 1) {
 			reculer();
 			if (possibleDavancer(listeRobot, carte)) {
