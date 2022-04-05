@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
 import Model.Tableau.CaseMur;
+import Model.Tableau.CaseRoulant;
 import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
@@ -206,6 +207,84 @@ public class Robot implements Serializable{
 	public void toucherAvecLaser(Robot robotQuiTouche, Robot robot) {
 		degat();
 	}
+	
+	public void verifDrapeau() {
+		if (tab.chercherCase(getPosition()).isDrapeau()){
+			setNbrDeDrapeau(getNbrDeDrapeau()+1);
+			setDernierPosition(getPosition());
+		}
+	}
+	
+	public void caseRoulant() {
+		if (tab.chercherCase(getPosition()).getTypeCase() == TypeCase.caseRoulant) {
+			CaseRoulant caseRoulant = new CaseRoulant(getPosition(),getDirection());
+				if(caseRoulant.getDirection() == Direction.nord){
+					getPosition().setLigne(getPosition().getLigne().next());
+				}
+				else if(caseRoulant.getDirection() == Direction.sud){
+					getPosition().setLigne(getPosition().getLigne().previous());
+				}
+				else if(caseRoulant.getDirection() == Direction.ouest){
+					getPosition().setColonne(getPosition().getColonne()-1);
+				}
+				else if(caseRoulant.getDirection() == Direction.est){
+					getPosition().setColonne(getPosition().getColonne()+1);
+				}
+		}
+	}
+	
+	public void lasers(ArrayList<Robot> listeRobots) {
+		if ( getDirection() == Direction.est ) {
+			boolean fin = false;
+			int i = getPosition().getColonne();
+			while (!fin && i<=11) {
+				Position pos = new Position(i, getPosition().getLigne());
+				if (tab.chercherCase(pos).isOccupe()) {
+					robotAPousser(pos,listeRobots).degat();
+					fin=true;
+				}
+				i++;
+			}
+		}
+		else if ( getDirection() == Direction.ouest ) {
+			boolean fin = false;
+			int i = getPosition().getColonne();
+			while (!fin && i>=0) {
+				Position pos = new Position(i, getPosition().getLigne());
+				if (tab.chercherCase(pos).isOccupe()) {
+					robotAPousser(pos,listeRobots).degat();
+					fin=true;
+				}
+				i--;
+			}
+		}
+		else if ( getDirection() == Direction.sud ) {
+			boolean fin = false;
+			Lignes l = getPosition().getLigne();
+			while (!fin && l.equals(Lignes.A) ){
+				Position pos = new Position(getPosition().getColonne(),l);
+				if (tab.chercherCase(pos).isOccupe()) {
+					robotAPousser(pos,listeRobots).degat();
+					fin=true;
+				}
+				l.previous();
+			}
+		}
+		else if ( getDirection() == Direction.nord ) {
+			boolean fin = false;
+			Lignes l = getPosition().getLigne();
+			while (!fin && l.equals(Lignes.L) ){
+				Position pos = new Position(getPosition().getColonne(),l);
+				if (tab.chercherCase(pos).isOccupe()) {
+					robotAPousser(pos,listeRobots).degat();
+					fin=true;
+				}
+				l.next();
+			}
+		}
+	}
+	
+	
 	// fonctions pour avancer
 	
 	public int natureDeplacement(CartesProgramme carte) {
@@ -339,13 +418,7 @@ public class Robot implements Serializable{
 				return false; // y'a un mur
 			}
 		}
-		else if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
-			CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
-			if ( caseMur.getDirection() == directionOpposee() ) {
-				return false; // y'a un mur
-			}
-		}
-		else if (tab.chercherCase(getPositionProvisoire()).getDrapeau()) {
+		else if (tab.chercherCase(getPositionProvisoire()).isDrapeau()) {
 			
 			if ( tab.chercherCase(getPositionProvisoire()).getPosition().getLigne() == Lignes.A ) {
 				if ( tab.chercherCase(getPositionProvisoire()).getPosition().getColonne() == 0 ) {

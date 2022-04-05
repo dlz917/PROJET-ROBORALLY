@@ -140,7 +140,21 @@ public class Partie implements Serializable{
 		for (int j =0;j<5;j++){
 			getListePositionsParTour().add(tour(j));
 		}
-		// fin de manche : lancer attributs du plateau + gérer les drapeaux
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).caseRoulant();
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).lasers(getListeRobot());
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).verifDrapeau();
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			if (getListeRobot().get(i).getNbrDeDrapeau()==3) {
+				setFinPartie(true);
+			}
+		}
+		// remettre les cartes dans le stock
 	}
 	
 	public ArrayList<Position> tour (int i){
@@ -163,9 +177,4 @@ public class Partie implements Serializable{
 	
 	public void ajouterCartesAlea(){
 	}
-	
-
-	
-	
-
 }
