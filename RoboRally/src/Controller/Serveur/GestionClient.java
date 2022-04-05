@@ -1,10 +1,12 @@
-package controller.Serveur;
+package Controller.Serveur;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import Model.Partie;
 
@@ -68,10 +70,24 @@ public class GestionClient extends Client {
 			}catch(Exception exp) {System.out.println(exp);}
 		}
 	
+	public void sendTimer() {
+		try {
+			this.setEtatClient(Etat.enAttente);
+			Timer chrono = new Timer();
+			chrono.schedule(new CustomTimer(),1000,1000);
+			oos.writeObject(chrono);
+			oos.flush();
+			//oos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void run () {
 		try {
-			//envoyer timer d'une minute
+			sendTimer();
 			receivePseudo();
 			sendPartie();
 			sendNumJoueur();
@@ -82,7 +98,7 @@ public class GestionClient extends Client {
 					s.close();
 				}
 				else {
-					//envoyer timer d'une minute
+					sendTimer();
 					sleep(60000); //- le temps d'envoi du timer
 					receiveCartesChoisies();
 					wait(); // attendre que SS fasse tour			
