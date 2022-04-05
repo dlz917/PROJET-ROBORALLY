@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Timer;
 
 import Controller.Serveur.Etat;
 import Model.Partie;
@@ -134,6 +135,16 @@ public class ClientProgram {
         	System.out.println(exp);
         }
 	}
+	
+	public void receiveTimer() {
+		try {
+			ObjectInputStream oi = new ObjectInputStream(input);
+			Timer chrono = (Timer)oi.readObject();
+			this.setEtatClient(Etat.aJour);
+		} catch(Exception exp) {
+        	System.out.println(exp);
+		}
+		}
 	
 public static void main (String[] args) {
 	try {
