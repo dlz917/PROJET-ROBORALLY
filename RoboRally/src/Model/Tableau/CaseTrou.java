@@ -10,7 +10,7 @@ public class CaseTrou extends CaseTableau implements Serializable{
 		this.setTypeCase(TypeCase.caseTrou);
 	}
 	public String toString() {
-		return "CaseTrou [position=" + position + ", occupe=" + occupe + ", drapeau=" + drapeau + "]";
+		return "CaseTrou [position=" + getPosition() + ", occupe=" + isOccupe() + ", drapeau=" + isDrapeau() + "]";
 	}
 
 }
