@@ -5,7 +5,7 @@ import java.io.Serializable;
 import Model.Robot.Direction;
 
 public final class Tableau1 implements Serializable{
-	protected static CaseTableau[][] tableau = new CaseTableau[12][12];
+	private static CaseTableau[][] tableau = new CaseTableau[12][12];
 	
 	
 	// ------------------- Constructeur -------------------

@@ -18,7 +18,7 @@ public class afficherCaseMurSud {
 		try {
 			this.caseAfficher=a;
 			if (a.getDirection().equals(Direction.sud)){
-				InputStream stream=getClass().getResourceAsStream("CaseMurSud.png");
+				InputStream stream=getClass().getResourceAsStream("CaseMurSudt.png");
 				try {
 					afficherCaseMurSud.caseMur=ImageIO.read(stream);} 
 				catch (IOException e) {
