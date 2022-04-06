@@ -21,10 +21,9 @@ public class Robot implements Serializable{
 	private EtatRobot etat = EtatRobot.vivant;
 	private int nbrPionDegat=0;
 	private Direction direction=null;
-	private int nbrDeCarteEquipement=9;
 	private Position dernierPosition;
 	private int nbrDeDrapeau =0;
-	private Position positionProvisoire=position;
+	private Position positionProvisoire;
 	private ArrayList<CartesProgramme> ListeCarteChoisi=new ArrayList<CartesProgramme>();
 	private String pseudo;
 	private ArrayList<CartesProgramme> cartesDistribuees = new ArrayList();
@@ -33,11 +32,14 @@ public class Robot implements Serializable{
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	public Robot() {
 	}
-	public Robot(Position position, String pseudo, Tableau1 tab){
+	public Robot(Position position, String pseudo, Tableau1 tab, int numRobot, Direction direction){
 		this.position = position;
+		this.positionProvisoire = position;
 		this.dernierPosition = position;
 		this.pseudo=pseudo;
 		this.tab = tab;
+		this.numeroRobot=numRobot;
+		this.direction=direction;
 		}
 
 /*-----------------------------------GETTERS/ SETTERS----------------------------------*/
@@ -92,17 +94,6 @@ public class Robot implements Serializable{
 			this.nbrPionDegat = nbrPionDegat;
 		else
 			System.err.println("[setNbrPionDegat] error : "+nbrPionDegat);
-	}
-
-	public int getNbrDeCarteEquipement() {
-		return nbrDeCarteEquipement;
-	}
-
-	public void setNbrDeCarteEquipement(int nbrDeCarteEquipement) {
-		if (nbrDeCarteEquipement>=0)
-			this.nbrDeCarteEquipement = nbrDeCarteEquipement;
-		else
-			System.err.println("[setNbrDeCarteEquipement] error : "+nbrDeCarteEquipement);
 	}
 
 	public Position getDernierPosition() {
@@ -182,8 +173,7 @@ public class Robot implements Serializable{
 
 	public String toString() {
 		return 	("Robot : " + getNumeroRobot() +",\nPosition : "+getPosition()+ ",\nNombre de vie : " + getNombreDeVie() +",\nEtat : "+ getEtat()+
-				",\nNombre de pion degat : "+getNbrPionDegat()+",\nNombre de carte equipement : "+ getNbrDeCarteEquipement()+
-				",\nDerniere position : "+getDernierPosition()+",\nNombre de drapeau : "+ getNbrDeDrapeau());
+				",\nNombre de pion degat : "+getNbrPionDegat()+",\nNombre de drapeau : "+ getNbrDeDrapeau()+"\nDirection : "+ getDirection()+"\n");
 	}
 	
 	// fonctions degat du robot
@@ -323,9 +313,9 @@ public class Robot implements Serializable{
 		}if(getDirection()==Direction.sud) {
 			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
 		}if(getDirection()==Direction.ouest) {
-			getPositionProvisoire().setColonne(-1);
+			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
 		}if(getDirection()==Direction.est) {
-			getPositionProvisoire().setColonne(1);
+			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
 		}
 	}
 	public void reculer() {
@@ -334,9 +324,9 @@ public class Robot implements Serializable{
 		}if(getDirection()==Direction.sud) {
 			getPositionProvisoire().setLigne(getPosition().getLigne().next());
 		}if(getDirection()==Direction.ouest) {
-			getPositionProvisoire().setColonne(1);
+			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
 		}if(getDirection()==Direction.est) {
-			getPositionProvisoire().setColonne(-1);
+			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
 		}
 	}
 	public void tournerD() {
@@ -381,7 +371,7 @@ public class Robot implements Serializable{
 				return listeRobots.get(i);
 			}
 		}
-		Robot r = new Robot(pos, pseudo, tab);/* seul constructeur possible */
+		Robot r = new Robot(pos, pseudo, tab, -1,direction.sud);
 		return r;
 	}
 	
@@ -480,14 +470,16 @@ public class Robot implements Serializable{
 		else if(natureDeplacement(carte) == 1) {
 			reculer();
 			if (possibleDavancer(listeRobot, carte)) {
-				position=positionProvisoire;
+				getPositionProvisoire().setColonne(getPosition().getColonne());
+				getPositionProvisoire().setLigne(getPosition().getLigne());
 			}
 		}
 		else if (natureDeplacement(carte) == 0) {
 			for (int i =0; i< iteAvancer(carte);i++) {
 				avancer();
 				if (possibleDavancer(listeRobot, carte)) {
-					position=positionProvisoire;
+					getPositionProvisoire().setColonne(getPosition().getColonne());
+					getPositionProvisoire().setLigne(getPosition().getLigne());
 				}
 			}
 		}

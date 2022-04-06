@@ -8,6 +8,7 @@ import java.util.Collections;
 import Model.Cartes.CartesProgramme;
 import Model.Cartes.DistributionCartes;
 import Model.Cartes.StockCartes;
+import Model.Robot.Direction;
 import Model.Robot.Robot;
 import Model.Tableau.Lignes;
 import Model.Tableau.Position;
@@ -22,6 +23,7 @@ public class Partie implements Serializable{
 	private Tableau1 tab = new Tableau1();
 	private ArrayList<Robot> listeRobot=new ArrayList<Robot>();/* la meilleure liste */
 	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
+	private ArrayList<Direction> listeDirInitiales = new ArrayList<Direction> ();
 	private boolean finPartie=false;
 	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
 	
@@ -31,12 +33,16 @@ public class Partie implements Serializable{
 	public Partie() {
 		Position pos1 = new Position(5,Lignes.F);
 		listePosInitiales.add(pos1);
+		listeDirInitiales.add(Direction.sud);
 		Position pos2 = new Position(6,Lignes.G);
 		listePosInitiales.add(pos2);
+		listeDirInitiales.add(Direction.nord);
 		Position pos3 = new Position(6,Lignes.F);
 		listePosInitiales.add(pos3);
+		listeDirInitiales.add(Direction.est);
 		Position pos4 = new Position(5,Lignes.G);
 		listePosInitiales.add(pos4);
+		listeDirInitiales.add(Direction.ouest);
 		for (int i = 0; i<4;i++) {
 			getDistributionCarte().add(new DistributionCartes());
 		}
@@ -101,6 +107,12 @@ public class Partie implements Serializable{
 	public void setListePositionsParTour(ArrayList<ArrayList<Position>> listePositionsParTour) {
 		this.listePositionsParTour = listePositionsParTour;
 	}
+	public ArrayList<Direction> getListeDirInitiales() {
+		return listeDirInitiales;
+	}
+	public void setListeDirInitiales(ArrayList<Direction> listeDirInitiales) {
+		this.listeDirInitiales = listeDirInitiales;
+	}
 		
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
@@ -110,7 +122,7 @@ public class Partie implements Serializable{
 	}
 	
 	public void ajouterJoueur(String pseudo, int numJoueur) {
-		getListeRobot().add(new Robot (getListePosInitiales().get(numJoueur), pseudo, getTab()));
+		getListeRobot().add(new Robot (getListePosInitiales().get(numJoueur), pseudo, getTab(),numJoueur,getListeDirInitiales().get(numJoueur)));
 	}
 	
 	public String reglesDuJeu() {
@@ -154,6 +166,9 @@ public class Partie implements Serializable{
 				setFinPartie(true);
 			}
 		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			System.out.println(getListeRobot().get(i));
+		}
 		// remettre les cartes dans le stock
 	}
 	
@@ -163,13 +178,16 @@ public class Partie implements Serializable{
 			cartesTour.add(getListeRobot().get(j).getListeCarteChoisi().get(i));
 		}
 		Collections.sort(cartesTour);
+		Collections.reverse(cartesTour);
 		for (int u=0; u<cartesTour.size();u++){
+			System.out.println(cartesTour.get(u));
 			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
 		}
 		System.out.println("Tour "+i+" de la manche effectué");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
 		for (int v=0; v<getListeRobot().size(); v++){
 			listePositions.add(getListeRobot().get(v).getPosition());
+			System.out.println(getListeRobot().get(v));
 		}
 		return listePositions;
 		
