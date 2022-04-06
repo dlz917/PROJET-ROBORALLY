@@ -6,6 +6,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import Model.Tableau.Position;
+
 public class afficherCaseAvancerBas {
 	private static BufferedImage caseAvancerBas;
 	

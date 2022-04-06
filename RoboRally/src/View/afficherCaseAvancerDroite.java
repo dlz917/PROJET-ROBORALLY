@@ -6,6 +6,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import Model.Tableau.Position;
+
 public class afficherCaseAvancerDroite {
 	private static BufferedImage caseAvancerDroite;
 	
@@ -22,7 +24,10 @@ public class afficherCaseAvancerDroite {
 
 	public static void setCaseAvancerDroite(BufferedImage caseAvancerDroite) {
 		afficherCaseAvancerDroite.caseAvancerDroite = caseAvancerDroite;
-	}}
+	}
+
+
+	}
 	
 
 
