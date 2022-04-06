@@ -103,6 +103,27 @@ public class MainWindow {
 			BufferedImage imageCaseLaserEst=afficherCaseLaserEst.getCaseLaserEst();
 			ImageIcon imageIconLaserEst = new ImageIcon(imageCaseLaserEst.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
 			
+			afficherCoin1 AffichageCoin1=new afficherCoin1();
+			BufferedImage imageCoin1=afficherCoin1.getCoin1();
+			ImageIcon imageIconCoin1= new ImageIcon(imageCoin1.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin2 AffichageCoin2=new afficherCoin2();
+			BufferedImage imageCoin2=afficherCoin2.getCoin2();
+			ImageIcon imageIconCoin2= new ImageIcon(imageCoin2.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin3 AffichageCoin3=new afficherCoin3();
+			BufferedImage imageCoin3=afficherCoin3.getCoin3();
+			ImageIcon imageIconCoin3= new ImageIcon(imageCoin3.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin4 AffichageCoin4=new afficherCoin4();
+			BufferedImage imageCoin4=afficherCoin4.getCoin4();
+			ImageIcon imageIconCoin4= new ImageIcon(imageCoin4.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			JLabel a1 = new JLabel("A1");
+			a1.setBounds(0, 0, 75, 75);
+			frame.getContentPane().add(a1);
+			a1.setIcon(imageIconCoin1);
+			
 			JLabel a2 = new JLabel("A2");
 			a2.setBounds(75, 0, 75, 75);
 			frame.getContentPane().add(a2);
@@ -143,7 +164,7 @@ public class MainWindow {
 			frame.getContentPane().add(a9);
 			a9.setIcon(imageIconMurNord);
 			
-			JLabel a10 = new JLabel("CA10");
+			JLabel a10 = new JLabel("A10");
 			a10.setBounds(675, 0, 75, 75);
 			frame.getContentPane().add(a10);
 			a10.setIcon(imageIconMurNord);
@@ -152,6 +173,11 @@ public class MainWindow {
 			a11.setBounds(750, 0, 75, 75);
 			frame.getContentPane().add(a11);
 			a11.setIcon(imageIconMurNord);
+			
+			JLabel a12 = new JLabel("A12");
+			a12.setBounds(825, 0, 75, 75);
+			frame.getContentPane().add(a12);
+			a12.setIcon(imageIconCoin2);
 			
 			JLabel b1 = new JLabel("B1");
 			b1.setBounds(0, 75, 75, 75);
@@ -753,7 +779,11 @@ public class MainWindow {
 			frame.getContentPane().add(k12);
 			k12.setIcon(imageIconMurEst);
 			
-
+			JLabel l1 = new JLabel("L1");
+			l1.setBounds(0, 825, 75, 75);
+			frame.getContentPane().add(l1);
+			l1.setIcon(imageIconCoin3);
+			
 			JLabel l2= new JLabel("L2");
 			l2.setBounds(75, 825, 75, 75);
 			frame.getContentPane().add(l2);
@@ -803,6 +833,11 @@ public class MainWindow {
 			l11.setBounds(750, 825, 75, 75);
 			frame.getContentPane().add(l11);
 			l11.setIcon(imageIconMurSud);
+			
+			JLabel l12 = new JLabel("L12");
+			l12.setBounds(825, 825, 75, 75);
+			frame.getContentPane().add(l12);
+			l12.setIcon(imageIconCoin4);
 		}}
 			
 
