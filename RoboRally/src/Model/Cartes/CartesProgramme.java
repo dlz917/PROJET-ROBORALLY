@@ -4,14 +4,34 @@ import java.io.Serializable;
 
 //import java.util.Iterator;
 
+/*--------------------------------Class Cartes Programme ----------------------------:
+ * 
+ * Les attributs de la class :
+ * 
+ * 		- int vitesse;
+ * 		- ActionCarte action 
+ * 		- int robotAttribue
+ * 
+ * Les méthodes de la class:
+ * 
+ * 		- toString() 
+ * 			> affiche action d'une carte et sa vitesse 
+ * 	
+ * 	    - equals(CartesProgramme c)
+ * 			> retourne dans vitesse la vitesse de la carte c et dans action l'action de la carte c 
+ * 		
+ * 		- compareTo (CartesProgramme e) 
+ * 			> range les cartes 
+ * 
+ */
 
-
+/*-------------------------------------ATRIBUTS-----------------------------------------*/
 public class CartesProgramme implements Comparable<CartesProgramme>, Serializable {
 	private int vitesse= 0;
 	private ActionCarte action = null;
 	private int robotAttribue =-1 ;
 	
-	// ------------------- Constructeur -------------------
+/*-------------------------------------CONSTRUCTEUR-----------------------------------------*/
 	
 	public CartesProgramme(int vitesse, ActionCarte action) {
 		this.vitesse= vitesse;
@@ -20,7 +40,7 @@ public class CartesProgramme implements Comparable<CartesProgramme>, Serializabl
 	public CartesProgramme() {
 	}
 		
-	// ------------------- Getters / Setters -------------------
+/*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
 	public int getVitesse() {
 		return vitesse;
 	}
@@ -36,7 +56,7 @@ public class CartesProgramme implements Comparable<CartesProgramme>, Serializabl
 	}
 	
 	
-	// ------------------- Fonctions -------------------
+	/*-------------------------------------------FONCTION------------------------------------------*/
 	public String toString() {
 		return "Action carte : "+getAction()+" / Vitesse carte : "+getVitesse()+"\n";
 	}

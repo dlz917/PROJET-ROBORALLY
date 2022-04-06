@@ -1,10 +1,53 @@
 package Model;
+/* ---------------------------------------Class Partie :-----------------------------------------------
+ * La liste des atributs de la Class Partie :
+ * 
+ *		- ArrayList<Robot> Collection 
+ *		- ArrayList<DistributionCartes> distributionCarte 
+ * 		- StockCartes stockCartes 
+ *  	- Tableau1 tab ;
+ *   	- ArrayList<Robot> listeRobot
+ *   	- ArrayList<Position> listePosInitiales
+ *   	- ArrayList<Direction> listeDirInitiales;
+ *      - boolean finPartie=false;
+ *      - ArrayList<ArrayList<Position>>listePositionsParTour
+ *      
+ *  la liste des méthodes :
+ *  
+ *      - pseudo(String pseudo) :
+ *          > retourne pseudo du joueur 
+ *          
+ *      - ajouterJoueur(String pseudo, int numJoueur)
+ *         	>ajoute dans la liste robot le pseudo et le numero joueur associé 
+ *            directement à un robot (avec sa position et sa direction initiale)
+ *            
+ *      - reglesDuJeu():
+ *          > retourne régle du jeux 
+ *          
+ *      - ajouterCartes(ArrayList<Integer> vitessesCartes, int numJoueur) :
+ *          > remplit la liste choix Carte avec les carte choisi par les joueurs
+ *          
+ *      - manche()
+ *          > fonction qui fait le deroulement d'une manche en appelant la fonction tour 5 fois
+ *            puis les conséquance d'une fin de manche avec les fonctions :
+ *               - caseRoulant
+ *               - verifDrapeau , si drapeau m3 fin partie 
+ *             et enregistre les positions
+ *             
+ *      - tour (int i)
+ *        	 > fonction pour chaque tour , elle fait deplacer joueur en fonction de l'odre
+ *           et enregistre leur nouvelle position dans listePosition qui est retourner. 
+ *           
+ *      - ajouterCartesAlea()
+ 
+ *  
+ *  
+ */
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import Model.Cartes.CartesProgramme;
 import Model.Cartes.DistributionCartes;
 import Model.Cartes.StockCartes;

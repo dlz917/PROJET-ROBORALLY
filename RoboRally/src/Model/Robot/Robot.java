@@ -13,6 +13,93 @@ import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 import Model.Tableau.TypeCase;
 
+/*-----------------------------------------------CLASS ROBOT-----------------------------------------------
+ * 
+ * LES ATRIBUTS DE LA CLASS:
+ * 
+ * 		- Position position
+ * 		- int numeroRobot
+ * 		- int nombreDeVie
+ * 		-  EtatRobot etat
+ * 		- int nbrPionDegat
+ * 		-  Direction direction
+ * 		- Position dernierPosition
+ * 		- int nbrDeDrapeau 
+ * 		-  Position positionProvisoire
+ * 		- ArrayList<CartesProgramme> ListeCarteChoisi
+ * 		-  String pseudo
+ * 		- ArrayList<CartesProgramme> cartesDistribuees
+ * 		- Tableau1 tab
+ * 
+ *  LES MÉTHODES DE LA CLASS:
+ *  
+ *  	- toString() 
+ *  		> affiche les informations du robot : son numéro, sa position, ses nombres de vie
+ *  			son état, nombre de pion dégat , nombre de drapeau atteint et sa direction
+ *  
+ *  	- perdreUneVie() 
+ *  		>  -1 au nombre de vie et si nombre de vie <0 l'état du robot devient mort
+ *  				et retourne le nombre de vie
+ *  
+ *  	- degat()
+ *  		> -1 au nombre de pion dégat 
+ *  
+ *  	- toucherAvecLaser(Robot robotQuiTouche, Robot robot)
+ *  		> appel fonction degat()
+ *  
+ *  	- verifDrapeau()
+ *  		> recherche case avec drapeaux  dans le tableau et compare position du robot avec la position des drapeaux
+ *  
+ *  	- caseRoulant()
+ *  		>recherche case avec tapis roulant et compare avec position du robot 
+ *  
+ *  	- lasers(ArrayList<Robot> listeRobots)
+ *  		>lance laser par robot dans sa direction 
+ *  
+ *  	- natureDeplacement(CartesProgramme carte)
+ *  		> definit l'action carte programme et renvoie 0 pour avancer , 1 pour reculer et -1 pour les actions tourner
+ *  
+ *  	- pousserAutreRobot(Robot robot, CartesProgramme carte, ArrayList<Robot> listeRobot) 
+ *  		> fonction qui pousse robot adverse  pour laisser place au robot
+ *  		> appel fonction possible d'avancer
+ *  		> et pousse robot adverse  selon direction du robot
+ *  
+ *  	- avancer()
+ *  		> renvoie dans position provisoire la position que le robot prend si il avance
+ *  
+ *  	- reculer()
+ *  		> renvoie dans position provisoire la position que le robot prend si il recule
+ *  
+ *  	-tournerD()
+ *  		> donne la nouvelle direction du robot en tournant vers la droite
+ *  
+ *  	-tournerG()
+ *  		> donne la nouvelle direction du robot en tournant vers la gauche
+ *  
+ *  	- demiTour()
+ *  		>donne la nouvelle direction du robot après demi-tour
+ *  
+ *  	- robotAPousser(Position pos, ArrayList<Robot> listeRobots) 
+ *  		>cherche robot adverse présent sur la position provisoire
+ *  		> retourne le robot adverse
+ *  
+ *  	- directionOpposee ()
+ *  		> retourne les directions opposées
+ *  
+ *  	- possibleDavancer (ArrayList<Robot> listeRobot, CartesProgramme carte)
+ *  		> verifier si obstacle sur position provisoire et cherche quel obstacle
+ *  		> retourne false ou true
+ *  
+ *  	- iteAvancer (CartesProgramme carte)
+ *  		> cherche quelle carte avancer
+ *  		> si avancer1 retourne 1, si avancer2 retourne 2 et si avancer3 retourne 3 sinon 0
+ *  
+ *  	-deplacer(ArrayList<Robot> listeRobot, CartesProgramme carte)
+ *  		> prend la carte action et change position ou direction selon carte et si possibilité
+ *  	
+
+ */
+
 public class Robot implements Serializable{
 /*-------------------------------------ATRIBUTS-----------------------------------------*/
 	private Position position;
