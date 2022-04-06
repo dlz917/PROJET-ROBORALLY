@@ -114,6 +114,7 @@ public class PartieTest {
 		// J3
 		String pseudo4="anna";
 		p.ajouterJoueur(pseudo4, 3);
+		//test
 		
 		ArrayList<CartesProgramme> carteDistrib4= new ArrayList<CartesProgramme>();
 		CartesProgramme carte41 = new CartesProgramme(6, ActionCarte.avancer1);
