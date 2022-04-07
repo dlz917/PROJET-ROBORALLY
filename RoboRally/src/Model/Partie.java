@@ -1,18 +1,18 @@
 package Model;
-/* ---------------------------------------Class Partie :-----------------------------------------------
- * La liste des atributs de la Class Partie :
+/* ---------------------------------------CLASS PARTIE :-----------------------------------------------
+ * LES ATRIBUTS DE LA CLASS PARTIE :
  * 
  *		- ArrayList<Robot> Collection 
  *		- ArrayList<DistributionCartes> distributionCarte 
  * 		- StockCartes stockCartes 
- *  	- Tableau1 tab ;
+ *  	- Tableau1 tab 
  *   	- ArrayList<Robot> listeRobot
  *   	- ArrayList<Position> listePosInitiales
  *   	- ArrayList<Direction> listeDirInitiales;
  *      - boolean finPartie=false;
  *      - ArrayList<ArrayList<Position>>listePositionsParTour
  *      
- *  la liste des méthodes :
+ *  LES MÉTHODES DE LA CLASS :
  *  
  *      - pseudo(String pseudo) :
  *          > retourne pseudo du joueur 
@@ -31,8 +31,8 @@ package Model;
  *          > fonction qui fait le deroulement d'une manche en appelant la fonction tour 5 fois
  *            puis les conséquance d'une fin de manche avec les fonctions :
  *               - caseRoulant
- *               - verifDrapeau , si drapeau m3 fin partie 
- *             et enregistre les positions
+ *               - verifDrapeau , si drapeau = 3 fin partie 
+ *             et enregistre les positions final des robots
  *             
  *      - tour (int i)
  *        	 > fonction pour chaque tour , elle fait deplacer joueur en fonction de l'odre
@@ -69,7 +69,6 @@ public class Partie implements Serializable{
 	private ArrayList<Direction> listeDirInitiales = new ArrayList<Direction> ();
 	private boolean finPartie=false;
 	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
-	
 
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
@@ -159,7 +158,7 @@ public class Partie implements Serializable{
 		
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
-	public String Pseudo(String pseudo) {
+public String Pseudo(String pseudo) {
 		
 		return pseudo;
 	}
@@ -169,11 +168,11 @@ public class Partie implements Serializable{
 	}
 	
 	public String reglesDuJeu() {
-		return "règles du jeu";
+		return "rÃ¨gles du jeu";
 	} 
 	/*public String presentation(String pseudo) {
 		return "Bonjour "+pseudo+" votre robot est le suivant :"+robot+\n
-				 "les régles du jeux sont "+\n
+				 "les rÃ©gles du jeux sont "+\n
 				 "-             "+\n
 				 "-              "+\n;
 	}*/
@@ -223,10 +222,10 @@ public class Partie implements Serializable{
 		Collections.sort(cartesTour);
 		Collections.reverse(cartesTour);
 		for (int u=0; u<cartesTour.size();u++){
-			System.out.println(cartesTour.get(u));
 			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
+			System.out.println(cartesTour.get(u));
 		}
-		System.out.println("Tour "+i+" de la manche effectué");
+		System.out.println("Tour "+i+" de la manche effectuÃ©");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
 		for (int v=0; v<getListeRobot().size(); v++){
 			listePositions.add(getListeRobot().get(v).getPosition());
@@ -237,5 +236,11 @@ public class Partie implements Serializable{
 	}
 	
 	public void ajouterCartesAlea(){
+	}
+	
+	public void lasersTableaut(Robot robot) {
+		//liste des position des laser + direction 
+		//seulement case ? ou toute la direction? 
+		
 	}
 }

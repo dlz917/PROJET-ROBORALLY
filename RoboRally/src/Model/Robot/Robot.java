@@ -42,19 +42,22 @@ import Model.Tableau.TypeCase;
  *  				et retourne le nombre de vie
  *  
  *  	- degat()
- *  		> -1 au nombre de pion dégat 
+ *  		> +1 au nombre de pion dégat et appel fonction perdreUneVie()
  *  
  *  	- toucherAvecLaser(Robot robotQuiTouche, Robot robot)
  *  		> appel fonction degat()
  *  
  *  	- verifDrapeau()
- *  		> recherche case avec drapeaux  dans le tableau et compare position du robot avec la position des drapeaux
+ *  		> recherche case avec drapeaux  dans le tableau et compare la position du robot avec la position des drapeaux
  *  
  *  	- caseRoulant()
  *  		>recherche case avec tapis roulant et compare avec position du robot 
  *  
  *  	- lasers(ArrayList<Robot> listeRobots)
- *  		>lance laser par robot dans sa direction 
+ *  		>lance laser du robot dans sa direction 
+ *  
+ *  	- robotTouche(Position pos, ArrayList<Robot> listeRobots) 
+ *  		>????
  *  
  *  	- natureDeplacement(CartesProgramme carte)
  *  		> definit l'action carte programme et renvoie 0 pour avancer , 1 pour reculer et -1 pour les actions tourner
@@ -108,7 +111,7 @@ public class Robot implements Serializable{
 	private EtatRobot etat = EtatRobot.vivant;
 	private int nbrPionDegat=0;
 	private Direction direction=null;
-	private Position dernierPosition;
+	private Position dernierPosition = new Position();
 	private int nbrDeDrapeau =0;
 	private Position positionProvisoire;
 	private ArrayList<CartesProgramme> ListeCarteChoisi=new ArrayList<CartesProgramme>();
@@ -122,7 +125,8 @@ public class Robot implements Serializable{
 	public Robot(Position position, String pseudo, Tableau1 tab, int numRobot, Direction direction){
 		this.position = position;
 		this.positionProvisoire = position;
-		this.dernierPosition = position;
+		getDernierPosition().setColonne(position.getColonne());
+		getDernierPosition().setLigne(position.getLigne());
 		this.pseudo=pseudo;
 		this.tab = tab;
 		this.numeroRobot=numRobot;
@@ -189,7 +193,7 @@ public class Robot implements Serializable{
 
 	public void setDernierPosition(Position dernierPosition) {
 		if (dernierPosition!=null)
-			this.dernierPosition = dernierPosition;/*drapeau ou point de départ*/
+			this.dernierPosition = dernierPosition;/*drapeau ou point de dÃ©part*/
 		else
 			System.err.println("[setDernierPosition] error : "+dernierPosition);
 	}
@@ -266,7 +270,7 @@ public class Robot implements Serializable{
 	// fonctions degat du robot
 	public int perdreUneVie() {
 		setNombreDeVie(getNombreDeVie()-1);
-		setNbrPionDegat(10);
+		setNbrPionDegat(0);
 		if (getNombreDeVie()<=0) {
 			setEtat(EtatRobot.mort);
 		}
@@ -274,7 +278,7 @@ public class Robot implements Serializable{
 	}
 	
 	public void degat() {
-		setNbrPionDegat(getNbrPionDegat()-1);
+		setNbrPionDegat(getNbrPionDegat()+1);
 		if (getNbrPionDegat() == 10) {
 			perdreUneVie();
 			setNbrPionDegat(0);
@@ -316,10 +320,7 @@ public class Robot implements Serializable{
 			int i = getPosition().getColonne();
 			while (!fin && i<=11) {
 				Position pos = new Position(i, getPosition().getLigne());
-				if (tab.chercherCase(pos).isOccupe()) {
-					robotAPousser(pos,listeRobots).degat();
-					fin=true;
-				}
+				fin = robotTouche(pos, listeRobots);
 				i++;
 			}
 		}
@@ -328,10 +329,7 @@ public class Robot implements Serializable{
 			int i = getPosition().getColonne();
 			while (!fin && i>=0) {
 				Position pos = new Position(i, getPosition().getLigne());
-				if (tab.chercherCase(pos).isOccupe()) {
-					robotAPousser(pos,listeRobots).degat();
-					fin=true;
-				}
+				fin = robotTouche(pos, listeRobots);
 				i--;
 			}
 		}
@@ -340,10 +338,7 @@ public class Robot implements Serializable{
 			Lignes l = getPosition().getLigne();
 			while (!fin && l.equals(Lignes.A) ){
 				Position pos = new Position(getPosition().getColonne(),l);
-				if (tab.chercherCase(pos).isOccupe()) {
-					robotAPousser(pos,listeRobots).degat();
-					fin=true;
-				}
+				fin = robotTouche(pos, listeRobots);
 				l.previous();
 			}
 		}
@@ -352,13 +347,20 @@ public class Robot implements Serializable{
 			Lignes l = getPosition().getLigne();
 			while (!fin && l.equals(Lignes.L) ){
 				Position pos = new Position(getPosition().getColonne(),l);
-				if (tab.chercherCase(pos).isOccupe()) {
-					robotAPousser(pos,listeRobots).degat();
-					fin=true;
-				}
+				fin = robotTouche(pos, listeRobots);
 				l.next();
 			}
 		}
+	}
+	
+	public boolean robotTouche(Position pos, ArrayList<Robot> listeRobots) {
+		for (int i =0; i < listeRobots.size();i++) {
+			if ( (i!= getNumeroRobot()) && (listeRobots.get(i).position.equals(pos) )) {
+				 listeRobots.get(i).degat();
+				 return true;
+			}
+		}
+		return false;
 	}
 	
 	
@@ -366,7 +368,7 @@ public class Robot implements Serializable{
 	
 	public int natureDeplacement(CartesProgramme carte) {
 		// action avancer = 0 ; action reculer = 1 ; action tourner = -1
-		if ( (carte.getAction() == ActionCarte.avancer1) || (carte.getAction() == ActionCarte.avancer2) || (carte.getAction() == ActionCarte.avancer3) ) {
+		if ( (carte.getAction() == ActionCarte.avancer1) | (carte.getAction() == ActionCarte.avancer2) | (carte.getAction() == ActionCarte.avancer3) ) {
 			return 0;
 		}
 		else if (carte.getAction() == ActionCarte.reculer1) {
@@ -376,8 +378,91 @@ public class Robot implements Serializable{
 			return -1;
 	}
 	
+	
+	public void avancer() {
+		if(getDirection()==Direction.nord) {
+			getPositionProvisoire().setLigne(getPosition().getLigne().next());
+		}
+		else if(getDirection()==Direction.sud) {
+			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
+		}
+		else if(getDirection()==Direction.ouest) {
+			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
+		}
+		else if(getDirection()==Direction.est) {
+			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
+		}
+	}
+	public void reculer() {
+		if(getDirection()==Direction.nord) {
+			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
+		}
+		else if(getDirection()==Direction.sud) {
+			getPositionProvisoire().setLigne(getPosition().getLigne().next());
+		}
+		else if(getDirection()==Direction.ouest) {
+			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
+		}
+		else if(getDirection()==Direction.est) {
+			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
+		}
+	}
+	public void tournerD() {
+		if(getDirection()==Direction.nord) {
+			setDirection(Direction.est);
+		}
+		else if(getDirection()==Direction.sud) {
+			setDirection(Direction.ouest);
+		}
+		else if(getDirection()==Direction.ouest) {
+			setDirection(Direction.nord);
+		}
+		else if(getDirection()==Direction.est) {
+			setDirection(Direction.sud);
+		}
+	}
+	
+	public void tournerG() {
+		if(getDirection()==Direction.nord) {
+			setDirection(Direction.ouest);
+		}
+		else if(getDirection()==Direction.sud) {
+			setDirection(Direction.est);
+		}
+		else if(getDirection()==Direction.ouest) {
+			setDirection(Direction.sud);
+		}
+		else if(getDirection()==Direction.est) {
+			setDirection(Direction.nord);
+		}
+	}
+		
+	public void demiTour() {
+		if(getDirection()==Direction.nord) {
+			setDirection(Direction.sud);
+		}
+		else if(getDirection()==Direction.sud) {
+			setDirection(Direction.nord);
+		}
+		else if(getDirection()==Direction.ouest) {
+			setDirection(Direction.est);
+		}
+		else if(getDirection()==Direction.est) {
+			setDirection(Direction.ouest);
+		}
+	}
+	
+	
+	public void robotAPousser(Position pos, CartesProgramme carte, ArrayList<Robot> listeRobots) {
+		for (int i =0; i < listeRobots.size();i++) {
+			if ( (i!= getNumeroRobot()) && (listeRobots.get(i).position.equals(pos) )) {
+				 listeRobots.get(i);
+				 pousserAutreRobot(listeRobots.get(i), carte, listeRobots);
+			}
+		}
+	}
+	
 	public void pousserAutreRobot(Robot robot, CartesProgramme carte, ArrayList<Robot> listeRobot) {
-		if (robot.possibleDavancer(listeRobot, carte)){
 			if( (getDirection()==Direction.nord && natureDeplacement(carte)==0) || (getDirection()==Direction.sud && natureDeplacement(carte)==1)){
 				robot.getPosition().setLigne(robot.getPosition().getLigne().next());
 			}
@@ -390,110 +475,23 @@ public class Robot implements Serializable{
 			else if( (getDirection()==Direction.est && natureDeplacement(carte)==0) || (getDirection()==Direction.ouest && natureDeplacement(carte)==1)){
 				robot.getPosition().setColonne(robot.getPosition().getColonne()+1);
 			}
-		}
-	}
-	
-	
-	public void avancer() {
-		if(getDirection()==Direction.nord) {
-			getPositionProvisoire().setLigne(getPosition().getLigne().next());
-		}if(getDirection()==Direction.sud) {
-			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
-		}if(getDirection()==Direction.ouest) {
-			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
-		}if(getDirection()==Direction.est) {
-			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
-		}
-	}
-	public void reculer() {
-		if(getDirection()==Direction.nord) {
-			getPositionProvisoire().setLigne(getPosition().getLigne().previous());
-		}if(getDirection()==Direction.sud) {
-			getPositionProvisoire().setLigne(getPosition().getLigne().next());
-		}if(getDirection()==Direction.ouest) {
-			getPositionProvisoire().setColonne(getPosition().getColonne()+1);
-		}if(getDirection()==Direction.est) {
-			getPositionProvisoire().setColonne(getPosition().getColonne()-1);
-		}
-	}
-	public void tournerD() {
-		if(getDirection()==Direction.nord) {
-			setDirection(Direction.est);
-		}if(getDirection()==Direction.sud) {
-			setDirection(Direction.ouest);
-		}if(getDirection()==Direction.ouest) {
-			setDirection(Direction.nord);
-		}if(getDirection()==Direction.est) {
-			setDirection(Direction.sud);
-		}
-	}
-	
-	public void tournerG() {
-		if(getDirection()==Direction.nord) {
-			setDirection(Direction.ouest);
-		}if(getDirection()==Direction.sud) {
-			setDirection(Direction.est);
-		}if(getDirection()==Direction.ouest) {
-			setDirection(Direction.sud);
-		}if(getDirection()==Direction.est) {
-			setDirection(Direction.nord);
-		}
-	}
 		
-	public void demiTour() {
-		if(getDirection()==Direction.nord) {
-			setDirection(Direction.sud);
-		}if(getDirection()==Direction.sud) {
-			setDirection(Direction.nord);
-		}if(getDirection()==Direction.ouest) {
-			setDirection(Direction.est);
-		}if(getDirection()==Direction.est) {
-			setDirection(Direction.ouest);
-		}
 	}
 	
-	public Robot robotAPousser(Position pos, ArrayList<Robot> listeRobots) {
-		for (int i =0; i < listeRobots.size();i++) {
-			if ( listeRobots.get(i).position.equals(pos) ) {
-				return listeRobots.get(i);
-			}
-		}
-		Robot r = new Robot(pos, pseudo, tab, -1,direction.sud);
-		return r;
-	}
-	
-	public Direction directionOpposee () {
-		if ( getDirection() == Direction.sud ) {
-			return Direction.nord;
-			}
-		if ( getDirection() == Direction.nord ) {
-			return Direction.sud;
-			}
-		if ( getDirection() == Direction.est ) {
-			return Direction.ouest;
-			}
-		if ( getDirection() == Direction.ouest ) {
-			return Direction.est;
-			}
-		return getDirection();
-		}
-	
-	public boolean possibleDavancer (ArrayList<Robot> listeRobot, CartesProgramme carte) {
-		if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
-			setPositionProvisoire(dernierPosition);
-			perdreUneVie();
-			return false;
-		}
-		else if (tab.chercherCase(getPositionProvisoire()).isOccupe()) {
-			Robot r2 = robotAPousser(getPositionProvisoire(), listeRobot);
-			pousserAutreRobot(r2, carte, listeRobot);
-			return true;
-		}
-		else if (tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseMur) {
-			CaseMur caseMur = (CaseMur)tab.chercherCase(getPositionProvisoire());
+	public boolean possibleDavancer (ArrayList<Robot> listeRobot, CartesProgramme carte){
+		if (tab.chercherCase(getPosition()).getTypeCase() == TypeCase.caseMur) {
+			System.out.println("mur");
+			CaseMur caseMur = (CaseMur)tab.chercherCase(getPosition());
 			if ( caseMur.getDirection() == directionOpposee() ) {
+				System.out.println("direction");
 				return false; // y'a un mur
 			}
+		}
+		else if(tab.chercherCase(getPositionProvisoire()).getTypeCase() == TypeCase.caseTrou) {
+			getPosition().setColonne(getDernierPosition().getColonne());
+			getPosition().setLigne(getDernierPosition().getLigne());
+			perdreUneVie();
+			return false;
 		}
 		else if (tab.chercherCase(getPositionProvisoire()).isDrapeau()) {
 			
@@ -524,7 +522,7 @@ public class Robot implements Serializable{
 			else
 				return false;
 		}
-		
+		robotAPousser(getPositionProvisoire(), carte, listeRobot);
 		return true;
 	}
 		
@@ -535,11 +533,28 @@ public class Robot implements Serializable{
 		else if (carte.getAction()==ActionCarte.avancer2) {
 			return 2;
 		}
-		else if (carte.getAction()==ActionCarte.avancer2) {
+		else if (carte.getAction()==ActionCarte.avancer3) {
 			return 3;
 		}
 		return 0;
 	}
+	
+
+	public Direction directionOpposee () {
+		if ( getDirection() == Direction.sud ) {
+			return Direction.nord;
+			}
+		else if ( getDirection() == Direction.nord ) {
+			return Direction.sud;
+			}
+		else if ( getDirection() == Direction.est ) {
+			return Direction.ouest;
+			}
+		else if ( getDirection() == Direction.ouest ) {
+			return Direction.est;
+			}
+		return getDirection();
+		}
 		
 	public void deplacer(ArrayList<Robot> listeRobot, CartesProgramme carte) {
 		if (natureDeplacement(carte) == -1) {
