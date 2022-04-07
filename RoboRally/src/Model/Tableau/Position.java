@@ -12,6 +12,8 @@ public class Position implements Serializable{
 		this.colonne = colonne;
 		this.ligne = ligne;
 	}
+	public Position() {
+	}
 	// ------------------- Getters / Setters -------------------
 
 	public  int getColonne() {

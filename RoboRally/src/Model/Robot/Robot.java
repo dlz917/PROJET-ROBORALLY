@@ -15,7 +15,7 @@ import Model.Tableau.TypeCase;
 
 /*-----------------------------------------------CLASS ROBOT-----------------------------------------------
  * 
- * LES ATRIBUTS DE LA CLASS:
+ * LES ATTRIBUTS DE LA CLASS:
  * 
  * 		- Position position
  * 		- int numeroRobot
@@ -57,7 +57,7 @@ import Model.Tableau.TypeCase;
  *  		>lance laser du robot dans sa direction 
  *  
  *  	- robotTouche(Position pos, ArrayList<Robot> listeRobots) 
- *  		>????
+ *  		>Cherche dns list robot robot sur la même direction du laser du robot
  *  
  *  	- natureDeplacement(CartesProgramme carte)
  *  		> definit l'action carte programme et renvoie 0 pour avancer , 1 pour reculer et -1 pour les actions tourner
@@ -104,7 +104,7 @@ import Model.Tableau.TypeCase;
  */
 
 public class Robot implements Serializable{
-/*-------------------------------------ATRIBUTS-----------------------------------------*/
+/*-------------------------------------ATTRIBUTS-----------------------------------------*/
 	private Position position;
 	private int numeroRobot;
 	private int nombreDeVie = 3;

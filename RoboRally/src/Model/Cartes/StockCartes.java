@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
-/*----------------------------------------Class Stock Cartes------------------------------------
+/*----------------------------------------CLASS STOCK CARTES------------------------------------
  * 
- *  Atribut de la class:
+ *  ATTRIBUT DE LA CLASS:
  * 
  * 		-ArrayList<CartesProgramme> stock
  * 
- * 	Les méthodes de la class:
+ * 	LES MÉTHODES DE LA CLASS:
  * 
  * 		- toString()
  * 			> affiche le nombre de carte disponible et le contenu du stock 
@@ -31,11 +31,11 @@ import java.util.Iterator;
  */
 public class StockCartes implements Serializable{
 	
-	/*-------------------------------------ATRIBUT-----------------------------------------*/
+	/*-------------------------------------ATTRIBUT-----------------------------------------*/
 	
 	ArrayList<CartesProgramme> stock = new ArrayList<CartesProgramme>();
 	
-	// ------------------- Constructeurs -------------------
+	// ------------------- CONSTRUCTEUR-------------------
 	
 	public void StockCartes(){
 		int vitesse = 1;
@@ -84,6 +84,7 @@ public class StockCartes implements Serializable{
 			vitesse+=15;
 		}
 	}
+/*----------------------------------GETTERS/SETTERS---------------------------------*/
 	public ArrayList<CartesProgramme> getStock() {
 		return stock;
 	}
@@ -92,9 +93,58 @@ public class StockCartes implements Serializable{
 		this.stock = stockCartes;
 	}
 	
-	// ------------------- Fonctions -------------------
+/*--------------------------------- FONCTIONS --------------------------------------*/
 	public String toString() {
 		return "Nombre de cartes disponibles : "+getStock().size()+"\nContenu du stock\n" + getStock();
+	}
+	
+	public void remplirStock() {
+
+		int vitesse = 1;
+		for (int i = 0; i<18; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer1);
+			getStock().add(carte);
+			vitesse +=5;
+		}
+		vitesse = 4;
+		for (int i = 0; i<12; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer2);
+			getStock().add(carte);
+			if (i%2==0)
+				vitesse +=10;
+			else
+				vitesse+=5;
+		}
+		vitesse = 9;
+		for (int i = 0; i<6; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.avancer3);
+			getStock().add(carte);
+			vitesse+=15;
+		}
+		vitesse = 5;
+		for (int i = 0; i<6; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.reculer1);
+			getStock().add(carte);
+			vitesse+=15;
+		}
+		vitesse = 2;
+		for (int i = 0; i<18; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerD);
+			getStock().add(carte);
+			vitesse+=5;
+		}
+		vitesse = 3;
+		for (int i = 0; i<18; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.tournerG);
+			getStock().add(carte);
+			vitesse+=5;
+		}
+		vitesse = 15;
+		for (int i = 0; i<6; i++) {
+			CartesProgramme carte = new CartesProgramme(vitesse, ActionCarte.demitour);
+			getStock().add(carte);
+			vitesse+=15;
+		}
 	}
 	
 	public ArrayList<CartesProgramme> stockCartesTriees(){

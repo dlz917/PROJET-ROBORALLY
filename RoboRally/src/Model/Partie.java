@@ -1,6 +1,6 @@
 package Model;
 /* ---------------------------------------CLASS PARTIE :-----------------------------------------------
- * LES ATRIBUTS DE LA CLASS PARTIE :
+ * LES ATTRIBUTS DE LA CLASS PARTIE :
  * 
  *		- ArrayList<Robot> Collection 
  *		- ArrayList<DistributionCartes> distributionCarte 
@@ -58,7 +58,7 @@ import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 
 public class Partie implements Serializable{
-/*-------------------------------------ATRIBUTS-----------------------------------------*/
+/*-------------------------------------ATTRIBUTS-----------------------------------------*/
 	
 	private static final ArrayList<Robot> Collection = null;
 	private ArrayList<DistributionCartes> distributionCarte = new ArrayList<DistributionCartes>();
