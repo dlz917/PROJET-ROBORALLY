@@ -72,7 +72,7 @@ public final class Tableau1 implements Serializable{
 	}
 	// ------------------- Fonctions-------------------
 	public CaseTableau chercherCase(Position p){
-		return Tableau1.tableau[p.getColonne()-1][p.getLigne().getIntValue()];}
+		return Tableau1.tableau[p.getColonne()][p.getLigne().getIntValue()];}
 
 
 	public static CaseTableau caseAdjacente(CaseTableau caseTableau,Direction direction){//jsp si le mettre ici ou en case tableau...

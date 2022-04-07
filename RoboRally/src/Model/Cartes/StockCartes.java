@@ -6,7 +6,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+
+/*----------------------------------------Class Stock Cartes------------------------------------
+ * 
+ *  Atribut de la class:
+ * 
+ * 		-ArrayList<CartesProgramme> stock
+ * 
+ * 	Les méthodes de la class:
+ * 
+ * 		- toString()
+ * 			> affiche le nombre de carte disponible et le contenu du stock 
+ * 	
+ * 		- stockCartesTriees()
+ * 			> retourne l'inventaire des cartes triers dans l'odre croissant 
+ * 
+ * 		- retraitCarteStock(CartesProgramme carteARetirer)
+ * 			> retire les cartes du stock 
+ * 
+ * 		- ajoutCarteStock(CartesProgramme carteAAjouter)
+ * 				>ajoute les cartes dans Stock
+ * 
+ * 
+ */
 public class StockCartes implements Serializable{
+	
+	/*-------------------------------------ATRIBUT-----------------------------------------*/
+	
 	ArrayList<CartesProgramme> stock = new ArrayList<CartesProgramme>();
 	
 	// ------------------- Constructeurs -------------------
