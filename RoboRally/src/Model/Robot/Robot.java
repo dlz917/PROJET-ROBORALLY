@@ -100,6 +100,9 @@ import Model.Tableau.TypeCase;
  *  	-deplacer(ArrayList<Robot> listeRobot, CartesProgramme carte)
  *  		> prend la carte action et change position ou direction selon carte et si possibilité
  *  	
+ *  	-laserTableau()
+ *      	> retourner robot tocuher par un laser du tableau 
+ *  	
 
  */
 
@@ -453,7 +456,7 @@ public class Robot implements Serializable{
 	}
 	
 	
-	public void robotAPousser(Position pos, CartesProgramme carte, ArrayList<Robot> listeRobots) {
+	public  void robotAPousser(Position pos, CartesProgramme carte, ArrayList<Robot> listeRobots) {
 		for (int i =0; i < listeRobots.size();i++) {
 			if ( (i!= getNumeroRobot()) && (listeRobots.get(i).position.equals(pos) )) {
 				 listeRobots.get(i);
@@ -586,6 +589,13 @@ public class Robot implements Serializable{
 			}
 		}
 	}
+	public void laserTableau(Position position,ArrayList<Robot> listeRobots) {
+		boolean fin = false;
+		int i = position.getColonne();
+		while (!fin && i<=11) {
+			Position pos = new Position(i, position.getLigne());
+			fin = robotTouche(pos, listeRobots);
+			i++;
+		}
 	
-	
-}
+}}

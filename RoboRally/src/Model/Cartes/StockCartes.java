@@ -162,8 +162,10 @@ public class StockCartes implements Serializable{
 		}
 	}
 	
-	public void ajoutCarteStock(CartesProgramme carteAAjouter) {
-		getStock().add(carteAAjouter);
+	public void ajoutCarteStock(ArrayList<CartesProgramme> cartesAAjouter) {
+		for (int i = 0; i<cartesAAjouter.size();i++) {
+			getStock().add(cartesAAjouter.get(i));
+		}
 	}
 
 }

@@ -39,6 +39,11 @@ package Model;
  *           et enregistre leur nouvelle position dans listePosition qui est retourner. 
  *           
  *      - ajouterCartesAlea()
+ *  
+ *  	- ajouterAuStock()
+ *  		>ajoute au stock les cartes sortie du stock 
+ *      
+ *      
  
  *  
  *  
@@ -53,9 +58,11 @@ import Model.Cartes.DistributionCartes;
 import Model.Cartes.StockCartes;
 import Model.Robot.Direction;
 import Model.Robot.Robot;
+import Model.Tableau.CaseLaser;
 import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
+import Model.Tableau.TypeCase;
 
 public class Partie implements Serializable{
 /*-------------------------------------ATTRIBUTS-----------------------------------------*/
@@ -89,9 +96,6 @@ public class Partie implements Serializable{
 			getDistributionCarte().add(new DistributionCartes());
 		}
 	}
-	
-	
-	
 /*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
 	public ArrayList<DistributionCartes> getDistributionCarte() {
 		return distributionCarte;
@@ -200,6 +204,15 @@ public String Pseudo(String pseudo) {
 		for (int i =0; i<getListeRobot().size();i++) {
 			getListeRobot().get(i).lasers(getListeRobot());
 		}
+		Position laser1=new Position(4,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser1, listeRobot);
+		Position laser2=new Position(9,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser2, listeRobot);
+		Position laser3=new Position(4,Lignes.H);
+		getListeRobot().get(0).laserTableau(laser3, listeRobot);
+		Position laser4=new Position(9,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser4, listeRobot);
+		
 		for (int i =0; i<getListeRobot().size();i++) {
 			getListeRobot().get(i).verifDrapeau();
 		}
@@ -211,6 +224,7 @@ public String Pseudo(String pseudo) {
 		for (int i =0; i<getListeRobot().size();i++) {
 			System.out.println(getListeRobot().get(i));
 		}
+		ajouterAuStock();
 		// remettre les cartes dans le stock
 	}
 	
@@ -238,9 +252,12 @@ public String Pseudo(String pseudo) {
 	public void ajouterCartesAlea(){
 	}
 	
-	public void lasersTableaut(Robot robot) {
-		//liste des position des laser + direction 
-		//seulement case ? ou toute la direction? 
-		
+	public void ajouterAuStock() {
+		for (int i = 0; i<getListeRobot().size();i++) {
+			getStockCartes().ajoutCarteStock(getListeRobot().get(i).getCartesDistribuees());
+		}
 	}
+	
+	
+		
 }
