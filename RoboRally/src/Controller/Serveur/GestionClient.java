@@ -31,7 +31,6 @@ public class GestionClient extends Client {
 		this.s=s;
 	}
 	
-	
 	// ----------------- Fonctions ---------------------
 	public void receivePseudo() {
 		try {
@@ -54,7 +53,7 @@ public class GestionClient extends Client {
 	public void sendNumJoueur() {
 		try {
 			this.setEtatClient(Etat.enAttente);
-			oos.writeObject(this.getNumJoueur());
+			oos.writeObject(getNumJoueur());
 			oos.flush();
 			//oos.close();
 		}catch(Exception exp) {System.out.println(exp);}
@@ -101,7 +100,7 @@ public class GestionClient extends Client {
 					sendTimer();
 					sleep(60000); //- le temps d'envoi du timer
 					receiveCartesChoisies();
-					wait(); // attendre que SS fasse tour			
+					wait(); 
 					sendPartie();
 				}
 			}

@@ -23,24 +23,28 @@ import Model.Cartes.CartesProgramme;
 import Model.Robot.Robot;
 
 public class ClientProgram {
-/*----------------------------------ATTRIBUTS-----------------------------------*/
+	/*----------------------------------ATTRIBUTS-----------------------------------*/
 	private static final int port = 1234;
 	private Socket socketEnd2 = null;
 	private InputStream  input = null;
 	private OutputStream output = null;
 	private Partie p = null;
 	private Etat etatClient = null;
-	private int numJoueur;
+	private int numJoueur = 0;
 	private Robot robot =new Robot();
+	private String pseudo;
+	private ObjectInputStream oi;
+	private ObjectOutputStream os;
 
-	
 	
 	/*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	public ClientProgram() {
 		try {
 		socketEnd2 = new Socket("127.0.0.1", port);
-		input = socketEnd2.getInputStream();
 		output = socketEnd2.getOutputStream();
+		os = new ObjectOutputStream(output);
+		input = socketEnd2.getInputStream();
+		oi = new ObjectInputStream(input);
 		}catch(Exception exp) {System.out.println(exp);}
 	}
 	
@@ -71,14 +75,24 @@ public class ClientProgram {
 		this.robot = robot;
 	}
 
-/*-------------------------------------------FONCTION------------------------------------------*/
+	public String getPseudo() {
+		return pseudo;
+	}
+
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+
+	/*-------------------------------------------FONCTION------------------------------------------*/
 	public void sendPseudo(){
 		try {
 		this.setEtatClient(Etat.enAttente);
-		ObjectOutputStream os = new ObjectOutputStream(output);
 		Scanner inputReader = new Scanner(System.in);
 		System.out.println("Entrer votre pseudo:");
 		String pseudo = inputReader.next();
+		setPseudo(pseudo);
 		os.writeObject(pseudo);
 		os.flush();
 		} catch (IOException e) {
@@ -88,7 +102,6 @@ public class ClientProgram {
 	
 	public void receivePartie() {
 		try {
-			ObjectInputStream oi = new ObjectInputStream(input);
 			Partie p=(Partie)oi.readObject();
 			setP(p);
 			this.setEtatClient(Etat.aJour);
@@ -97,10 +110,9 @@ public class ClientProgram {
 	
 	public void receiveNumJoueur() {
 		try {
-			ObjectInputStream oi = new ObjectInputStream(input);
-			int numJoueur =(int)oi.readObject();
-			setNumJoueur(numJoueur);
-			setRobot(getP().getListeRobot().get(numJoueur));
+			Integer numRecu =(Integer)oi.readObject();
+			setNumJoueur(numRecu);
+			setRobot(getP().getListeRobot().get(getNumJoueur()));
 			this.setEtatClient(Etat.aJour);
 			
 			}catch(Exception exp) {System.out.println(exp);}
@@ -110,25 +122,20 @@ public class ClientProgram {
         try {
         	this.setEtatClient(Etat.enAttente);
         	int nbrCartesDistrib = 9 - getRobot().getNbrPionDegat();
-        	getP().getDistributionCarte().get(numJoueur).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock());
-        	
+        	getP().getDistributionCarte().get(numJoueur).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock(), getNumJoueur());
         	System.out.println(getP().getDistributionCarte().get(numJoueur));
         	
         	System.out.println ("\nEntrer les vitesses des cartes choisies:");
     		Scanner inputReader = new Scanner(System.in);
-    		int vitessesCartesChoisies[] = new int[5];
+    		Integer vitessesCartesChoisies[] = new Integer[5];
         	for (int i=0; i<5; i++) {
-        		vitessesCartesChoisies[i] = (int) inputReader.nextInt();
+        		vitessesCartesChoisies[i] = (Integer) inputReader.nextInt();
         	}
         	// juste � envoyer liste des entiers s�lectionn�s !!
         	System.out.println("Vous avez choisis les vitesses suivantes: "+Arrays.toString(vitessesCartesChoisies));
-            System.out.println("ici1");
 			ObjectOutputStream os = new ObjectOutputStream(output);
-			System.out.println("ici2");
 			os.writeObject(vitessesCartesChoisies);
-			System.out.println("ici3");
 			os.flush();
-			System.out.println("ici4");
 			//inputReader.close();
 			// A FERMER A LA DERNIERE FONCTION
         } catch(Exception exp) {
@@ -144,17 +151,24 @@ public class ClientProgram {
 		} catch(Exception exp) {
         	System.out.println(exp);
 		}
-		}
+	}
 	
 public static void main (String[] args) {
 	try {
-		
 		ClientProgram client = new ClientProgram();
 		client.sendPseudo();
+		client.receiveTimer();
 		client.receivePartie();
 		client.receiveNumJoueur();
-		client.sendCartesChoisies();
-		//p.reglesDuJeu
+		while (!client.getP().isFinPartie()) {
+			client.sendCartesChoisies();
+		client.receiveTimer();
+		client.receivePartie();
+		System.out.println("Coucou ICI");
+		System.out.println(client.getP().getListePositionsParTour());
+		System.out.println("Coucou ICI 2");
+		}
+		
 	}catch(Exception exp) {}
 }
 

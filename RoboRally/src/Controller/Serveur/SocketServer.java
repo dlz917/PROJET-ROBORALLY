@@ -65,10 +65,6 @@ public class SocketServer extends Thread{
 
 	public static void main(String[]args) {
 		try {
-		//InetAddress adresse = InetAddress.getLocalHost();
-		//System.out.println(adresse.getHostAddress());
-			
-		
 		SocketServer socketServer = new SocketServer();
 		
 // ----------- Connexions des clients, attribution des sockets ------------
@@ -110,7 +106,7 @@ public class SocketServer extends Thread{
 			
 		// ----------- R�veil des threads client ------------
 			for (int i =0; i<socketServer.getLi().size(); i++) {
-				socketServer.getLi().get(i).notify(); // vrmt pas sure de moi
+				socketServer.getLi().get(i).notify();
 				
 		// ----------- Verification que la partie est pas finie, si elle l'est on d�connecte le serveur ------------
 				if ( socketServer.getLi().get(i).isFinPartie() );{
