@@ -119,6 +119,35 @@ public class MainWindow {
 			BufferedImage imageCoin4=afficherCoin4.getCoin4();
 			ImageIcon imageIconCoin4= new ImageIcon(imageCoin4.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
 			
+			afficherLaserBeam affichageLaser=new afficherLaserBeam();
+			BufferedImage imageLaser=afficherLaserBeam.getLaser();
+			ImageIcon imageIconLaser= new ImageIcon(imageLaser.getScaledInstance(226,75, Image.SCALE_DEFAULT));
+			
+			afficherLaserBeamVertical affichageLaserVertical=new afficherLaserBeamVertical();
+			BufferedImage imageLaserVertical=afficherLaserBeamVertical.getLaserVertical();
+			ImageIcon imageIconLaserVertical= new ImageIcon(imageLaserVertical.getScaledInstance(75,300, Image.SCALE_DEFAULT));
+			
+			JLabel Laserouest = new JLabel("LaserOuest");
+			Laserouest.setBounds(0, 225, 235, 75);
+			frame.getContentPane().add(Laserouest);
+			Laserouest.setIcon(imageIconLaser);
+			
+			JLabel LaserSud = new JLabel("LaserSud");
+			LaserSud.setBounds(225, 673, 75, 225);
+			frame.getContentPane().add(LaserSud);
+			LaserSud.setIcon(imageIconLaserVertical);
+			
+			JLabel LaserNord = new JLabel("LaserNord");
+			LaserNord.setBounds(600, 0, 75, 225);
+			frame.getContentPane().add(LaserNord);
+			LaserNord.setIcon(imageIconLaserVertical);
+			
+			JLabel LaserEst = new JLabel("LaserEst");
+			LaserEst.setBounds(675, 600, 225, 75);
+			frame.getContentPane().add(LaserEst);
+			LaserEst.setIcon(imageIconLaser);
+			
+			
 			JLabel a1 = new JLabel("A1");
 			a1.setBounds(0, 0, 75, 75);
 			frame.getContentPane().add(a1);
@@ -838,7 +867,10 @@ public class MainWindow {
 			l12.setBounds(825, 825, 75, 75);
 			frame.getContentPane().add(l12);
 			l12.setIcon(imageIconCoin4);
-		}}
+			
+			
+		}	
+}
 			
 
 
