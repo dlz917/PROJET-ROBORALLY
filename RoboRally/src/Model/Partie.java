@@ -1,20 +1,72 @@
 package Model;
+/* ---------------------------------------CLASS PARTIE :-----------------------------------------------
+ * LES ATTRIBUTS DE LA CLASS PARTIE :
+ * 
+ *		- ArrayList<Robot> Collection 
+ *		- ArrayList<DistributionCartes> distributionCarte 
+ * 		- StockCartes stockCartes 
+ *  	- Tableau1 tab 
+ *   	- ArrayList<Robot> listeRobot
+ *   	- ArrayList<Position> listePosInitiales
+ *   	- ArrayList<Direction> listeDirInitiales;
+ *      - boolean finPartie=false;
+ *      - ArrayList<ArrayList<Position>>listePositionsParTour
+ *      
+ *  LES MÉTHODES DE LA CLASS :
+ *  
+ *      - pseudo(String pseudo) :
+ *          > retourne pseudo du joueur 
+ *          
+ *      - ajouterJoueur(String pseudo, int numJoueur)
+ *         	>ajoute dans la liste robot le pseudo et le numero joueur associé 
+ *            directement à un robot (avec sa position et sa direction initiale)
+ *            
+ *      - reglesDuJeu():
+ *          > retourne régle du jeux 
+ *          
+ *      - ajouterCartes(ArrayList<Integer> vitessesCartes, int numJoueur) :
+ *          > remplit la liste choix Carte avec les carte choisi par les joueurs
+ *          
+ *      - manche()
+ *          > fonction qui fait le deroulement d'une manche en appelant la fonction tour 5 fois
+ *            puis les conséquance d'une fin de manche avec les fonctions :
+ *               - caseRoulant
+ *               - verifDrapeau , si drapeau = 3 fin partie 
+ *             et enregistre les positions final des robots
+ *             
+ *      - tour (int i)
+ *        	 > fonction pour chaque tour , elle fait deplacer joueur en fonction de l'odre
+ *           et enregistre leur nouvelle position dans listePosition qui est retourner. 
+ *           
+ *      - ajouterCartesAlea()
+ *  
+ *  	- ajouterAuStock()
+ *  		>ajoute au stock les cartes sortie du stock 
+ *      
+ *      
+ 
+ *  
+ *  
+ */
+//test
 
-
+//test
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import Model.Cartes.CartesProgramme;
 import Model.Cartes.DistributionCartes;
 import Model.Cartes.StockCartes;
+import Model.Robot.Direction;
 import Model.Robot.Robot;
+import Model.Tableau.CaseLaser;
 import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
-
+import Model.Tableau.TypeCase;
+//test
 public class Partie implements Serializable{
-/*-------------------------------------ATRIBUTS-----------------------------------------*/
+/*-------------------------------------ATTRIBUTS-----------------------------------------*/
 	
 	private static final ArrayList<Robot> Collection = null;
 	private ArrayList<DistributionCartes> distributionCarte = new ArrayList<DistributionCartes>();
@@ -22,28 +74,29 @@ public class Partie implements Serializable{
 	private Tableau1 tab = new Tableau1();
 	private ArrayList<Robot> listeRobot=new ArrayList<Robot>();/* la meilleure liste */
 	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
+	private ArrayList<Direction> listeDirInitiales = new ArrayList<Direction> ();
 	private boolean finPartie=false;
 	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
-	
 
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
 	public Partie() {
 		Position pos1 = new Position(5,Lignes.F);
 		listePosInitiales.add(pos1);
+		listeDirInitiales.add(Direction.sud);
 		Position pos2 = new Position(6,Lignes.G);
 		listePosInitiales.add(pos2);
+		listeDirInitiales.add(Direction.nord);
 		Position pos3 = new Position(6,Lignes.F);
 		listePosInitiales.add(pos3);
+		listeDirInitiales.add(Direction.est);
 		Position pos4 = new Position(5,Lignes.G);
 		listePosInitiales.add(pos4);
+		listeDirInitiales.add(Direction.ouest);
 		for (int i = 0; i<4;i++) {
 			getDistributionCarte().add(new DistributionCartes());
 		}
 	}
-	
-	
-	
 /*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
 	public ArrayList<DistributionCartes> getDistributionCarte() {
 		return distributionCarte;
@@ -101,24 +154,30 @@ public class Partie implements Serializable{
 	public void setListePositionsParTour(ArrayList<ArrayList<Position>> listePositionsParTour) {
 		this.listePositionsParTour = listePositionsParTour;
 	}
+	public ArrayList<Direction> getListeDirInitiales() {
+		return listeDirInitiales;
+	}
+	public void setListeDirInitiales(ArrayList<Direction> listeDirInitiales) {
+		this.listeDirInitiales = listeDirInitiales;
+	}
 		
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
-	public String Pseudo(String pseudo) {
+public String Pseudo(String pseudo) {
 		
 		return pseudo;
 	}
 	
 	public void ajouterJoueur(String pseudo, int numJoueur) {
-		getListeRobot().add(new Robot (getListePosInitiales().get(numJoueur), pseudo, getTab()));
+		getListeRobot().add(new Robot (getListePosInitiales().get(numJoueur), pseudo, getTab(),numJoueur,getListeDirInitiales().get(numJoueur)));
 	}
 	
 	public String reglesDuJeu() {
-		return "règles du jeu";
+		return "rÃ¨gles du jeu";
 	} 
 	/*public String presentation(String pseudo) {
 		return "Bonjour "+pseudo+" votre robot est le suivant :"+robot+\n
-				 "les régles du jeux sont "+\n
+				 "les rÃ©gles du jeux sont "+\n
 				 "-             "+\n
 				 "-              "+\n;
 	}*/
@@ -140,7 +199,34 @@ public class Partie implements Serializable{
 		for (int j =0;j<5;j++){
 			getListePositionsParTour().add(tour(j));
 		}
-		// fin de manche : lancer attributs du plateau + gérer les drapeaux
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).caseRoulant();
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).lasers(getListeRobot());
+		}
+		Position laser1=new Position(4,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser1, listeRobot);
+		Position laser2=new Position(9,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser2, listeRobot);
+		Position laser3=new Position(4,Lignes.H);
+		getListeRobot().get(0).laserTableau(laser3, listeRobot);
+		Position laser4=new Position(9,Lignes.C);
+		getListeRobot().get(0).laserTableau(laser4, listeRobot);
+		
+		for (int i =0; i<getListeRobot().size();i++) {
+			getListeRobot().get(i).verifDrapeau();
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			if (getListeRobot().get(i).getNbrDeDrapeau()==3) {
+				setFinPartie(true);
+			}
+		}
+		for (int i =0; i<getListeRobot().size();i++) {
+			System.out.println(getListeRobot().get(i));
+		}
+		ajouterAuStock();
+		// remettre les cartes dans le stock
 	}
 	
 	public ArrayList<Position> tour (int i){
@@ -149,13 +235,16 @@ public class Partie implements Serializable{
 			cartesTour.add(getListeRobot().get(j).getListeCarteChoisi().get(i));
 		}
 		Collections.sort(cartesTour);
+		Collections.reverse(cartesTour);
 		for (int u=0; u<cartesTour.size();u++){
 			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
+			System.out.println(cartesTour.get(u));
 		}
-		System.out.println("Tour "+i+" de la manche effectué");
+		System.out.println("Tour "+i+" de la manche effectuÃ©");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
 		for (int v=0; v<getListeRobot().size(); v++){
 			listePositions.add(getListeRobot().get(v).getPosition());
+			System.out.println(getListeRobot().get(v));
 		}
 		return listePositions;
 		
@@ -164,8 +253,12 @@ public class Partie implements Serializable{
 	public void ajouterCartesAlea(){
 	}
 	
-
+	public void ajouterAuStock() {
+		for (int i = 0; i<getListeRobot().size();i++) {
+			getStockCartes().ajoutCarteStock(getListeRobot().get(i).getCartesDistribuees());
+		}
+	}
 	
 	
-
+		
 }

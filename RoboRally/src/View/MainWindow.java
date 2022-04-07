@@ -41,7 +41,7 @@ public class MainWindow {
 
 		private void initialize(){
 			frame=new JFrame();
-			frame.setBounds(100, 100, 950, 700);
+			frame.setBounds(100, 100, 1500, 950);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.getContentPane().setLayout(null);
 			
@@ -103,6 +103,56 @@ public class MainWindow {
 			BufferedImage imageCaseLaserEst=afficherCaseLaserEst.getCaseLaserEst();
 			ImageIcon imageIconLaserEst = new ImageIcon(imageCaseLaserEst.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
 			
+			afficherCoin1 AffichageCoin1=new afficherCoin1();
+			BufferedImage imageCoin1=afficherCoin1.getCoin1();
+			ImageIcon imageIconCoin1= new ImageIcon(imageCoin1.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin2 AffichageCoin2=new afficherCoin2();
+			BufferedImage imageCoin2=afficherCoin2.getCoin2();
+			ImageIcon imageIconCoin2= new ImageIcon(imageCoin2.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin3 AffichageCoin3=new afficherCoin3();
+			BufferedImage imageCoin3=afficherCoin3.getCoin3();
+			ImageIcon imageIconCoin3= new ImageIcon(imageCoin3.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherCoin4 AffichageCoin4=new afficherCoin4();
+			BufferedImage imageCoin4=afficherCoin4.getCoin4();
+			ImageIcon imageIconCoin4= new ImageIcon(imageCoin4.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+			
+			afficherLaserBeam affichageLaser=new afficherLaserBeam();
+			BufferedImage imageLaser=afficherLaserBeam.getLaser();
+			ImageIcon imageIconLaser= new ImageIcon(imageLaser.getScaledInstance(226,75, Image.SCALE_DEFAULT));
+			
+			afficherLaserBeamVertical affichageLaserVertical=new afficherLaserBeamVertical();
+			BufferedImage imageLaserVertical=afficherLaserBeamVertical.getLaserVertical();
+			ImageIcon imageIconLaserVertical= new ImageIcon(imageLaserVertical.getScaledInstance(75,300, Image.SCALE_DEFAULT));
+			
+			JLabel Laserouest = new JLabel("LaserOuest");
+			Laserouest.setBounds(0, 225, 235, 75);
+			frame.getContentPane().add(Laserouest);
+			Laserouest.setIcon(imageIconLaser);
+			
+			JLabel LaserSud = new JLabel("LaserSud");
+			LaserSud.setBounds(225, 673, 75, 225);
+			frame.getContentPane().add(LaserSud);
+			LaserSud.setIcon(imageIconLaserVertical);
+			
+			JLabel LaserNord = new JLabel("LaserNord");
+			LaserNord.setBounds(600, 0, 75, 225);
+			frame.getContentPane().add(LaserNord);
+			LaserNord.setIcon(imageIconLaserVertical);
+			
+			JLabel LaserEst = new JLabel("LaserEst");
+			LaserEst.setBounds(675, 600, 225, 75);
+			frame.getContentPane().add(LaserEst);
+			LaserEst.setIcon(imageIconLaser);
+			
+			
+			JLabel a1 = new JLabel("A1");
+			a1.setBounds(0, 0, 75, 75);
+			frame.getContentPane().add(a1);
+			a1.setIcon(imageIconCoin1);
+			
 			JLabel a2 = new JLabel("A2");
 			a2.setBounds(75, 0, 75, 75);
 			frame.getContentPane().add(a2);
@@ -143,7 +193,7 @@ public class MainWindow {
 			frame.getContentPane().add(a9);
 			a9.setIcon(imageIconMurNord);
 			
-			JLabel a10 = new JLabel("CA10");
+			JLabel a10 = new JLabel("A10");
 			a10.setBounds(675, 0, 75, 75);
 			frame.getContentPane().add(a10);
 			a10.setIcon(imageIconMurNord);
@@ -152,6 +202,11 @@ public class MainWindow {
 			a11.setBounds(750, 0, 75, 75);
 			frame.getContentPane().add(a11);
 			a11.setIcon(imageIconMurNord);
+			
+			JLabel a12 = new JLabel("A12");
+			a12.setBounds(825, 0, 75, 75);
+			frame.getContentPane().add(a12);
+			a12.setIcon(imageIconCoin2);
 			
 			JLabel b1 = new JLabel("B1");
 			b1.setBounds(0, 75, 75, 75);
@@ -393,7 +448,429 @@ public class MainWindow {
 			frame.getContentPane().add(e12);
 			e12.setIcon(imageIconMurEst);
 			
-		}}
+			JLabel f1 = new JLabel("F1");
+			f1.setBounds(0, 375, 75, 75);
+			frame.getContentPane().add(f1);
+			f1.setIcon(imageIconMurOuest);
+			
+			JLabel f2 = new JLabel("F2");
+			f2.setBounds(75, 375, 75, 75);
+			frame.getContentPane().add(f2);
+			f2.setIcon(imageIconCaseTrou);
+			
+			JLabel f3 = new JLabel("F3");
+			f3.setBounds(150, 375, 75, 75);
+			frame.getContentPane().add(f3);
+			f3.setIcon(imageIconAvancerHaut);
+			
+			JLabel f4 = new JLabel("F4");
+			f4.setBounds(225, 375, 75, 75);
+			frame.getContentPane().add(f4);
+			f4.setIcon(imageIconCaseNormal);
+			
+			JLabel f5 = new JLabel("F5");
+			f5.setBounds(300, 375, 75, 75);
+			frame.getContentPane().add(f5);
+			f5.setIcon(imageIconCaseNormal);
+			
+			JLabel f6 = new JLabel("F6");
+			f6.setBounds(375, 375, 75, 75);
+			frame.getContentPane().add(f6);
+			f6.setIcon(imageIconCaseNormal);
+			
+			JLabel f7 = new JLabel("F7");
+			f7.setBounds(450, 375, 75, 75);
+			frame.getContentPane().add(f7);
+			f7.setIcon(imageIconCaseNormal);
+			
+			JLabel f8 = new JLabel("F8");
+			f8.setBounds(525, 375, 75, 75);
+			frame.getContentPane().add(f8);
+			f8.setIcon(imageIconCaseNormal);
+			
+			JLabel f9= new JLabel("F9");
+			f9.setBounds(600, 375, 75, 75);
+			frame.getContentPane().add(f9);
+			f9.setIcon(imageIconCaseNormal);
+			
+			JLabel f10 = new JLabel("F10");
+			f10.setBounds(675, 375, 75, 75);
+			frame.getContentPane().add(f10);
+			f10.setIcon(imageIconAvancerBas);
+			
+			JLabel f11 = new JLabel("F11");
+			f11.setBounds(750, 375, 75, 75);
+			frame.getContentPane().add(f11);
+			f11.setIcon(imageIconCaseTrou);
+			
+			JLabel f12 = new JLabel("F12");
+			f12.setBounds(825, 375, 75, 75);
+			frame.getContentPane().add(f12);
+			f12.setIcon(imageIconMurEst);
+			
+			JLabel g1 = new JLabel("G1");
+			g1.setBounds(0, 450, 75, 75);
+			frame.getContentPane().add(g1);
+			g1.setIcon(imageIconMurOuest);
+			
+			JLabel g2 = new JLabel("G2");
+			g2.setBounds(75, 450, 75, 75);
+			frame.getContentPane().add(g2);
+			g2.setIcon(imageIconCaseTrou);
+			
+			JLabel g3 = new JLabel("G3");
+			g3.setBounds(150, 450, 75, 75);
+			frame.getContentPane().add(g3);
+			g3.setIcon(imageIconAvancerHaut);
+			
+			JLabel g4 = new JLabel("G4");
+			g4.setBounds(225, 450, 75, 75);
+			frame.getContentPane().add(g4);
+			g4.setIcon(imageIconCaseNormal);
+			
+			JLabel g5 = new JLabel("G5");
+			g5.setBounds(300, 450, 75, 75);
+			frame.getContentPane().add(g5);
+			g5.setIcon(imageIconCaseNormal);
+			
+			JLabel g6 = new JLabel("G6");
+			g6.setBounds(375, 450, 75, 75);
+			frame.getContentPane().add(g6);
+			g6.setIcon(imageIconCaseNormal);
+			
+			JLabel g7 = new JLabel("G7");
+			g7.setBounds(450, 450, 75, 75);
+			frame.getContentPane().add(g7);
+			g7.setIcon(imageIconCaseNormal);
+			
+			JLabel g8 = new JLabel("G8");
+			g8.setBounds(525, 450, 75, 75);
+			frame.getContentPane().add(g8);
+			g8.setIcon(imageIconCaseNormal);
+			
+			JLabel g9= new JLabel("G9");
+			g9.setBounds(600, 450, 75, 75);
+			frame.getContentPane().add(g9);
+			g9.setIcon(imageIconCaseNormal);
+			
+			JLabel g10 = new JLabel("F10");
+			g10.setBounds(675, 450, 75, 75);
+			frame.getContentPane().add(g10);
+			g10.setIcon(imageIconAvancerBas);
+			
+			JLabel g11 = new JLabel("F11");
+			g11.setBounds(750, 450, 75, 75);
+			frame.getContentPane().add(g11);
+			g11.setIcon(imageIconCaseTrou);
+			
+			JLabel g12 = new JLabel("F12");
+			g12.setBounds(825, 450, 75, 75);
+			frame.getContentPane().add(g12);
+			g12.setIcon(imageIconMurEst);
+			
+			JLabel h1 = new JLabel("H1");
+			h1.setBounds(0, 525, 75, 75);
+			frame.getContentPane().add(h1);
+			h1.setIcon(imageIconMurOuest);
+			
+			JLabel h2 = new JLabel("H2");
+			h2.setBounds(75, 525, 75, 75);
+			frame.getContentPane().add(h2);
+			h2.setIcon(imageIconCaseNormal);
+			
+			JLabel h3 = new JLabel("H3");
+			h3.setBounds(150, 525, 75, 75);
+			frame.getContentPane().add(h3);
+			h3.setIcon(imageIconAvancerHaut);
+			
+			JLabel h4 = new JLabel("H4");
+			h4.setBounds(225, 525, 75, 75);
+			frame.getContentPane().add(h4);
+			h4.setIcon(imageIconCaseNormal);
+			
+			JLabel h5 = new JLabel("H5");
+			h5.setBounds(300, 525, 75, 75);
+			frame.getContentPane().add(h5);
+			h5.setIcon(imageIconCaseNormal);
+			
+			JLabel h6 = new JLabel("H6");
+			h6.setBounds(375, 525, 75, 75);
+			frame.getContentPane().add(h6);
+			h6.setIcon(imageIconCaseNormal);
+			
+			JLabel h7 = new JLabel("H7");
+			h7.setBounds(450, 525, 75, 75);
+			frame.getContentPane().add(h7);
+			h7.setIcon(imageIconCaseNormal);
+			
+			JLabel h8 = new JLabel("H8");
+			h8.setBounds(525, 525, 75, 75);
+			frame.getContentPane().add(h8);
+			h8.setIcon(imageIconCaseNormal);
+			
+			JLabel h9= new JLabel("H9");
+			h9.setBounds(600, 525, 75, 75);
+			frame.getContentPane().add(h9);
+			h9.setIcon(imageIconCaseNormal);
+			
+			JLabel h10 = new JLabel("H10");
+			h10.setBounds(675, 525, 75, 75);
+			frame.getContentPane().add(h10);
+			h10.setIcon(imageIconAvancerBas);
+			
+			JLabel h11 = new JLabel("H11");
+			h11.setBounds(750, 525, 75, 75);
+			frame.getContentPane().add(h11);
+			h11.setIcon(imageIconCaseNormal);
+			
+			JLabel h12 = new JLabel("H12");
+			h12.setBounds(825, 525, 75, 75);
+			frame.getContentPane().add(h12);
+			h12.setIcon(imageIconMurEst);
+			
+			JLabel i1 = new JLabel("I1");
+			i1.setBounds(0, 600, 75, 75);
+			frame.getContentPane().add(i1);
+			i1.setIcon(imageIconMurOuest);
+			
+			JLabel i2 = new JLabel("I2");
+			i2.setBounds(75, 600, 75, 75);
+			frame.getContentPane().add(i2);
+			i2.setIcon(imageIconCaseNormal);
+			
+			JLabel i3 = new JLabel("I3");
+			i3.setBounds(150, 600, 75, 75);
+			frame.getContentPane().add(i3);
+			i3.setIcon(imageIconAvancerHaut);
+			
+			JLabel i4 = new JLabel("I4");
+			i4.setBounds(225, 600, 75, 75);
+			frame.getContentPane().add(i4);
+			i4.setIcon(imageIconLaserSud);
+			
+			JLabel i5 = new JLabel("I5");
+			i5.setBounds(300, 600, 75, 75);
+			frame.getContentPane().add(i5);
+			i5.setIcon(imageIconCaseNormal);
+			
+			JLabel i6 = new JLabel("I6");
+			i6.setBounds(375, 600, 75, 75);
+			frame.getContentPane().add(i6);
+			i6.setIcon(imageIconCaseNormal);
+			
+			JLabel i7 = new JLabel("I7");
+			i7.setBounds(450, 600, 75, 75);
+			frame.getContentPane().add(i7);
+			i7.setIcon(imageIconCaseNormal);
+			
+			JLabel i8 = new JLabel("I8");
+			i8.setBounds(525, 600, 75, 75);
+			frame.getContentPane().add(i8);
+			i8.setIcon(imageIconCaseNormal);
+			
+			JLabel i9= new JLabel("I9");
+			i9.setBounds(600, 600, 75, 75);
+			frame.getContentPane().add(i9);
+			i9.setIcon(imageIconLaserEst);
+			
+			JLabel i10 = new JLabel("I10");
+			i10.setBounds(675, 600, 75, 75);
+			frame.getContentPane().add(i10);
+			i10.setIcon(imageIconAvancerBas);
+			
+			JLabel i11 = new JLabel("I11");
+			i11.setBounds(750, 600, 75, 75);
+			frame.getContentPane().add(i11);
+			i11.setIcon(imageIconCaseNormal);
+			
+			JLabel i12 = new JLabel("I12");
+			i12.setBounds(825, 600, 75, 75);
+			frame.getContentPane().add(i12);
+			i12.setIcon(imageIconMurEst);
+			
+			JLabel j1 = new JLabel("J1");
+			j1.setBounds(0, 675, 75, 75);
+			frame.getContentPane().add(j1);
+			j1.setIcon(imageIconMurOuest);
+			
+			JLabel j2 = new JLabel("C2");
+			j2.setBounds(75, 675, 75, 75);
+			frame.getContentPane().add(j2);
+			j2.setIcon(imageIconCaseNormal);
+			
+			JLabel j3 = new JLabel("C3");
+			j3.setBounds(150, 675, 75, 75);
+			frame.getContentPane().add(j3);
+			j3.setIcon(imageIconAvancerGauche);
+			
+			JLabel j4 = new JLabel("J4");
+			j4.setBounds(225, 675, 75, 75);
+			frame.getContentPane().add(j4);
+			j4.setIcon(imageIconAvancerGauche);
+			
+			JLabel j5 = new JLabel("J5");
+			j5.setBounds(300, 675, 75, 75);
+			frame.getContentPane().add(j5);
+			j5.setIcon(imageIconAvancerGauche);
+			
+			JLabel j6 = new JLabel("J6");
+			j6.setBounds(375, 675, 75, 75);
+			frame.getContentPane().add(j6);
+			j6.setIcon(imageIconAvancerGauche);
+			
+			JLabel j7 = new JLabel("J7");
+			j7.setBounds(450, 675, 75, 75);
+			frame.getContentPane().add(j7);
+			j7.setIcon(imageIconAvancerGauche);
+			
+			JLabel j8 = new JLabel("J8");
+			j8.setBounds(525, 675, 75, 75);
+			frame.getContentPane().add(j8);
+			j8.setIcon(imageIconAvancerGauche);
+			
+			JLabel j9= new JLabel("J9");
+			j9.setBounds(600, 675, 75, 75);
+			frame.getContentPane().add(j9);
+			j9.setIcon(imageIconAvancerGauche);
+			
+			JLabel j10 = new JLabel("C10");
+			j10.setBounds(675, 675, 75, 75);
+			frame.getContentPane().add(j10);
+			j10.setIcon(imageIconAvancerGauche);
+			
+			JLabel j11 = new JLabel("C11");
+			j11.setBounds(750, 675, 75, 75);
+			frame.getContentPane().add(j11);
+			j11.setIcon(imageIconCaseNormal);
+			
+			JLabel j12 = new JLabel("C12");
+			j12.setBounds(825, 675, 75, 75);
+			frame.getContentPane().add(j12);
+			j12.setIcon(imageIconMurEst);
+			
+			JLabel k1 = new JLabel("K1");
+			k1.setBounds(0, 750, 75, 75);
+			frame.getContentPane().add(k1);
+			k1.setIcon(imageIconMurOuest);
+			
+			JLabel k2 = new JLabel("K2");
+			k2.setBounds(75, 750, 75, 75);
+			frame.getContentPane().add(k2);
+			k2.setIcon(imageIconCaseNormal);
+			
+			JLabel k3 = new JLabel("K3");
+			k3.setBounds(150, 750, 75, 75);
+			frame.getContentPane().add(k3);
+			k3.setIcon(imageIconCaseNormal);
+			
+			JLabel k4 = new JLabel("K4");
+			k4.setBounds(225, 750, 75, 75);
+			frame.getContentPane().add(k4);
+			k4.setIcon(imageIconCaseNormal);
+			
+			JLabel k5 = new JLabel("K5");
+			k5.setBounds(300, 750, 75, 75);
+			frame.getContentPane().add(k5);
+			k5.setIcon(imageIconCaseNormal);
+			
+			JLabel k6 = new JLabel("K6");
+			k6.setBounds(375, 750, 75, 75);
+			frame.getContentPane().add(k6);
+			k6.setIcon(imageIconCaseTrou);
+			
+			JLabel k7 = new JLabel("K7");
+			k7.setBounds(450, 750, 75, 75);
+			frame.getContentPane().add(k7);
+			k7.setIcon(imageIconCaseTrou);
+			
+			JLabel k8 = new JLabel("K8");
+			k8.setBounds(525, 750, 75, 75);
+			frame.getContentPane().add(k8);
+			k8.setIcon(imageIconCaseNormal);
+			
+			JLabel k9 = new JLabel("K9");
+			k9.setBounds(600, 750, 75, 75);
+			frame.getContentPane().add(k9);
+			k9.setIcon(imageIconCaseNormal);
+			
+			JLabel k10 = new JLabel("K10");
+			k10.setBounds(675, 750, 75, 75);
+			frame.getContentPane().add(k10);
+			k10.setIcon(imageIconCaseNormal);
+			
+			JLabel k11 = new JLabel("K11");
+			k11.setBounds(750, 750, 75, 75);
+			frame.getContentPane().add(k11);
+			k11.setIcon(imageIconCaseNormal);
+		
+			JLabel k12 = new JLabel("K12");
+			k12.setBounds(825, 750, 75, 75);
+			frame.getContentPane().add(k12);
+			k12.setIcon(imageIconMurEst);
+			
+			JLabel l1 = new JLabel("L1");
+			l1.setBounds(0, 825, 75, 75);
+			frame.getContentPane().add(l1);
+			l1.setIcon(imageIconCoin3);
+			
+			JLabel l2= new JLabel("L2");
+			l2.setBounds(75, 825, 75, 75);
+			frame.getContentPane().add(l2);
+			l2.setIcon(imageIconMurSud);
+			
+			JLabel l3 = new JLabel("L3");
+			l3.setBounds(150, 825, 75, 75);
+			frame.getContentPane().add(l3);
+			l3.setIcon(imageIconMurSud);
+			
+			JLabel l4 = new JLabel("L4");
+			l4.setBounds(225, 825, 75, 75);
+			frame.getContentPane().add(l4);
+			l4.setIcon(imageIconMurSud);
+			
+			JLabel l5 = new JLabel("L5");
+			l5.setBounds(300, 825, 75, 75);
+			frame.getContentPane().add(l5);
+			l5.setIcon(imageIconMurSud);
+			
+			JLabel l6 = new JLabel("L6");
+			l6.setBounds(375, 825, 75, 75);
+			frame.getContentPane().add(l6);
+			l6.setIcon(imageIconMurSud);
+			
+			JLabel l7 = new JLabel("L7");
+			l7.setBounds(450, 825, 75, 75);
+			frame.getContentPane().add(l7);
+			l7.setIcon(imageIconMurSud);
+			
+			JLabel l8 = new JLabel("L8");
+			l8.setBounds(525, 825, 75, 75);
+			frame.getContentPane().add(l8);
+			l8.setIcon(imageIconMurSud);
+			
+			JLabel l9 = new JLabel("L9");
+			l9.setBounds(600, 825, 75, 75);
+			frame.getContentPane().add(l9);
+			l9.setIcon(imageIconMurSud);
+			
+			JLabel l10 = new JLabel("L10");
+			l10.setBounds(675, 825, 75, 75);
+			frame.getContentPane().add(l10);
+			l10.setIcon(imageIconMurSud);
+			
+			JLabel l11 = new JLabel("L11");
+			l11.setBounds(750, 825, 75, 75);
+			frame.getContentPane().add(l11);
+			l11.setIcon(imageIconMurSud);
+			
+			JLabel l12 = new JLabel("L12");
+			l12.setBounds(825, 825, 75, 75);
+			frame.getContentPane().add(l12);
+			l12.setIcon(imageIconCoin4);
+			
+			
+		}	
+}
 			
 
 

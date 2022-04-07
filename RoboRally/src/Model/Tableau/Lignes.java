@@ -8,9 +8,15 @@ public enum Lignes {
 		return Lignes.values();
 	}
 	public Lignes previous() {
+		if (this==Lignes.A)
+			return Lignes.A;
+		else
 			return ListLignes()[(ordinal() - 1  + ListLignes().length) % ListLignes().length];
 	}
 	public Lignes next() {
+		if (this==Lignes.L)
+			return Lignes.L;
+		else
 			return ListLignes()[(ordinal() + 1) % ListLignes().length];
 	}
 	public int getIntValue(){//Pour parcourir le tableau facilment
@@ -24,7 +30,7 @@ public enum Lignes {
 	public static void main(String[] args) {
 		System.out.println(A.next());
 		System.out.println(A.previous());
-		System.out.println(A.next());
+		System.out.println(L.next());
 	}}  
 
 
