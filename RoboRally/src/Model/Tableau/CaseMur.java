@@ -6,6 +6,13 @@ import Model.Robot.Direction;
 
 /*----------------------------------CLASS CASE MUR-----------------------
  * 
+ * ATTRIBUT DE LA CLASS:
+ * 		-Direction direction
+ * 
+ * MÉTHONDE DE LA CLASS:
+ * 		- toString() 
+ * 			> retourne un affichage 
+ * 
  */
 public class CaseMur extends CaseTableau implements Serializable {
 	

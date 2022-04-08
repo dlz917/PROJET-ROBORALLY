@@ -4,14 +4,28 @@ import java.io.Serializable;
 
 import Model.Robot.Direction;
 
+/*_------------------------------CLASS LASER-----------------------
+ * 
+ * ATTRIBUT DE LA CLASS:
+ * 		-Direction direction;
+ * 
+ * MÉTHODE DE CLASS
+ * 		-toString()
+ * 			>retourne affichage
+ */
+
 public class Laser implements Serializable{
-	protected Direction direction;
 	
+/*-----------------------ATTRIBUT--------------------------*/
+	protected Direction direction;
+
+	
+/*----------------------CONSTRUCTEUR---------------------*/
 	public Laser(Direction direction) {
 			this.direction=direction;
 		}
 
-	@Override
+/*-------------------------FONCTION--------------------*/
 	public String toString() {
 		return "Laser [direction=" + direction + "]";
 	}

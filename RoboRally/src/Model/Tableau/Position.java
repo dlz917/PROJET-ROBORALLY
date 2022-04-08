@@ -2,6 +2,18 @@ package Model.Tableau;
 
 import java.io.Serializable;
 
+/*------------------------------------CLASS POSITION------------------------
+ * 
+ * ATTRIBUTS DE LA CLASS:
+ * 		- int colonne;
+ * 		- Lignes ligne
+ * 
+ * MÉTHODES DE LA CLASS :
+ * 		-toString() 
+ * 			>retourne affichage
+ * 		- equals(Position p)
+ * 			>retourne colonne et ligne égal à la position en paramètre 
+ */
 public class Position implements Serializable{
 	private int colonne;
 	private Lignes ligne;

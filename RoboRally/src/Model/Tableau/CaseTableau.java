@@ -3,15 +3,29 @@ package Model.Tableau;
 import java.io.Serializable;
 
 import Model.Robot.Direction;
-
+/*--------------------------------CLASS CASE TABLEAU------------------------------
+ * 
+ * ATTRIBUTS DE LA CLASS:
+ * 		-Position position
+ * 		- boolean occupe;
+ * 		- boolean drapeau;
+ * 		- TypeCase typeCase
+ * 
+ * MÉTHODE DE LA CLASS:
+ * 		- toString()
+ * 			> retourne affichage
+ * 		
+ * 		
+ */
 public class CaseTableau implements Serializable{
-	// ------------------- Attributs -------------------
+	
+/*----------------------------------ATTRIBUTS ----------------------------------*/
 	private final Position position;
 	private boolean occupe=false;
 	private boolean drapeau=false;
 	private TypeCase typeCase;
 
-	// ------------------- Constructeurr -------------------
+/*-------------------------------- CONSTRUCTEURS-------------------------------*/
 	public CaseTableau(Position location) {
 		this.position = location;
 		this.setTypeCase(TypeCase.caseNormal);
@@ -20,7 +34,8 @@ public class CaseTableau implements Serializable{
 		this.position = location;
 		this.setDrapeau(drapeau);
 		this.setTypeCase(TypeCase.caseNormal);}
-	// ------------------- Getters / Setters -------------------
+	
+/*----------------------------- GETTERS/SETTERS ----------------------------*/
 	public boolean isOccupe() {
 		return occupe;
 	}
@@ -43,12 +58,13 @@ public class CaseTableau implements Serializable{
 	public void setDrapeau(boolean drapeau) {
 		this.drapeau = drapeau;
 	}
-	// ------------------- Fonctions -------------------
+	
+/*------------------------------- FONCTIONS----------------------------------*/
 	public String toString() {
 		return "CaseTableau [location=" + position + ", occupe=" + occupe +", drapeau=" + isDrapeau() +  "]";
 	}
 
-	public CaseTableau CaseAdjacente(Direction direction){//jsp si le mettre ici ou en case tableau...
+	public CaseTableau CaseAdjacente(Direction direction){
 		CaseTableau r=this;
 		if (direction==Direction.nord){
 			if (this.getPosition().getLigne()!=Lignes.L)

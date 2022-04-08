@@ -48,9 +48,6 @@ package Model;
  *  
  *  
  */
-//test
-
-//test
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +61,7 @@ import Model.Tableau.Lignes;
 import Model.Tableau.Position;
 import Model.Tableau.Tableau1;
 import Model.Tableau.TypeCase;
-//test
+
 public class Partie implements Serializable{
 /*-------------------------------------ATTRIBUTS-----------------------------------------*/
 	
