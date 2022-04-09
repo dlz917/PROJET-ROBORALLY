@@ -101,6 +101,7 @@ public final class Tableau1 implements Serializable{
 		for (int j = 0; j < Tableau1.tableau.length; j++) {
 			for (int i = 0; i <Tableau1.tableau.length; i++) {
 				System.out.println(Tableau1.tableau[i][j]);
+				System.out.println(Tableau1.getTableau()[i][j].getPosition().getColonne());
 			}
 	}}}
 

@@ -136,6 +136,7 @@ public class Robot implements Serializable{
 		this.direction=direction;
 		}
 
+	
 /*-----------------------------------GETTERS/ SETTERS----------------------------------*/
 	
 	public Position getPosition() {

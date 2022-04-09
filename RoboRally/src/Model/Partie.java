@@ -73,6 +73,7 @@ public class Partie implements Serializable{
 	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
 	private ArrayList<Direction> listeDirInitiales = new ArrayList<Direction> ();
 	private boolean finPartie=false;
+	private ArrayList<ArrayList<Direction>> listeDirectionsParTour = new ArrayList<ArrayList<Direction>>();
 	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
 
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
@@ -151,13 +152,20 @@ public class Partie implements Serializable{
 	public void setListePositionsParTour(ArrayList<ArrayList<Position>> listePositionsParTour) {
 		this.listePositionsParTour = listePositionsParTour;
 	}
+	
 	public ArrayList<Direction> getListeDirInitiales() {
 		return listeDirInitiales;
 	}
 	public void setListeDirInitiales(ArrayList<Direction> listeDirInitiales) {
 		this.listeDirInitiales = listeDirInitiales;
 	}
-		
+	public ArrayList<ArrayList<Direction>> getListeDirectionsParTour() {
+		return listeDirectionsParTour;
+	}
+
+	public void setListeDirectionsParTour(ArrayList<ArrayList<Direction>> listeDirectionsParTour) {
+		this.listeDirectionsParTour = listeDirectionsParTour;
+	}
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
 public String Pseudo(String pseudo) {
@@ -225,7 +233,7 @@ public String Pseudo(String pseudo) {
 		ajouterAuStock();
 		// remettre les cartes dans le stock
 	}
-	
+
 	public ArrayList<Position> tour (int i){
 		ArrayList<CartesProgramme> cartesTour = new ArrayList<CartesProgramme>();
 		for (int j=0 ;j<getListeRobot().size();j++){
@@ -237,14 +245,18 @@ public String Pseudo(String pseudo) {
 			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
 			System.out.println(cartesTour.get(u));
 		}
-		System.out.println("Tour "+i+" de la manche effectuÃ©");
+		System.out.println("Tour "+i+" de la manche effectue");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
 		for (int v=0; v<getListeRobot().size(); v++){
 			listePositions.add(getListeRobot().get(v).getPosition());
 			System.out.println(getListeRobot().get(v));
 		}
+		ArrayList<Direction> listeDirections = new ArrayList<Direction> ();
+		for (int w=0; w<getListeRobot().size(); w++){
+			listeDirections.add(getListeRobot().get(w).getDirection());
+		}
+		getListeDirectionsParTour().add(listeDirInitiales);
 		return listePositions;
-		
 	}
 	
 	public void ajouterCartesAlea(){

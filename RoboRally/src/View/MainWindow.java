@@ -11,11 +11,24 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.JList;
+
+import Model.Partie;
 import Model.Robot.Direction;
 import Model.Tableau.*;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+
+import Controller.Serveur.Client;
+
+import javax.swing.JTextArea;
 
 public class MainWindow {
-	private JFrame frame;
+	private static JFrame frame;
+	private Partie p;
+	private Client client;
 	/**
 	 * Lancer l'appli
 	 */
@@ -34,8 +47,12 @@ public class MainWindow {
 		return frame;
 	}
 
-
-		public MainWindow() {
+	public MainWindow() {
+		initialize();}
+	
+		public MainWindow(Partie p, Client c) {
+			this.p=p;
+			this.client=c;
 			initialize();
 		}
 
@@ -48,7 +65,7 @@ public class MainWindow {
 			afficherCaseNormal AffichageNormal=new afficherCaseNormal(new CaseTableau(null));
 			BufferedImage imageCaseNormal=afficherCaseNormal.getCaseNormal();
 			ImageIcon imageIconCaseNormal = new ImageIcon(imageCaseNormal.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
-			
+	
 			afficherCaseMurNord AffichageMurNord=new afficherCaseMurNord(new CaseMur(null, Direction.nord));
 			BufferedImage imageCaseMurNord=afficherCaseMurNord.getCaseMur();
 			ImageIcon imageIconMurNord = new ImageIcon(imageCaseMurNord.getScaledInstance(75, 75, Image.SCALE_DEFAULT));
@@ -127,6 +144,22 @@ public class MainWindow {
 			BufferedImage imageLaserVertical=afficherLaserBeamVertical.getLaserVertical();
 			ImageIcon imageIconLaserVertical= new ImageIcon(imageLaserVertical.getScaledInstance(75,300, Image.SCALE_DEFAULT));
 			
+			afficherRobot1 affichageRobot1=new afficherRobot1(p);
+			BufferedImage imageRobot1=affichageRobot1.getImageActuel();
+			ImageIcon imageIconRobot1= new ImageIcon(imageRobot1.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			
+			afficherRobot2 affichageRobot2=new afficherRobot2(p);
+			BufferedImage imageRobot2=affichageRobot2.getImageActuel();
+			ImageIcon imageIconRobot2= new ImageIcon(imageRobot2.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			
+			afficherRobot3 affichageRobot3=new afficherRobot3(p);
+			BufferedImage imageRobot3=affichageRobot3.getImageActuel();
+			ImageIcon imageIconRobot3= new ImageIcon(imageRobot3.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			
+			afficherRobot4 affichageRobot4=new afficherRobot4(p);
+			BufferedImage imageRobot4=affichageRobot4.getImageActuel();
+			ImageIcon imageIconRobot4= new ImageIcon(imageRobot4.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			
 			JLabel Laserouest = new JLabel("LaserOuest");
 			Laserouest.setBounds(0, 225, 235, 75);
 			frame.getContentPane().add(Laserouest);
@@ -147,16 +180,23 @@ public class MainWindow {
 			frame.getContentPane().add(LaserEst);
 			LaserEst.setIcon(imageIconLaser);
 			
-			
+
+			JLabel lblRobot = new JLabel("Robot1");
+			lblRobot.setBounds(300, 404, 75, 75);
+			frame.getContentPane().add(lblRobot);
+			lblRobot.setIcon(imageIconRobot1);
+		
 			JLabel a1 = new JLabel("A1");
 			a1.setBounds(0, 0, 75, 75);
 			frame.getContentPane().add(a1);
 			a1.setIcon(imageIconCoin1);
+			frame.getContentPane().setComponentZOrder(a1,0);//1-4
 			
 			JLabel a2 = new JLabel("A2");
 			a2.setBounds(75, 0, 75, 75);
 			frame.getContentPane().add(a2);
 			a2.setIcon(imageIconMurNord);
+	
 			
 			JLabel a3 = new JLabel("A3");
 			a3.setBounds(150, 0, 75, 75);
@@ -862,16 +902,77 @@ public class MainWindow {
 			l11.setBounds(750, 825, 75, 75);
 			frame.getContentPane().add(l11);
 			l11.setIcon(imageIconMurSud);
-			
+
 			JLabel l12 = new JLabel("L12");
 			l12.setBounds(825, 825, 75, 75);
 			frame.getContentPane().add(l12);
 			l12.setIcon(imageIconCoin4);
 			
+			JButton btnNewButton = new JButton("New button");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			btnNewButton.setBounds(931, 68, 126, 200);
+			frame.getContentPane().add(btnNewButton);
 			
-		}	
-}
+			JButton button = new JButton("New button");
+			button.setBounds(1115, 75, 126, 200);
+			frame.getContentPane().add(button);
 			
+			JButton button_1 = new JButton("New button");
+			button_1.setBounds(1329, 75, 126, 200);
+			frame.getContentPane().add(button_1);
+			
+			JButton button_2 = new JButton("New button");
+			button_2.setBounds(1314, 338, 126, 200);
+			frame.getContentPane().add(button_2);
+			
+			JButton button_3 = new JButton("New button");
+			button_3.setBounds(1115, 338, 126, 200);
+			frame.getContentPane().add(button_3);
+			
+			JButton button_4 = new JButton("New button");
+			button_4.setBounds(931, 338, 126, 200);
+			frame.getContentPane().add(button_4);
+			
+			JButton button_5 = new JButton("New button");
+			button_5.setBounds(931, 612, 126, 200);
+			frame.getContentPane().add(button_5);
+			
+			JButton button_6 = new JButton("New button");
+			button_6.setBounds(1115, 612, 126, 200);
+			frame.getContentPane().add(button_6);
+			
+			JButton button_7 = new JButton("New button");
+			button_7.setBounds(1314, 612, 126, 200);
+			frame.getContentPane().add(button_7);
+			
+			JTextArea txtrAaa = new JTextArea();
+			txtrAaa.setEditable(false);
+			txtrAaa.setText("aaa");
+			txtrAaa.setBounds(941, 551, 92, 22);
+			frame.getContentPane().add(txtrAaa);}
+		
+		
+		private void update(int tour,Client client){
+		JFrame Base=MainWindow.frame;
+		updateRobots(tour);
+		//updateCarteS()
+		}
+		private void updateRobots(int tour){
+			//afficherRobot1 Robot1Update=new
+			//updateRobot2();
+			
+		}
+			
+		
+		
+			public Partie getP() {
+				return p;
+			}
+		}
+
 
 
 
