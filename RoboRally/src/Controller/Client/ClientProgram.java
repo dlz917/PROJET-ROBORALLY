@@ -35,8 +35,8 @@ public class ClientProgram extends Thread {
 	private String pseudo;
 	private ObjectInputStream oi;
 	private ObjectOutputStream os;
+	private Scanner inputReader = new Scanner(System.in);
 
-	
 	/*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	public ClientProgram() {
 		try {
@@ -79,26 +79,29 @@ public class ClientProgram extends Thread {
 		return pseudo;
 	}
 
-
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
+	
+	public Scanner getInputReader() {
+		return inputReader;
+	}
 
-
+	public void setInputReader(Scanner inputReader) {
+		this.inputReader = inputReader;
+	}
 	/*-------------------------------------------FONCTION------------------------------------------*/
 	public void sendPseudo(){
 		try {
 		this.setEtatClient(Etat.enAttente);
-		Scanner inputReader = new Scanner(System.in);
-		System.out.println("Entrer votre pseudo:");
-		String pseudo = inputReader.next();
+		System.out.println("Entrez votre pseudo:");
+		String pseudo = getInputReader().next();
 		setPseudo(pseudo);
 		os.writeObject(pseudo);
 		os.flush();
 		} catch (IOException e) {
-		e.printStackTrace();
-		}
-		}
+		e.printStackTrace();}
+	}
 	
 	public void receivePartie() {
 		try {
@@ -112,7 +115,6 @@ public class ClientProgram extends Thread {
 		try {
 			Integer numRecu =(Integer)oi.readObject();
 			setNumJoueur(numRecu);
-			setRobot(getP().getListeRobot().get(getNumJoueur()));
 			this.setEtatClient(Etat.aJour);
 			
 			}catch(Exception exp) {System.out.println(exp);}
@@ -124,8 +126,6 @@ public class ClientProgram extends Thread {
         	
         	System.out.println("--------------------------------\nAu tour de : "+ getPseudo()+"\n");
 			int nbrCartesDistrib = 9 - getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat();
-			getP().getDistributionCarte().get(getNumJoueur()).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock(), getNumJoueur());
-			getP().getListeRobot().get(getNumJoueur()).setCartesDistribuees(getP().getDistributionCarte().get(getNumJoueur()).getListeCartes());
 	    	System.out.println(getP().getDistributionCarte().get(getNumJoueur()));
 	    	if (getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat()<5) {
 	    		System.out.println("Vous avez "+getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat()+" pions dégât : "+ nbrCartesDistrib+ " cartes vous sont distribuées, vous pouvez choisir 5 cartes dans l'ordre d'exécution souhaité.\nEntrez les vitesses des cartes choisies:");
@@ -150,12 +150,11 @@ public class ClientProgram extends Thread {
 	
 	public ArrayList<Integer> saisieVitesses (DistributionCartes distribution, int nbrChoix){
 		ArrayList<Integer> vitessesCartesChoisies = new ArrayList<Integer>();
-		Scanner inputReader = new Scanner(System.in);
 		int i =0;
 		while (i<nbrChoix) {
         	System.out.println (">");
         	Integer choix;
-			choix = (Integer) inputReader.nextInt();
+			choix = (Integer) getInputReader().nextInt();
 			boolean ok=false;
 			for (int j =0; j<distribution.getListeCartes().size();j++) {
 				if (!(vitessesCartesChoisies.contains(choix)) && ( choix == distribution.getListeCartes().get(j).getVitesse() )) {
@@ -177,16 +176,18 @@ public class ClientProgram extends Thread {
 			ClientProgram client = new ClientProgram();
 			client.sendPseudo();
 			// recevoir timer d'une minute
-			client.receivePartie();
 			client.receiveNumJoueur();
+			client.receivePartie();
+			client.setRobot(client.getP().getListeRobot().get(client.getNumJoueur()));
 			
 			while (!client.getP().isFinPartie()) {
 				client.sendCartesChoisies();
-				client.sleep(100000); // temps de faire manche
+				client.sleep(1200000); // temps de faire une manche
 				// recevoir timer d'une minute
 				client.receivePartie();
-				System.out.println(client.getP().getListePositionsParTour());
+				System.out.println(client.getP().getListeRobot().get(client.getNumJoueur()).getPosition());
 			}
+			client.getInputReader().close();
 			
 		}catch(Exception exp) {}
 	}}

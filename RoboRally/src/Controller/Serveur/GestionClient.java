@@ -44,9 +44,11 @@ public class GestionClient extends Client {
 	public void sendPartie() {
 		try {
 			this.setEtatClient(Etat.enAttente);
-			oos.writeObject(this.getP());
+			int nbrCartesDistrib = 9 - getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat();
+			getP().getDistributionCarte().get(getNumJoueur()).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock(), getNumJoueur());
+			getP().getListeRobot().get(getNumJoueur()).setCartesDistribuees(getP().getDistributionCarte().get(getNumJoueur()).getListeCartes());
+			oos.writeObject(getP());
 			oos.flush();
-			//oos.close();
 		}catch(Exception exp) {System.out.println(exp);}
 	}
 	
@@ -55,58 +57,38 @@ public class GestionClient extends Client {
 			this.setEtatClient(Etat.enAttente);
 			oos.writeObject(getNumJoueur());
 			oos.flush();
-			//oos.close();
 		}catch(Exception exp) {System.out.println(exp);}
 	}
 	
-	public void receiveCartesChoisies() {
+	public void receiveCartesChoisies() { 
 		try {
 			ArrayList<Integer> vitessesCartes = new ArrayList<Integer>();
 			vitessesCartes  = (ArrayList<Integer>)ois.readObject();
-			//System.out.println(cartes.get(0));
-			this.getP().ajouterCartes(vitessesCartes, this.getNumJoueur());
-			this.setEtatClient(Etat.aJour);
+			System.out.println(vitessesCartes);
+			getP().ajouterCartes(vitessesCartes, getNumJoueur());
+			setEtatClient(Etat.aJour);
 			}catch(Exception exp) {System.out.println(exp);}
 		}
-	
-	public void sendTimer() {
-		try {
-			this.setEtatClient(Etat.enAttente);
-			Timer chrono = new Timer();
-			chrono.schedule(new CustomTimer(),1000,1000);
-			oos.writeObject(chrono);
-			oos.flush();
-			//oos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	
 	public void run () {
 		try {
-			sendTimer();
+			//envoyer timer d'une minute
 			receivePseudo();
-			sendPartie();
+			sleep(30000);
 			sendNumJoueur();
+			sendPartie();
 			
 			while (!this.getP().isFinPartie()) {
-				if ( this.getP().isFinPartie()) {
-					setFinPartie(true);
-					s.close();
+				//envoyer timer d'une minute
+				sleep(60000); 
+				receiveCartesChoisies();
+				//wait(); 
+				sleep(100000);
+				sendPartie();
 				}
-				else {
-					sendTimer();
-					sleep(60000); //- le temps d'envoi du timer
-					receiveCartesChoisies();
-					wait(); 
-					sendPartie();
-				}
-			}
-			
+			setFinPartie(true);
+			oos.close();
+			s.close();			
 			}catch(Exception exp) {System.out.println(exp);}
-	}
-}
-
-// statut du thread : runnable / blocked / waiting
+	}}

@@ -17,7 +17,7 @@ public class SocketServer extends Thread{
 	private static final int port = 1234;
 	private ServerSocket serverSocket = null;
 
-// ------------------- Constructeur -------------
+// ------------------- Constructeurs -------------
 	public SocketServer() {
 		try {
 			System.out.println("server started...");
@@ -49,7 +49,6 @@ public class SocketServer extends Thread{
 	public static void setP(Partie p) {
 		SocketServer.p = p;
 	}
-	
 
 // ----------------- Fonctions ---------------------
 	public void verifConnexion() throws IOException {
@@ -70,7 +69,7 @@ public class SocketServer extends Thread{
 			Socket s=null;
 			try {
 				s = socketServer.serverSocket.accept();
-				System.out.println("Nouveau client connect� : " +(socketServer.getLi().size()+1));
+				System.out.println("Nouveau client connecte : " +(socketServer.getLi().size()+1));
 				ObjectInputStream ois =new ObjectInputStream(s.getInputStream());
 				ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 				
@@ -87,7 +86,7 @@ public class SocketServer extends Thread{
 		}
 		
 // ----------- Joueur a une minute pour envoyer son pseudo, sinon il devient un client al�atoire ------------
-		sleep(60000);
+		sleep(120000);
 		socketServer.verifConnexion();
 
 // ----------- Tant que la partie n'est pas finie ------------
@@ -100,13 +99,15 @@ public class SocketServer extends Thread{
 			System.out.println("tous les choix sont faits");
 			
 		// ----------- Lancement d'un tour (les threads des client sont endormis) ------------
-			System.out.println("pb ici?");
+			for (int i =0; i<socketServer.getLi().size(); i++) {
+				System.out.println(getP().getListeRobot().get(i).getListeCarteChoisi());
+			}
 			getP().manche();
-			System.out.println("pb ici2?");
 			
 		// ----------- Reveil des threads client ------------
 			for (int i =0; i<socketServer.getLi().size(); i++) {
-				socketServer.getLi().get(i).notify();
+		//		socketServer.getLi().get(i).notify();
+				socketServer.getLi().get(i).setP(getP());
 				
 		// ----------- Verification que la partie est pas finie, si elle l'est on deconnecte le serveur ------------
 				if ( socketServer.getLi().get(i).isFinPartie() );{
