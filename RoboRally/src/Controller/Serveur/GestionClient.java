@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Model.Partie;
+import Model.Partie.Partie;
 
 public class GestionClient extends Client {
 	private ObjectInputStream ois;

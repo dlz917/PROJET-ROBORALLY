@@ -4,8 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+
+import Model.Partie.Partie;
 import Model.Robot.Direction;
-import Model.Partie;
 
 public class afficherRobot1 {
 	

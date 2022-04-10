@@ -1,10 +1,8 @@
-package Model.Tableau;
+package View;
 
 import java.awt.EventQueue;
 
-import View.MainWindow;
-
-public class Test {
+public class TestWindow {
 
 	public static void main(String[]args){
 		EventQueue.invokeLater(new Runnable(){

@@ -2,7 +2,7 @@ package Controller.Serveur;
 
 import java.io.IOException;
 
-import Model.Partie;
+import Model.Partie.Partie;
 
 public class ClientAleatoire extends Client{
 	
@@ -14,7 +14,7 @@ public class ClientAleatoire extends Client{
 	
 // ----------------- Fonctions ---------------------
 	public void choixCartes() {
-		this.getP().ajouterCartesAlea();
+		this.getP().ajouterCartesAlea(getNumJoueur());
 		this.setEtatClient(Etat.aJour);;
 	}
 	

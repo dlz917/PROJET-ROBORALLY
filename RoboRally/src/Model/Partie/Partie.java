@@ -1,4 +1,4 @@
-package Model;
+package Model.Partie;
 /* ---------------------------------------CLASS PARTIE :-----------------------------------------------
  * LES ATTRIBUTS DE LA CLASS PARTIE :
  * 
@@ -73,28 +73,33 @@ public class Partie implements Serializable{
 	private ArrayList<Position> listePosInitiales = new ArrayList<Position> ();
 	private ArrayList<Direction> listeDirInitiales = new ArrayList<Direction> ();
 	private boolean finPartie=false;
-	private ArrayList<ArrayList<Direction>> listeDirectionsParTour = new ArrayList<ArrayList<Direction>>();
 	private ArrayList<ArrayList<Position>>listePositionsParTour=new ArrayList<ArrayList<Position>>();
+	private ArrayList<ArrayList<Direction>> listeDirectionsParTour = new ArrayList<ArrayList<Direction>>();
+	
 
 /*----------------------------------CONSTRUCTEURS-----------------------------------*/
 	
 	public Partie() {
-		Position pos1 = new Position(5,Lignes.F);
+		Position pos1 = new Position(6,Lignes.F);
 		listePosInitiales.add(pos1);
 		listeDirInitiales.add(Direction.sud);
-		Position pos2 = new Position(6,Lignes.G);
+		Position pos2 = new Position(7,Lignes.G);
 		listePosInitiales.add(pos2);
 		listeDirInitiales.add(Direction.nord);
-		Position pos3 = new Position(6,Lignes.F);
+		Position pos3 = new Position(7,Lignes.F);
 		listePosInitiales.add(pos3);
 		listeDirInitiales.add(Direction.est);
-		Position pos4 = new Position(5,Lignes.G);
+		Position pos4 = new Position(6,Lignes.G);
 		listePosInitiales.add(pos4);
 		listeDirInitiales.add(Direction.ouest);
+		stockCartes.remplirStock();
 		for (int i = 0; i<4;i++) {
 			getDistributionCarte().add(new DistributionCartes());
 		}
 	}
+	
+	
+	
 /*-------------------------------------------GETTERS/ SETTERS------------------------------------------*/
 	public ArrayList<DistributionCartes> getDistributionCarte() {
 		return distributionCarte;
@@ -152,7 +157,6 @@ public class Partie implements Serializable{
 	public void setListePositionsParTour(ArrayList<ArrayList<Position>> listePositionsParTour) {
 		this.listePositionsParTour = listePositionsParTour;
 	}
-	
 	public ArrayList<Direction> getListeDirInitiales() {
 		return listeDirInitiales;
 	}
@@ -166,9 +170,10 @@ public class Partie implements Serializable{
 	public void setListeDirectionsParTour(ArrayList<ArrayList<Direction>> listeDirectionsParTour) {
 		this.listeDirectionsParTour = listeDirectionsParTour;
 	}
+		
 /*-------------------------------------------FONCTION------------------------------------------*/
 		
-public String Pseudo(String pseudo) {
+	public String Pseudo(String pseudo) {
 		
 		return pseudo;
 	}
@@ -178,29 +183,40 @@ public String Pseudo(String pseudo) {
 	}
 	
 	public String reglesDuJeu() {
-		return "rÃ¨gles du jeu";
+		return "r�gles du jeu";
 	} 
 	/*public String presentation(String pseudo) {
 		return "Bonjour "+pseudo+" votre robot est le suivant :"+robot+\n
-				 "les rÃ©gles du jeux sont "+\n
+				 "les régles du jeux sont "+\n
 				 "-             "+\n
 				 "-              "+\n;
 	}*/
 	
 	public void ajouterCartes(ArrayList<Integer> vitessesCartes, int numJoueur) {
 		ArrayList<CartesProgramme> choixCartes = new ArrayList<CartesProgramme> ();
-		for (int j = 0 ; j<vitessesCartes.size() ; j++ ) {; 
+		for (int j = 0 ; j<vitessesCartes.size() ; j++ ) {
 			for (int i = 0; i<getListeRobot().get(numJoueur).getCartesDistribuees().size() ; i++){
 				if ( vitessesCartes.get(j) == getListeRobot().get(numJoueur).getCartesDistribuees().get(i).getVitesse() ) {
 					choixCartes.add(getListeRobot().get(numJoueur).getCartesDistribuees().get(i));
-					getListeRobot().get(numJoueur).getCartesDistribuees().get(i).setRobotAttribue(numJoueur);
 				}
 			}
 		}
 		getListeRobot().get(numJoueur).setListeCarteChoisi(choixCartes);
 	}
+	
+	public void ajouterCartesAlea(int numJoueur){
+		int nbrCartesDistrib = 9 - getListeRobot().get(numJoueur).getNbrPionDegat();
+		getDistributionCarte().get(numJoueur).listeCartes(nbrCartesDistrib, getStockCartes().getStock(), numJoueur);
+		getListeRobot().get(numJoueur).setCartesDistribuees(getDistributionCarte().get(numJoueur).getListeCartes());
+		ArrayList<CartesProgramme> vitessesCartes = new ArrayList<CartesProgramme> ();
+		for (int i = 0; i<5; i++) {
+    		vitessesCartes.add(getListeRobot().get(numJoueur).getCartesDistribuees().get(i));
+    	}
+	}
+	
 	public void manche() {
 		setListePositionsParTour(new ArrayList<ArrayList<Position>>());
+		setListeDirectionsParTour(new ArrayList<ArrayList<Direction>>());
 		for (int j =0;j<5;j++){
 			getListePositionsParTour().add(tour(j));
 		}
@@ -224,16 +240,28 @@ public String Pseudo(String pseudo) {
 		}
 		for (int i =0; i<getListeRobot().size();i++) {
 			if (getListeRobot().get(i).getNbrDeDrapeau()==3) {
+				System.out.println("------------------------------"+ getListeRobot().get(i).getPseudo()+"a gagn�, fin du jeu------------------------------");
 				setFinPartie(true);
 			}
 		}
+		ajouterAuStock();
+		System.out.println("------------------------------ Fin de la manche, position finale des robots : ------------------------------");
 		for (int i =0; i<getListeRobot().size();i++) {
 			System.out.println(getListeRobot().get(i));
+			getListeRobot().get(i).getCartesDistribuees().clear();
 		}
-		ajouterAuStock();
-		// remettre les cartes dans le stock
+		for (int i =0; i<getListeRobot().size();i++) {
+			if (getListeRobot().get(i).getNbrPionDegat()<5) {
+				getListeRobot().get(i).getListeCarteChoisi().clear();
+	    	}
+	    	else {
+	    		for (int j=getListeRobot().get(i).getNbrPionDegat(); j>0; j--) {
+	    			getListeRobot().get(i).getListeCarteChoisi().remove(j-1);
+	    		}
+	    	}
+		}
 	}
-
+	
 	public ArrayList<Position> tour (int i){
 		ArrayList<CartesProgramme> cartesTour = new ArrayList<CartesProgramme>();
 		for (int j=0 ;j<getListeRobot().size();j++){
@@ -241,11 +269,11 @@ public String Pseudo(String pseudo) {
 		}
 		Collections.sort(cartesTour);
 		Collections.reverse(cartesTour);
+		System.out.println("------------------------------Tour "+(i+1)+" de la manche ------------------------------");
 		for (int u=0; u<cartesTour.size();u++){
 			getListeRobot().get(cartesTour.get(u).getRobotAttribue()).deplacer(getListeRobot(),cartesTour.get(u));
 			System.out.println(cartesTour.get(u));
 		}
-		System.out.println("Tour "+i+" de la manche effectue");
 		ArrayList<Position> listePositions = new ArrayList<Position> ();
 		for (int v=0; v<getListeRobot().size(); v++){
 			listePositions.add(getListeRobot().get(v).getPosition());
@@ -255,19 +283,14 @@ public String Pseudo(String pseudo) {
 		for (int w=0; w<getListeRobot().size(); w++){
 			listeDirections.add(getListeRobot().get(w).getDirection());
 		}
-		getListeDirectionsParTour().add(listeDirInitiales);
+		getListeDirectionsParTour().add(listeDirections);
 		return listePositions;
+		
 	}
 	
-	public void ajouterCartesAlea(){
-	}
 	
 	public void ajouterAuStock() {
 		for (int i = 0; i<getListeRobot().size();i++) {
 			getStockCartes().ajoutCarteStock(getListeRobot().get(i).getCartesDistribuees());
 		}
-	}
-	
-	
-		
-}
+	}}

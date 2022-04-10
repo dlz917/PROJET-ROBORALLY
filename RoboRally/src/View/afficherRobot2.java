@@ -6,8 +6,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import Model.Partie.Partie;
 import Model.Robot.Direction;
-import Model.Partie;
 
 public class afficherRobot2 {
 	
@@ -44,7 +44,7 @@ public class afficherRobot2 {
 			imageSud=ImageIO.read(streamsud);} 
 		catch (IOException e) {
 			e.printStackTrace();}
-			setImageActuel(imageSud);}
+			setImageActuel(imageNord);}
 			
 	public void updateRobot2(int tour){
 		if (p.getListeDirectionsParTour().get(1).get(tour)==Direction.sud){

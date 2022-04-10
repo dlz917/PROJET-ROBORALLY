@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import Model.Partie;
+import Model.Partie.Partie;
 
 public class SocketServer extends Thread{
 	private ArrayList<Client> li = new ArrayList<Client>();
@@ -59,9 +59,7 @@ public class SocketServer extends Thread{
 				getLi().set(i, client);
 			}
 		}
-		// + deconnecter le joueur ?? (si il a juste pas r�pondu)
 	}
-
 
 	public static void main(String[]args) {
 		try {
@@ -96,19 +94,21 @@ public class SocketServer extends Thread{
 		boolean fin =false;
 		while (!fin) {
 			
-		// ----------- Joueur a une minute pour faire son choix de cartes � jouer sinon il devient un client al�atoire ------------
+		// ----------- Joueur a une minute pour faire son choix de cartes a jouer sinon il devient un client al�atoire ------------
 			sleep(60000);
 			socketServer.verifConnexion();
 			System.out.println("tous les choix sont faits");
 			
 		// ----------- Lancement d'un tour (les threads des client sont endormis) ------------
+			System.out.println("pb ici?");
 			getP().manche();
+			System.out.println("pb ici2?");
 			
-		// ----------- R�veil des threads client ------------
+		// ----------- Reveil des threads client ------------
 			for (int i =0; i<socketServer.getLi().size(); i++) {
 				socketServer.getLi().get(i).notify();
 				
-		// ----------- Verification que la partie est pas finie, si elle l'est on d�connecte le serveur ------------
+		// ----------- Verification que la partie est pas finie, si elle l'est on deconnecte le serveur ------------
 				if ( socketServer.getLi().get(i).isFinPartie() );{
 					socketServer.serverSocket.close();
 					fin=true;
@@ -117,6 +117,4 @@ public class SocketServer extends Thread{
 		}
 		
 		}catch(Exception exp) {System.out.println(exp);}
-	}
-	
-}
+	}}

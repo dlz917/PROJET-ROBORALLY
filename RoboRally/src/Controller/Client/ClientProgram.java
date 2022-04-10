@@ -17,12 +17,13 @@ import java.util.Scanner;
 import java.util.Timer;
 
 import Controller.Serveur.Etat;
-import Model.Partie;
 import Model.Cartes.ActionCarte;
 import Model.Cartes.CartesProgramme;
+import Model.Cartes.DistributionCartes;
+import Model.Partie.Partie;
 import Model.Robot.Robot;
 
-public class ClientProgram {
+public class ClientProgram extends Thread {
 	/*----------------------------------ATTRIBUTS-----------------------------------*/
 	private static final int port = 1234;
 	private Socket socketEnd2 = null;
@@ -121,20 +122,25 @@ public class ClientProgram {
 	public void sendCartesChoisies() {
         try {
         	this.setEtatClient(Etat.enAttente);
-        	int nbrCartesDistrib = 9 - getRobot().getNbrPionDegat();
-        	getP().getDistributionCarte().get(numJoueur).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock(), getNumJoueur());
-        	System.out.println(getP().getDistributionCarte().get(numJoueur));
         	
-        	System.out.println ("\nEntrer les vitesses des cartes choisies:");
-    		Scanner inputReader = new Scanner(System.in);
-    		Integer vitessesCartesChoisies[] = new Integer[5];
-        	for (int i=0; i<5; i++) {
-        		vitessesCartesChoisies[i] = (Integer) inputReader.nextInt();
-        	}
-        	// juste ï¿½ envoyer liste des entiers sï¿½lectionnï¿½s !!
-        	System.out.println("Vous avez choisis les vitesses suivantes: "+Arrays.toString(vitessesCartesChoisies));
-			ObjectOutputStream os = new ObjectOutputStream(output);
-			os.writeObject(vitessesCartesChoisies);
+        	System.out.println("--------------------------------\nAu tour de : "+ getPseudo()+"\n");
+			int nbrCartesDistrib = 9 - getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat();
+			getP().getDistributionCarte().get(getNumJoueur()).listeCartes(nbrCartesDistrib, getP().getStockCartes().getStock(), getNumJoueur());
+			getP().getListeRobot().get(getNumJoueur()).setCartesDistribuees(getP().getDistributionCarte().get(getNumJoueur()).getListeCartes());
+	    	System.out.println(getP().getDistributionCarte().get(getNumJoueur()));
+	    	if (getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat()<5) {
+	    		System.out.println("Vous avez "+getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat()+" pions dégât : "+ nbrCartesDistrib+ " cartes vous sont distribuées, vous pouvez choisir 5 cartes dans l'ordre d'exécution souhaité.\nEntrez les vitesses des cartes choisies:");
+	        	ArrayList<Integer> vitessesChoisies = saisieVitesses(getP().getDistributionCarte().get(getNumJoueur()), 5);
+	        	System.out.println("Vous avez choisi les vitesses suivantes: "+(vitessesChoisies)+"\n");
+	        	os.writeObject(vitessesChoisies);
+	    	}
+	    	else {
+	    		System.out.println("Vous avez "+getP().getListeRobot().get(getNumJoueur()).getNbrPionDegat()+" pions dégât : vous avez seulement la possibilité de choisir l'ordre d'éxécution des "+ nbrCartesDistrib+" cartes distribuées.\nEntrez les vitesses des cartes choisies:" );
+	        	ArrayList<Integer> vitessesChoisies = saisieVitesses(getP().getDistributionCarte().get(getNumJoueur()), nbrCartesDistrib);
+	        	System.out.println("  Vous avez choisi les vitesses suivantes: "+(vitessesChoisies)+"\n");
+	        	os.writeObject(vitessesChoisies);
+	    	}
+        	ObjectOutputStream os = new ObjectOutputStream(output);
 			os.flush();
 			//inputReader.close();
 			// A FERMER A LA DERNIERE FONCTION
@@ -143,33 +149,45 @@ public class ClientProgram {
         }
 	}
 	
-	public void receiveTimer() {
-		try {
-			ObjectInputStream oi = new ObjectInputStream(input);
-			Timer chrono = (Timer)oi.readObject();
-			this.setEtatClient(Etat.aJour);
-		} catch(Exception exp) {
-        	System.out.println(exp);
+	public ArrayList<Integer> saisieVitesses (DistributionCartes distribution, int nbrChoix){
+		ArrayList<Integer> vitessesCartesChoisies = new ArrayList<Integer>();
+		Scanner inputReader = new Scanner(System.in);
+		int i =0;
+		while (i<nbrChoix) {
+        	System.out.println (">");
+        	Integer choix;
+			choix = (Integer) inputReader.nextInt();
+			boolean ok=false;
+			for (int j =0; j<distribution.getListeCartes().size();j++) {
+				if (!(vitessesCartesChoisies.contains(choix)) && ( choix == distribution.getListeCartes().get(j).getVitesse() )) {
+					vitessesCartesChoisies.add(choix);
+					System.out.println("vitesse correcte");
+					ok=true;
+					i++;
+				}
+			}
+			if (!ok){
+				System.out.println("Vitesse incorrecte, saisissez une autre vitesse : ");
+			}
 		}
+		return vitessesCartesChoisies;
 	}
 	
-public static void main (String[] args) {
-	try {
-		ClientProgram client = new ClientProgram();
-		client.sendPseudo();
-		client.receiveTimer();
-		client.receivePartie();
-		client.receiveNumJoueur();
-		while (!client.getP().isFinPartie()) {
-			client.sendCartesChoisies();
-		client.receiveTimer();
-		client.receivePartie();
-		System.out.println("Coucou ICI");
-		System.out.println(client.getP().getListePositionsParTour());
-		System.out.println("Coucou ICI 2");
-		}
-		
-	}catch(Exception exp) {}
-}
-
-}
+	public static void main (String[] args) {
+		try {
+			ClientProgram client = new ClientProgram();
+			client.sendPseudo();
+			// recevoir timer d'une minute
+			client.receivePartie();
+			client.receiveNumJoueur();
+			
+			while (!client.getP().isFinPartie()) {
+				client.sendCartesChoisies();
+				client.sleep(100000); // temps de faire manche
+				// recevoir timer d'une minute
+				client.receivePartie();
+				System.out.println(client.getP().getListePositionsParTour());
+			}
+			
+		}catch(Exception exp) {}
+	}}

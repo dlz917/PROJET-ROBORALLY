@@ -75,7 +75,7 @@ public final class Tableau1 implements Serializable{
 		return Tableau1.tableau[p.getColonne()][p.getLigne().getIntValue()];}
 
 
-	public static CaseTableau caseAdjacente(CaseTableau caseTableau,Direction direction){//jsp si le mettre ici ou en case tableau...
+	public static CaseTableau caseAdjacente(CaseTableau caseTableau,Direction direction){
 		CaseTableau r=caseTableau;
 		if (direction==Direction.nord){
 			if (caseTableau.getPosition().getLigne()!=Lignes.L)
@@ -94,14 +94,4 @@ public final class Tableau1 implements Serializable{
 				r=Tableau1.tableau[caseTableau.getPosition().getColonne()-2][caseTableau.getPosition().getLigne().getIntValue()];}
 		
 	return r;}
-	
-	// ------------------- Test -------------------
-	public static void main(String[] args) {
-		Tableau1 a=new Tableau1();
-		for (int j = 0; j < Tableau1.tableau.length; j++) {
-			for (int i = 0; i <Tableau1.tableau.length; i++) {
-				System.out.println(Tableau1.tableau[i][j]);
-				System.out.println(Tableau1.getTableau()[i][j].getPosition().getColonne());
-			}
-	}}}
-
+}

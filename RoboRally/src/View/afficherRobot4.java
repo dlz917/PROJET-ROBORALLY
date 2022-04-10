@@ -4,8 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+
+import Model.Partie.Partie;
 import Model.Robot.Direction;
-import Model.Partie;
 
 public class afficherRobot4 {
 	
@@ -43,9 +44,9 @@ public class afficherRobot4 {
 		catch (IOException e) {
 			e.printStackTrace();}
 		
-			setImageActuel(imageOuest);}
+			setImageActuel(imageEst);}
 			
-	public void updateImageRobot(int tour){
+	public void updateRobot4(int tour){
 		if (p.getListeDirectionsParTour().get(3).get(tour)==Direction.sud){
 			setImageActuel(imageSud );}
 		else if(p.getListeDirectionsParTour().get(3).get(tour)==Direction.nord){
