@@ -3,10 +3,8 @@ package View;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 
-import Model.Tableau.Position;
 
 public class afficherCaseAvancerGauche {
 	private static BufferedImage caseAvancerGauche;

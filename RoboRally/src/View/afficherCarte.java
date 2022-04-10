@@ -7,8 +7,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import Controller.Serveur.Client;
-import Model.Robot.Direction;
-import Model.Robot.Robot;
 import Model.Cartes.*;
 import Model.Partie.Partie;
 public class afficherCarte {
@@ -79,6 +77,58 @@ public class afficherCarte {
 				setImageactuel(tournerdroite);}
 			else if(p.getListeRobot().get(c.getNumJoueur()).getCartesDistribuees().get(0).getAction()==
 					ActionCarte.tournerG){
+				setImageactuel(tournergauche);}
+			else{
+				setImageactuel(demitour);}}
+
+	public afficherCarte(ActionCarte type) {
+			InputStream stream1av=getClass().getResourceAsStream("1avant.png");
+			try {
+				carte1avant=ImageIO.read(stream1av);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+			
+			InputStream stream2av=getClass().getResourceAsStream("2avant.png");
+			try {
+				carte2avant=ImageIO.read(stream2av);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+			
+			InputStream stream3av=getClass().getResourceAsStream("3avant.png");
+			try {
+				carte3avant=ImageIO.read(stream3av);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+			
+			InputStream streamderriere=getClass().getResourceAsStream("derriere.png");
+			try {
+				derriere=ImageIO.read(streamderriere);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+
+			InputStream streamdroite=getClass().getResourceAsStream("tournerdroite.png");
+			try {
+				tournerdroite=ImageIO.read(streamdroite);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+
+			InputStream streamgauche=getClass().getResourceAsStream("tournergauche.png");
+			try {
+				tournergauche=ImageIO.read(streamgauche);} 
+			catch (IOException e) {
+				e.printStackTrace();}
+			
+			if(type!= null && type==ActionCarte.avancer1){
+				setImageactuel(carte1avant);}
+			else if(type!= null && type==ActionCarte.avancer2){
+				setImageactuel(carte2avant);}
+			else if(type!= null && type==ActionCarte.avancer3){
+				setImageactuel(carte3avant);}
+			else if(type!= null && type==ActionCarte.reculer1){
+				setImageactuel(derriere);}
+			else if(type!= null && type==ActionCarte.tournerD){
+				setImageactuel(tournerdroite);}
+			else if(type!= null && type==ActionCarte.tournerG){
 				setImageactuel(tournergauche);}
 			else{
 				setImageactuel(demitour);}}

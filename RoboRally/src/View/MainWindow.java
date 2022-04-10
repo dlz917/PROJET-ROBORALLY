@@ -1,30 +1,15 @@
 package View;
 
-import java.awt.EventQueue;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import javax.swing.JList;
-
 import Model.Partie.Partie;
 import Model.Robot.Direction;
 import Model.Tableau.*;
-
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-
 import Controller.Serveur.Client;
-
-import javax.swing.JTextArea;
 
 public class MainWindow {
 	private static JFrame frame;
@@ -44,10 +29,11 @@ public class MainWindow {
 	
 		public MainWindow(Partie partie, Client c) {
 			this.p=partie;
-			this.client=c;
+			this.setClient(c);
 			initialize();
 		}
 
+		@SuppressWarnings("unused")
 		private void initialize(){
 			frame=new JFrame();
 			frame.setBounds(100, 100, 1500, 950);
@@ -954,6 +940,7 @@ public class MainWindow {
 			button_7.setBounds(1314, 612, 126, 200);
 			frame.getContentPane().add(button_7);}
 			
+		@SuppressWarnings("unused")
 		private void updateAll(int tour,Client client,int carte){
 		JFrame frame=MainWindow.frame;
 		frame.removeAll();
@@ -1062,51 +1049,55 @@ public class MainWindow {
 		frame.getContentPane().add(LaserEst);
 		LaserEst.setIcon(imageIconLaser);
 
-		afficherRobot1 Robot1Update=new afficherRobot1(p);
-		Robot1Update.updateRobot1(tour);
-		BufferedImage imageRobot1=Robot1Update.getImageActuel();
-		ImageIcon imageIconRobot1= new ImageIcon(imageRobot1.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+		try {
+			afficherRobot1 Robot1Update=new afficherRobot1(p);
+			Robot1Update.updateRobot1(tour);
+			BufferedImage imageRobot1=Robot1Update.getImageActuel();
+			ImageIcon imageIconRobot1= new ImageIcon(imageRobot1.getScaledInstance(75,75, Image.SCALE_DEFAULT));
 
-		afficherRobot2 Robot2Update=new afficherRobot2(p);
-		Robot2Update.updateRobot2(tour);
-		BufferedImage imageRobot2=Robot2Update.getImageActuel();
-		ImageIcon imageIconRobot2= new ImageIcon(imageRobot2.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			afficherRobot2 Robot2Update=new afficherRobot2(p);
+			Robot2Update.updateRobot2(tour);
+			BufferedImage imageRobot2=Robot2Update.getImageActuel();
+			ImageIcon imageIconRobot2= new ImageIcon(imageRobot2.getScaledInstance(75,75, Image.SCALE_DEFAULT));
 
-		afficherRobot3 Robot3Update=new afficherRobot3(p);
-		Robot3Update.updateRobot3(tour);
-		BufferedImage imageRobot3=Robot1Update.getImageActuel();
-		ImageIcon imageIconRobot3= new ImageIcon(imageRobot3.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+			afficherRobot3 Robot3Update=new afficherRobot3(p);
+			Robot3Update.updateRobot3(tour);
+			BufferedImage imageRobot3=Robot1Update.getImageActuel();
+			ImageIcon imageIconRobot3= new ImageIcon(imageRobot3.getScaledInstance(75,75, Image.SCALE_DEFAULT));
 
-		afficherRobot4 Robot4Update=new afficherRobot4(p);
-		Robot4Update.updateRobot4(tour);
-		BufferedImage imageRobot4=Robot1Update.getImageActuel();
-		ImageIcon imageIconRobot4= new ImageIcon(imageRobot4.getScaledInstance(75,75, Image.SCALE_DEFAULT));
-			
-			
-		//if(p.getListeRobot().size()>=1){
-		JLabel lblRobot = new JLabel("Robot1");
-		lblRobot.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(0).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(0).get(tour).getLigne()), 75, 75);
-		frame.getContentPane().add(lblRobot);
-		lblRobot.setIcon(imageIconRobot1);
+			afficherRobot4 Robot4Update=new afficherRobot4(p);
+			Robot4Update.updateRobot4(tour);
+			BufferedImage imageRobot4=Robot1Update.getImageActuel();
+			ImageIcon imageIconRobot4= new ImageIcon(imageRobot4.getScaledInstance(75,75, Image.SCALE_DEFAULT));
+				
+				
+			//if(p.getListeRobot().size()>=1){
+			JLabel lblRobot = new JLabel("Robot1");
+			lblRobot.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(0).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(0).get(tour).getLigne()), 75, 75);
+			frame.getContentPane().add(lblRobot);
+			lblRobot.setIcon(imageIconRobot1);
 
 
-		//if(p.getListeRobot().size()>=2){
-		JLabel lblRobot2 = new JLabel("Robot2");
-		lblRobot2.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(1).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(1).get(tour).getLigne()), 75, 75);
-		frame.getContentPane().add(lblRobot2);
-		lblRobot2.setIcon(imageIconRobot2);
+			//if(p.getListeRobot().size()>=2){
+			JLabel lblRobot2 = new JLabel("Robot2");
+			lblRobot2.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(1).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(1).get(tour).getLigne()), 75, 75);
+			frame.getContentPane().add(lblRobot2);
+			lblRobot2.setIcon(imageIconRobot2);
 
-		//if(p.getListeRobot().size()>=3){
-		JLabel lblRobot3 = new JLabel("Robot3");
-		lblRobot3.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(2).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(2).get(tour).getLigne()), 75, 75);
-		frame.getContentPane().add(lblRobot3);
-		lblRobot3.setIcon(imageIconRobot3);
+			//if(p.getListeRobot().size()>=3){
+			JLabel lblRobot3 = new JLabel("Robot3");
+			lblRobot3.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(2).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(2).get(tour).getLigne()), 75, 75);
+			frame.getContentPane().add(lblRobot3);
+			lblRobot3.setIcon(imageIconRobot3);
 
-		//if(p.getListeRobot().size()>=4){
-		JLabel lblRobot4 = new JLabel("Robot4");
-		lblRobot4.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(3).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(3).get(tour).getLigne()), 75, 75);
-		frame.getContentPane().add(lblRobot4);
-		lblRobot4.setIcon(imageIconRobot4);
+			//if(p.getListeRobot().size()>=4){
+			JLabel lblRobot4 = new JLabel("Robot4");
+			lblRobot4.setBounds(asocCol.getAssocColonnes().get(p.getListePositionsParTour().get(3).get(tour).getColonne()),asocLign.getAssocLignes().get(p.getListePositionsParTour().get(3).get(tour).getLigne()), 75, 75);
+			frame.getContentPane().add(lblRobot4);
+			lblRobot4.setIcon(imageIconRobot4);
+		} catch (Exception e13) {
+			e13.printStackTrace();
+		}
 
 		JLabel a1 = new JLabel("A1");
 		a1.setBounds(0, 0, 75, 75);
@@ -1827,46 +1818,105 @@ public class MainWindow {
 		l12.setBounds(825, 825, 75, 75);
 		frame.getContentPane().add(l12);
 		l12.setIcon(imageIconCoin4);
-		
-		JButton btnNewButton = new JButton("Carte1");
-		btnNewButton.setBounds(931, 75, 126, 200);
-		frame.getContentPane().add(btnNewButton);
-		
-		JButton button = new JButton("Carte2");
-		button.setBounds(1115, 75, 126, 200);
-		frame.getContentPane().add(button);
-		
-		JButton button_1 = new JButton("Carte3");
-		button_1.setBounds(1314, 75, 126, 200);
-		frame.getContentPane().add(button_1);
-		
-		JButton button_4 = new JButton("Carte4");
-		button_4.setBounds(931, 338, 126, 200);
-		frame.getContentPane().add(button_4);
-		
-		JButton button_3 = new JButton("Carte5");
-		button_3.setBounds(1115, 338, 126, 200);
-		frame.getContentPane().add(button_3);
-		
-		JButton button_2 = new JButton("Carte6");
-		button_2.setBounds(1314, 338, 126, 200);
-		frame.getContentPane().add(button_2);
-		
-		JButton button_5 = new JButton("Carte7");
-		button_5.setBounds(931, 612, 126, 200);
-		frame.getContentPane().add(button_5);
-		
-		JButton button_6 = new JButton("Carte8");
-		button_6.setBounds(1115, 612, 126, 200);
-		frame.getContentPane().add(button_6);
-		
-		JButton button_7 = new JButton("Carte9");
-		button_7.setBounds(1314, 612, 126, 200);
-		frame.getContentPane().add(button_7);
-		frame.repaint();}
-	
+
+		try {
+			afficherCarte affichageCarte1=new afficherCarte(p,client);
+			BufferedImage carte1=affichageCarte1.getImageactuel();
+			ImageIcon imageIconcarte1= new ImageIcon(carte1.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte2=new afficherCarte(p,client);
+			BufferedImage carte2=affichageCarte2.getImageactuel();
+			ImageIcon imageIconcarte2= new ImageIcon(carte2.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte3=new afficherCarte(p,client);
+			BufferedImage carte3=affichageCarte3.getImageactuel();
+			ImageIcon imageIconcarte3= new ImageIcon(carte3.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte4=new afficherCarte(p,client);
+			BufferedImage carte4=affichageCarte4.getImageactuel();
+			ImageIcon imageIconcarte4= new ImageIcon(carte4.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte5=new afficherCarte(p,client);
+			BufferedImage carte5=affichageCarte5.getImageactuel();
+			ImageIcon imageIconcarte5= new ImageIcon(carte5.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte6=new afficherCarte(p,client);
+			BufferedImage carte6=affichageCarte6.getImageactuel();
+			ImageIcon imageIconcarte6= new ImageIcon(carte6.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte7=new afficherCarte(p,client);
+			BufferedImage carte7=affichageCarte7.getImageactuel();
+			ImageIcon imageIconcarte7= new ImageIcon(carte7.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte8=new afficherCarte(p,client);
+			BufferedImage carte8=affichageCarte8.getImageactuel();
+			ImageIcon imageIconcarte8= new ImageIcon(carte8.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+			afficherCarte affichageCarte9=new afficherCarte(p,client);
+			BufferedImage carte9=affichageCarte9.getImageactuel();
+			ImageIcon imageIconcarte9= new ImageIcon(carte9.getScaledInstance(126,200, Image.SCALE_DEFAULT));
+
+
+			JButton bcarte1 = new JButton("Carte1");
+			bcarte1.setBounds(931, 75, 126, 200);
+			frame.getContentPane().add(bcarte1);
+			bcarte1.setIcon(imageIconcarte1);
+
+			JButton bcarte2 = new JButton("Carte2");
+			bcarte2.setBounds(1115, 75, 126, 200);
+			frame.getContentPane().add(bcarte2);
+			bcarte2.setIcon(imageIconcarte2);
+
+			JButton bcarte3 = new JButton("Carte3");
+			bcarte3.setBounds(1314, 75, 126, 200);
+			frame.getContentPane().add(bcarte3);
+			bcarte3.setIcon(imageIconcarte3);
+
+			JButton button_4 = new JButton("Carte4");
+			button_4.setBounds(931, 338, 126, 200);
+			frame.getContentPane().add(button_4);
+			button_4.setIcon(imageIconcarte4);
+
+			JButton button_3 = new JButton("Carte5");
+			button_3.setBounds(1115, 338, 126, 200);
+			frame.getContentPane().add(button_3);
+			button_3.setIcon(imageIconcarte5);
+
+			JButton button_2 = new JButton("Carte6");
+			button_2.setBounds(1314, 338, 126, 200);
+			frame.getContentPane().add(button_2);
+			button_2.setIcon(imageIconcarte6);
+
+			JButton button_5 = new JButton("Carte7");
+			button_5.setBounds(931, 612, 126, 200);
+			frame.getContentPane().add(button_5);
+			button_5.setIcon(imageIconcarte7);
+
+			JButton button_6 = new JButton("Carte8");
+			button_6.setBounds(1115, 612, 126, 200);
+			frame.getContentPane().add(button_6);
+			button_6.setIcon(imageIconcarte8);
+
+			JButton button_7 = new JButton("Carte9");
+			button_7.setBounds(1314, 612, 126, 200);
+			frame.getContentPane().add(button_7);
+			button_7.setIcon(imageIconcarte9);
+			
+			frame.repaint();
+			
+		} catch (Exception e) {
+			e.printStackTrace();}
+		}
 			public Partie getP() {
 				return p;
+			}
+
+			public Client getClient() {
+				return client;
+			}
+
+			public void setClient(Client client) {
+				this.client = client;
 			}
 		}
 

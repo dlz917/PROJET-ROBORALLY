@@ -1,11 +1,9 @@
 package View;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
-
 import Model.Robot.Direction;
 import Model.Tableau.CaseMur;
 import Model.Tableau.CaseTableau;

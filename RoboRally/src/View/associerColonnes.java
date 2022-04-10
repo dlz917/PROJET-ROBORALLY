@@ -1,6 +1,6 @@
 package View;
 import java.util.HashMap;
-import Model.Tableau.Lignes;
+
 
 public class associerColonnes {
 	private HashMap<Integer, Integer> assocColonnes;
